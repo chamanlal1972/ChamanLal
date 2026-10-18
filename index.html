@@ -4,17 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Raptakos, Brett & Co. Ltd. DBMS</title>
+  
+  <!-- Open Graph & WhatsApp Preview Metadata -->
+  <meta property="og:title" content="Raptakos, Brett & Co. Ltd. DBMS">
+  <meta property="og:description" content="Personal Database Management System for Doctors">
+  <meta property="og:image" content="logo.png">
+  <meta property="og:type" content="website">
+
+  <!-- Mobile / Phone Shortcut (iOS Home Screen & Android PWA) -->
+  <link rel="apple-touch-icon" href="logo.png">
+  <link rel="icon" type="image/png" href="logo.png">
+
   <style>
     :root {
-      --bg-color: #f5f5f7;
-      --card-bg: #ffffff;
-      --primary-color: #0071e3;
-      --primary-hover: #0077ed;
-      --text-color: #1d1d1f;
-      --secondary-text: #86868b;
-      --border-color: #d2d2d7;
-      --radius: 12px;
-      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --bg-color: #000000;
+      --card-bg: rgba(28, 28, 30, 0.75);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --primary-color: #0a84ff;
+      --primary-hover: #409cff;
+      --text-color: #f5f5f7;
+      --secondary-text: #98989d;
+      --border-color: rgba(255, 255, 255, 0.15);
+      --radius: 16px;
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
       --transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
     }
 
@@ -22,7 +34,8 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
 
     body {
@@ -31,9 +44,10 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      background-image: radial-gradient(circle at 50% 0%, #1c1c1e 0%, #000000 70%);
     }
 
-    /* Apple-style Loader */
+    /* Apple TV Style Loading Bar */
     #loader-wrapper {
       position: fixed;
       inset: 0;
@@ -43,70 +57,89 @@
       justify-content: center;
       align-items: center;
       z-index: 9999;
-      transition: opacity 0.5s ease, visibility 0.5s;
+      transition: opacity 0.6s ease, visibility 0.6s;
     }
 
-    .apple-spinner {
-      width: 50px;
-      height: 50px;
-      border: 3px solid rgba(255, 255, 255, 0.15);
-      border-top-color: #ffffff;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
+    .tv-loader-track {
+      width: 160px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 3px;
+      overflow: hidden;
+      position: relative;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+    .tv-loader-bar {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      border-radius: 3px;
+      animation: tvLoad 1.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
     }
 
-    .loader-text {
-      color: #86868b;
-      margin-top: 15px;
-      font-size: 14px;
-      letter-spacing: 0.5px;
+    @keyframes tvLoad {
+      0% { left: -100%; }
+      50% { left: 0%; }
+      100% { left: 100%; }
     }
 
-    /* Header */
+    /* Header with iOS 7 Liquid Glass */
     header {
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: rgba(20, 20, 22, 0.65);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
       border-bottom: 1px solid var(--border-color);
-      padding: 15px 30px;
+      padding: 16px 30px;
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 16px;
       position: sticky;
       top: 0;
       z-index: 100;
     }
 
     header img {
-      height: 40px;
+      height: 38px;
       object-fit: contain;
+      border-radius: 6px;
     }
 
     header h1 {
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 600;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.3px;
+      color: #f5f5f7;
     }
 
     /* Main Container */
     main {
-      max-width: 900px;
+      max-width: 920px;
       width: 100%;
-      margin: 30px auto;
+      margin: 35px auto;
       padding: 0 20px;
       flex: 1;
     }
 
+    /* Liquid Glass Card */
     .card {
       background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
       border-radius: var(--radius);
-      padding: 24px;
+      padding: 26px;
       box-shadow: var(--shadow);
       margin-bottom: 24px;
+    }
+
+    h2 {
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      color: #f5f5f7;
     }
 
     /* Buttons & City Selection */
@@ -114,7 +147,7 @@
       background: var(--primary-color);
       color: #fff;
       border: none;
-      padding: 8px 16px;
+      padding: 9px 18px;
       border-radius: 20px;
       font-size: 14px;
       font-weight: 500;
@@ -127,30 +160,31 @@
 
     .btn:hover {
       background: var(--primary-hover);
-      transform: translateY(-1px);
+      transform: scale(1.02);
     }
 
     .btn-secondary {
-      background: #e8e8ed;
+      background: rgba(255, 255, 255, 0.1);
       color: var(--text-color);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .btn-secondary:hover {
-      background: #dcdce0;
+      background: rgba(255, 255, 255, 0.18);
     }
 
     .city-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 15px;
+      gap: 12px;
+      margin-top: 16px;
     }
 
     .city-btn {
-      background: #e8e8ed;
+      background: rgba(255, 255, 255, 0.08);
       color: var(--text-color);
-      border: none;
-      padding: 10px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px 22px;
       border-radius: 20px;
       font-size: 14px;
       font-weight: 500;
@@ -160,152 +194,196 @@
 
     .city-btn:hover, .city-btn.active {
       background: var(--primary-color);
+      border-color: var(--primary-color);
       color: #fff;
+      box-shadow: 0 4px 15px rgba(10, 132, 255, 0.4);
     }
 
     /* Doctor Table / List */
     .doctor-table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 15px;
+      margin-top: 16px;
     }
 
     .doctor-table th, .doctor-table td {
-      padding: 14px 16px;
+      padding: 15px 16px;
       text-align: left;
-      border-bottom: 1px solid var(--border-color);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .doctor-table th {
       font-weight: 600;
       color: var(--secondary-text);
-      font-size: 13px;
+      font-size: 12px;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
+    /* Doctor Name Button (Apple Pill Button style) */
     .doc-name-btn {
-      background: none;
-      border: none;
-      color: var(--primary-color);
-      font-size: 16px;
-      font-weight: 600;
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f5f5f7;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 12px;
       cursor: pointer;
       text-align: left;
       transition: var(--transition);
+      display: inline-block;
     }
 
     .doc-name-btn:hover {
-      text-decoration: underline;
+      background: rgba(10, 132, 255, 0.25);
+      border-color: var(--primary-color);
+      color: #ffffff;
+      transform: translateY(-1px);
     }
 
     .visit-badge {
       display: inline-block;
-      background: #e3f2fd;
-      color: #0d47a1;
+      background: rgba(10, 132, 255, 0.18);
+      color: #70b5ff;
       font-size: 12px;
-      padding: 2px 8px;
-      border-radius: 10px;
-      margin-top: 4px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 8px;
+      margin-top: 6px;
+      border: 1px solid rgba(10, 132, 255, 0.3);
     }
 
-    /* Modal Styling */
+    /* Modal Styling (iOS Liquid Glass Overlay) */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(5px);
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       display: none;
       justify-content: center;
       align-items: center;
       z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
     .modal-overlay.open {
       display: flex;
+      opacity: 1;
     }
 
     .modal {
-      background: var(--card-bg);
-      border-radius: var(--radius);
+      background: rgba(30, 30, 35, 0.85);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
       width: 90%;
       max-width: 500px;
-      padding: 24px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      padding: 28px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
       position: relative;
-      animation: modalUp 0.3s ease-out;
+      animation: modalUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     @keyframes modalUp {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+      from { transform: scale(0.95) translateY(20px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
     }
 
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
     .modal-header h3 {
       font-size: 18px;
+      color: #f5f5f7;
     }
 
     .close-btn {
-      background: #e8e8ed;
+      background: rgba(255, 255, 255, 0.1);
       border: none;
       border-radius: 50%;
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
       cursor: pointer;
       font-size: 16px;
+      color: #f5f5f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .close-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
     }
 
     .details-list {
       list-style: none;
-      margin-bottom: 20px;
-      max-height: 300px;
+      margin-bottom: 22px;
+      max-height: 280px;
       overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .details-list::-webkit-scrollbar {
+      width: 4px;
+    }
+    .details-list::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
     }
 
     .details-list li {
-      padding: 8px 0;
-      border-bottom: 1px solid #f0f0f0;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       justify-content: space-between;
-      gap: 10px;
+      gap: 12px;
+      font-size: 14px;
     }
 
     .details-list span.key {
       color: var(--secondary-text);
-      font-weight: 500;
+      font-weight: 400;
     }
 
     .details-list span.val {
       text-align: right;
+      color: #f5f5f7;
+      font-weight: 500;
     }
 
     /* Calendar Form */
     .calendar-form label {
       display: block;
-      font-size: 14px;
+      font-size: 13px;
       color: var(--secondary-text);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .calendar-form input[type="date"] {
       width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(0, 0, 0, 0.4);
+      color: #fff;
       font-size: 15px;
-      margin-bottom: 15px;
+      margin-bottom: 16px;
       outline: none;
+      color-scheme: dark;
     }
 
     .saved-visits-list {
-      margin-top: 10px;
-      max-height: 120px;
+      margin-top: 12px;
+      max-height: 140px;
       overflow-y: auto;
     }
 
@@ -313,20 +391,37 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #f5f5f7;
-      padding: 6px 12px;
-      border-radius: 6px;
-      margin-bottom: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 8px 14px;
+      border-radius: 10px;
+      margin-bottom: 8px;
       font-size: 13px;
+    }
+
+    .delete-visit-btn {
+      background: rgba(255, 69, 58, 0.2);
+      color: #ff453a;
+      border: none;
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .delete-visit-btn:hover {
+      background: rgba(255, 69, 58, 0.4);
     }
   </style>
 </head>
 <body>
 
-  <!-- Apple Loading Screen -->
+  <!-- Apple TV Loading Animation -->
   <div id="loader-wrapper">
-    <div class="apple-spinner"></div>
-    <div class="loader-text">Loading DBMS...</div>
+    <div class="tv-loader-track">
+      <div class="tv-loader-bar"></div>
+    </div>
   </div>
 
   <!-- Header -->
@@ -338,19 +433,19 @@
   <main>
     <!-- City Selection Section -->
     <div class="card" id="city-card">
-      <h2 style="font-size: 18px;">Choose City</h2>
+      <h2>Choose City</h2>
       <div class="city-grid" id="city-buttons"></div>
     </div>
 
     <!-- Doctor List Section -->
     <div class="card" id="doctor-card" style="display: none;">
-      <h2 style="font-size: 18px; margin-bottom: 10px;" id="doctor-list-title">Doctors</h2>
+      <h2 style="margin-bottom: 6px;" id="doctor-list-title">Doctors</h2>
       <table class="doctor-table">
         <thead>
           <tr>
-            <th style="width: 80px;">S.No.</th>
+            <th style="width: 70px;">S.No.</th>
             <th>Doctor Name</th>
-            <th style="width: 120px;">Action</th>
+            <th style="width: 110px;">Action</th>
           </tr>
         </thead>
         <tbody id="doctor-tbody"></tbody>
@@ -383,1997 +478,1997 @@
         <button type="submit" class="btn" style="width: 100%; justify-content: center;">Save Visit Date</button>
       </form>
       
-      <div style="margin-top: 20px;">
-        <h4 style="font-size: 14px; margin-bottom: 8px;">Logged Visits:</h4>
+      <div style="margin-top: 18px;">
+        <h4 style="font-size: 13px; font-weight: 500; color: var(--secondary-text); margin-bottom: 8px;">Logged Visits (Permanent Storage):</h4>
         <div class="saved-visits-list" id="saved-visits-container"></div>
       </div>
     </div>
   </div>
 
   <script>
-    // Embedded Data (0 search time, fully offline & instantaneous)
+    // Embedded Data (0 search time, fully offline & instantaneous)[span_2](start_span)[span_2](end_span)
     const globalData = [
-  {
-    "S. No.": 1,
-    "Doctor Name": "Dr. Satnam Singh Parmar",
-    "Code": "D856471",
-    "Approx. Age": 58,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 19421,
-    "Mobile": 8634245788,
-    "Clinic / Hospital Name": "Gandhi Hospital",
-    "Clinic / Hospital Type": "MULTI-SPECIALITY",
-    "Address": "Patel Nagar Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 2,
-    "Doctor Name": "Dr. SPS Sooch",
-    "Code": "D856408",
-    "Approx. Age": 59,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 21105,
-    "Mobile": 6284410709,
-    "Clinic / Hospital Name": "Gandhi Hospital",
-    "Clinic / Hospital Type": "MULTI-SPECIALITY",
-    "Address": "Patel nagar, Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144404
-  },
-  {
-    "S. No.": 3,
-    "Doctor Name": "Dr. Simardeep",
-    "Code": "D856343",
-    "Approx. Age": 40,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MS (Obstetrics & Gynaecology)",
-    "Gender": "Female",
-    "Registration No.": 51324,
-    "Mobile": 9542526745,
-    "Clinic / Hospital Name": "Parhar Hospital",
-    "Clinic / Hospital Type": "MULTI-SPECIALITY",
-    "Address": "Guru Hargobind Nagar Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 4,
-    "Doctor Name": "Dr. SP Singh",
-    "Code": "D856293",
-    "Approx. Age": 57,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": "19886pmc",
-    "Mobile": 8914487150,
-    "Clinic / Hospital Name": "Singh Hospital",
-    "Clinic / Hospital Type": "MULTI-SPECIALITY",
-    "Address": "JCT Mill, Onkar Nagar, Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144404
-  },
-  {
-    "S. No.": 5,
-    "Doctor Name": "Dr. S Mohindra",
-    "Code": "D856287",
-    "Approx. Age": 55,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 8285,
-    "Mobile": 9667438211,
-    "Clinic / Hospital Name": "Medical Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Guru Hargobind Nagar Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144404
-  },
-  {
-    "S. No.": 6,
-    "Doctor Name": "Dr. Rajesh Vig",
-    "Code": "D856254",
-    "Approx. Age": 51,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MBBS",
-    "Gender": "Male",
-    "Registration No.": 23533,
-    "Mobile": 9564871239,
-    "Clinic / Hospital Name": "Vig Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Guru Hargobind Nagar Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 7,
-    "Doctor Name": "Dr. Rakesh Kumar",
-    "Code": "D856220",
-    "Approx. Age": 49,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 31254,
-    "Mobile": 9884526109,
-    "Clinic / Hospital Name": "Kumar Hospital",
-    "Clinic / Hospital Type": "MULTI-SPECIALITY",
-    "Address": "Hadiabad Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144407
-  },
-  {
-    "S. No.": 8,
-    "Doctor Name": "Dr. Poonam Parhar",
-    "Code": "D856199",
-    "Approx. Age": 48,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MS",
-    "Gender": "Female",
-    "Registration No.": 34128,
-    "Mobile": 9775412890,
-    "Clinic / Hospital Name": "Parhar Hospital",
-    "Clinic / Hospital Type": "MULTI-SPECIALITY",
-    "Address": "Guru Hargobind Nagar Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 9,
-    "Doctor Name": "Dr. Navneet Kaur",
-    "Code": "D856165",
-    "Approx. Age": 43,
-    "Specialization": "Pediatrician",
-    "Sub-speciality": "Paediatrics",
-    "Qualification": "MD (Paediatrics)",
-    "Gender": "Female",
-    "Registration No.": 41259,
-    "Mobile": 9335489123,
-    "Clinic / Hospital Name": "Kaur Child Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Model Town Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 10,
-    "Doctor Name": "Dr. M. S. Randhawa",
-    "Code": "D856142",
-    "Approx. Age": 60,
-    "Specialization": "Orthopedic",
-    "Sub-speciality": "Orthopaedics",
-    "Qualification": "MS (Ortho)",
-    "Gender": "Male",
-    "Registration No.": 15482,
-    "Mobile": 9815467890,
-    "Clinic / Hospital Name": "Randhawa Bone & Joint Care",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "GT Road Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 11,
-    "Doctor Name": "Dr. Kuldeep Singh",
-    "Code": "D856111",
-    "Approx. Age": 52,
-    "Specialization": "Surgeon",
-    "Sub-speciality": "General Surgery",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 28941,
-    "Mobile": 9417856321,
-    "Clinic / Hospital Name": "Singh Surgical Centre",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Sugar Mill Chowk Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 12,
-    "Doctor Name": "Dr. J. P. Sharma",
-    "Code": "D856088",
-    "Approx. Age": 56,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 18420,
-    "Mobile": 9872145678,
-    "Clinic / Hospital Name": "Sharma Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Ramgarhia Colony Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 13,
-    "Doctor Name": "Dr. Inderjit Kaur",
-    "Code": "D856054",
-    "Approx. Age": 46,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 36472,
-    "Mobile": 9888123456,
-    "Clinic / Hospital Name": "Inder Hospital",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Model Town Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 14,
-    "Doctor Name": "Dr. Harpreet Singh",
-    "Code": "D856021",
-    "Approx. Age": 42,
-    "Specialization": "Pediatrician",
-    "Sub-speciality": "Paediatrics",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 42109,
-    "Mobile": 9814235689,
-    "Clinic / Hospital Name": "Children Care Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Guru Hargobind Nagar Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 15,
-    "Doctor Name": "Dr. G. S. Pannu",
-    "Code": "D855999",
-    "Approx. Age": 62,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 12045,
-    "Mobile": 9815012345,
-    "Clinic / Hospital Name": "Pannu Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Bangla Road Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 16,
-    "Doctor Name": "Dr. Deepak Mago",
-    "Code": "D855965",
-    "Approx. Age": 45,
-    "Specialization": "ENT",
-    "Sub-speciality": "Otolaryngology",
-    "Qualification": "MS (ENT)",
-    "Gender": "Male",
-    "Registration No.": 33901,
-    "Mobile": 9876543210,
-    "Clinic / Hospital Name": "Mago ENT Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "LMTSJ Hospital Road Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 17,
-    "Doctor Name": "Dr. Charanjeet Singh",
-    "Code": "D855932",
-    "Approx. Age": 50,
-    "Specialization": "Orthopedic",
-    "Sub-speciality": "Orthopaedics",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 26410,
-    "Mobile": 9417012345,
-    "Clinic / Hospital Name": "Charan Hospital",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Hadiabad Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144407
-  },
-  {
-    "S. No.": 18,
-    "Doctor Name": "Dr. Anita Sharma",
-    "Code": "D855901",
-    "Approx. Age": 41,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 45892,
-    "Mobile": 9815987654,
-    "Clinic / Hospital Name": "Sharma Maternity Home",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Model Town Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 19,
-    "Doctor Name": "Dr. Amarjit Singh",
-    "Code": "D855877",
-    "Approx. Age": 58,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MBBS, MD",
-    "Gender": "Male",
-    "Registration No.": 17823,
-    "Mobile": 9814012345,
-    "Clinic / Hospital Name": "Amar Hospital",
-    "Clinic / Hospital Type": "MULTI-SPECIALITY",
-    "Address": "GT Road Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 20,
-    "Doctor Name": "Dr. Ajay Kumar",
-    "Code": "D855842",
-    "Approx. Age": 39,
-    "Specialization": "Skin",
-    "Sub-speciality": "Dermatology",
-    "Qualification": "MD (Dermatology)",
-    "Gender": "Male",
-    "Registration No.": 50123,
-    "Mobile": 9914012345,
-    "Clinic / Hospital Name": "Skin Care Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Guru Hargobind Nagar Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 21,
-    "Doctor Name": "Dr. R. K. Thapar",
-    "Code": "D855810",
-    "Approx. Age": 61,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 11092,
-    "Mobile": 9815512345,
-    "Clinic / Hospital Name": "Thapar Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Nawanshahr Road Nawanshahr",
-    "City": "NAWASHAHR",
-    "State": "PUNJAB",
-    "Pincode": 144514
-  },
-  {
-    "S. No.": 22,
-    "Doctor Name": "Dr. Baljinder Singh",
-    "Code": "D855785",
-    "Approx. Age": 53,
-    "Specialization": "Surgeon",
-    "Sub-speciality": "General Surgery",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 24512,
-    "Mobile": 9872512345,
-    "Clinic / Hospital Name": "Baljinder Hospital",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Chandigarh Road Nawanshahr",
-    "City": "NAWASHAHR",
-    "State": "PUNJAB",
-    "Pincode": 144514
-  },
-  {
-    "S. No.": 23,
-    "Doctor Name": "Dr. Neha Bansal",
-    "Code": "D855750",
-    "Approx. Age": 38,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MS",
-    "Gender": "Female",
-    "Registration No.": 53421,
-    "Mobile": 9417234567,
-    "Clinic / Hospital Name": "Bansal Nursing Home",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Kutchery Road Nawanshahr",
-    "City": "NAWASHAHR",
-    "State": "PUNJAB",
-    "Pincode": 144514
-  },
-  {
-    "S. No.": 24,
-    "Doctor Name": "Dr. Surinder Pal",
-    "Code": "D855721",
-    "Approx. Age": 56,
-    "Specialization": "Orthopedic",
-    "Sub-speciality": "Orthopaedics",
-    "Qualification": "MS (Ortho)",
-    "Gender": "Male",
-    "Registration No.": 19823,
-    "Mobile": 9814321654,
-    "Clinic / Hospital Name": "Pal Bone & Joint Hospital",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Rahon Road Nawanshahr",
-    "City": "NAWASHAHR",
-    "State": "PUNJAB",
-    "Pincode": 144514
-  },
-  {
-    "S. No.": 25,
-    "Doctor Name": "Dr. Manjit Kaur",
-    "Code": "D855699",
-    "Approx. Age": 47,
-    "Specialization": "Pediatrician",
-    "Sub-speciality": "Paediatrics",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 32145,
-    "Mobile": 9888456123,
-    "Clinic / Hospital Name": "Manjit Child Care",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Banga Road Nawanshahr",
-    "City": "NAWASHAHR",
-    "State": "PUNJAB",
-    "Pincode": 144514
-  },
-  {
-    "S. No.": 26,
-    "Doctor Name": "Dr. Sanjeev Kumar",
-    "Code": "D855662",
-    "Approx. Age": 49,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 27812,
-    "Mobile": 9815678123,
-    "Clinic / Hospital Name": "Sanjeev Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Railway Road Nawanshahr",
-    "City": "NAWASHAHR",
-    "State": "PUNJAB",
-    "Pincode": 144514
-  },
-  {
-    "S. No.": 27,
-    "Doctor Name": "Dr. Rimpi Grover",
-    "Code": "D855630",
-    "Approx. Age": 42,
-    "Specialization": "Dental",
-    "Sub-speciality": "Dental Surgeon",
-    "Qualification": "BDS",
-    "Gender": "Female",
-    "Registration No.": 41209,
-    "Mobile": 9872345612,
-    "Clinic / Hospital Name": "Grover Dental Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Chandigarh Road Nawanshahr",
-    "City": "NAWASHAHR",
-    "State": "PUNJAB",
-    "Pincode": 144514
-  },
-  {
-    "S. No.": 28,
-    "Doctor Name": "Dr. V. K. Sood",
-    "Code": "D855601",
-    "Approx. Age": 64,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MBBS, MD",
-    "Gender": "Male",
-    "Registration No.": 9871,
-    "Mobile": 9814123456,
-    "Clinic / Hospital Name": "Sood Medical Hall",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Main Bazar Nawanshahr",
-    "City": "NAWASHAHR",
-    "State": "PUNJAB",
-    "Pincode": 144514
-  },
-  {
-    "S. No.": 29,
-    "Doctor Name": "Dr. Jaswinder Singh",
-    "Code": "D855574",
-    "Approx. Age": 51,
-    "Specialization": "ENT",
-    "Sub-speciality": "Otolaryngology",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 25419,
-    "Mobile": 9417123456,
-    "Clinic / Hospital Name": "Jaswinder ENT Care",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Banga Road Nawanshahr",
-    "City": "NAWASHAHR",
-    "State": "PUNJAB",
-    "Pincode": 144514
-  },
-  {
-    "S. No.": 30,
-    "Doctor Name": "Dr. Poonam Rani",
-    "Code": "D855540",
-    "Approx. Age": 44,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 38921,
-    "Mobile": 9888987654,
-    "Clinic / Hospital Name": "Rani Hospital",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Rahon Road Nawanshahr",
-    "City": "NAWASHAHR",
-    "State": "PUNJAB",
-    "Pincode": 144514
-  },
-  {
-    "S. No.": 31,
-    "Doctor Name": "Dr. Rajesh Kumar",
-    "Code": "D855512",
-    "Approx. Age": 53,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 23411,
-    "Mobile": 9815432165,
-    "Clinic / Hospital Name": "Nakodar Medical Centre",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Main Bazar Nakodar",
-    "City": "NAKODAR",
-    "State": "PUNJAB",
-    "Pincode": 144040
-  },
-  {
-    "S. No.": 32,
-    "Doctor Name": "Dr. Sushil Chopra",
-    "Code": "D855488",
-    "Approx. Age": 58,
-    "Specialization": "Surgeon",
-    "Sub-speciality": "General Surgery",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 16543,
-    "Mobile": 9872012345,
-    "Clinic / Hospital Name": "Chopra Hospital",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Civil Hospital Road Nakodar",
-    "City": "NAKODAR",
-    "State": "PUNJAB",
-    "Pincode": 144040
-  },
-  {
-    "S. No.": 33,
-    "Doctor Name": "Dr. Kamaljit Kaur",
-    "Code": "D855455",
-    "Approx. Age": 45,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MS",
-    "Gender": "Female",
-    "Registration No.": 35412,
-    "Mobile": 9814567812,
-    "Clinic / Hospital Name": "Kamal Hospital",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Station Road Nakodar",
-    "City": "NAKODAR",
-    "State": "PUNJAB",
-    "Pincode": 144040
-  },
-  {
-    "S. No.": 34,
-    "Doctor Name": "Dr. Rakesh Mehra",
-    "Code": "D855420",
-    "Approx. Age": 50,
-    "Specialization": "Orthopedic",
-    "Sub-speciality": "Orthopaedics",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 27104,
-    "Mobile": 9417654321,
-    "Clinic / Hospital Name": "Mehra Bone Care",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Jalandhar Road Nakodar",
-    "City": "NAKODAR",
-    "State": "PUNJAB",
-    "Pincode": 144040
-  },
-  {
-    "S. No.": 35,
-    "Doctor Name": "Dr. Sunita Aggarwal",
-    "Code": "D855399",
-    "Approx. Age": 46,
-    "Specialization": "Pediatrician",
-    "Sub-speciality": "Paediatrics",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 33190,
-    "Mobile": 9888129876,
-    "Clinic / Hospital Name": "Aggarwal Child Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Nurmahal Road Nakodar",
-    "City": "NAKODAR",
-    "State": "PUNJAB",
-    "Pincode": 144040
-  },
-  {
-    "S. No.": 36,
-    "Doctor Name": "Dr. Davinder Singh",
-    "Code": "D855362",
-    "Approx. Age": 52,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 24901,
-    "Mobile": 9815123987,
-    "Clinic / Hospital Name": "Singh Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Main Bazar Nakodar",
-    "City": "NAKODAR",
-    "State": "PUNJAB",
-    "Pincode": 144040
-  },
-  {
-    "S. No.": 37,
-    "Doctor Name": "Dr. Monika Sharma",
-    "Code": "D855331",
-    "Approx. Age": 40,
-    "Specialization": "Dental",
-    "Sub-speciality": "Dental Surgeon",
-    "Qualification": "BDS",
-    "Gender": "Female",
-    "Registration No.": 49821,
-    "Mobile": 9872987654,
-    "Clinic / Hospital Name": "Sharma Dental Care",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Jalandhar Road Nakodar",
-    "City": "NAKODAR",
-    "State": "PUNJAB",
-    "Pincode": 144040
-  },
-  {
-    "S. No.": 38,
-    "Doctor Name": "Dr. Pankaj Jain",
-    "Code": "D855301",
-    "Approx. Age": 48,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MBBS, MD",
-    "Gender": "Male",
-    "Registration No.": 29810,
-    "Mobile": 9814987654,
-    "Clinic / Hospital Name": "Jain Hospital",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Station Road Nakodar",
-    "City": "NAKODAR",
-    "State": "PUNJAB",
-    "Pincode": 144040
-  },
-  {
-    "S. No.": 39,
-    "Doctor Name": "Dr. Amandeep Kaur",
-    "Code": "D855275",
-    "Approx. Age": 41,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MS",
-    "Gender": "Female",
-    "Registration No.": 44102,
-    "Mobile": 9888654321,
-    "Clinic / Hospital Name": "Amandeep Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Civil Hospital Road Nakodar",
-    "City": "NAKODAR",
-    "State": "PUNJAB",
-    "Pincode": 144040
-  },
-  {
-    "S. No.": 40,
-    "Doctor Name": "Dr. Harish Kumar",
-    "Code": "D855241",
-    "Approx. Age": 55,
-    "Specialization": "ENT",
-    "Sub-speciality": "Otolaryngology",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 18942,
-    "Mobile": 9417896543,
-    "Clinic / Hospital Name": "Harish ENT Centre",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Nurmahal Road Nakodar",
-    "City": "NAKODAR",
-    "State": "PUNJAB",
-    "Pincode": 144040
-  },
-  {
-    "S. No.": 41,
-    "Doctor Name": "Dr. Kulwant Rai",
-    "Code": "D855210",
-    "Approx. Age": 60,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 13410,
-    "Mobile": 9815098765,
-    "Clinic / Hospital Name": "Rai Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Railway Road Banga",
-    "City": "BANGA",
-    "State": "PUNJAB",
-    "Pincode": 144505
-  },
-  {
-    "S. No.": 42,
-    "Doctor Name": "Dr. Satish Kumar",
-    "Code": "D855185",
-    "Approx. Age": 52,
-    "Specialization": "Surgeon",
-    "Sub-speciality": "General Surgery",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 22104,
-    "Mobile": 9872123456,
-    "Clinic / Hospital Name": "Satish Hospital",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Main Bazar Banga",
-    "City": "BANGA",
-    "State": "PUNJAB",
-    "Pincode": 144505
-  },
-  {
-    "S. No.": 43,
-    "Doctor Name": "Dr. Neelam Sharma",
-    "Code": "D855150",
-    "Approx. Age": 46,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 37190,
-    "Mobile": 9814321987,
-    "Clinic / Hospital Name": "Sharma Nursing Home",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Garhshankar Road Banga",
-    "City": "BANGA",
-    "State": "PUNJAB",
-    "Pincode": 144505
-  },
-  {
-    "S. No.": 44,
-    "Doctor Name": "Dr. M. P. Singh",
-    "Code": "D855121",
-    "Approx. Age": 57,
-    "Specialization": "Orthopedic",
-    "Sub-speciality": "Orthopaedics",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 16782,
-    "Mobile": 9417321654,
-    "Clinic / Hospital Name": "Singh Bone Care",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Phagwara Road Banga",
-    "City": "BANGA",
-    "State": "PUNJAB",
-    "Pincode": 144505
-  },
-  {
-    "S. No.": 45,
-    "Doctor Name": "Dr. Anita Rani",
-    "Code": "D855099",
-    "Approx. Age": 43,
-    "Specialization": "Pediatrician",
-    "Sub-speciality": "Paediatrics",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 41902,
-    "Mobile": 9888765432,
-    "Clinic / Hospital Name": "Anita Child Care",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Railway Road Banga",
-    "City": "BANGA",
-    "State": "PUNJAB",
-    "Pincode": 144505
-  },
-  {
-    "S. No.": 46,
-    "Doctor Name": "Dr. R. S. Bains",
-    "Code": "D855062",
-    "Approx. Age": 62,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 10892,
-    "Mobile": 9815987123,
-    "Clinic / Hospital Name": "Bains Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Main Bazar Balachaur",
-    "City": "BALACHAUR",
-    "State": "PUNJAB",
-    "Pincode": 144521
-  },
-  {
-    "S. No.": 47,
-    "Doctor Name": "Dr. Surinder Singh",
-    "Code": "D855030",
-    "Approx. Age": 54,
-    "Specialization": "Surgeon",
-    "Sub-speciality": "General Surgery",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 21094,
-    "Mobile": 9872654321,
-    "Clinic / Hospital Name": "Surinder Hospital",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Ropar Road Balachaur",
-    "City": "BALACHAUR",
-    "State": "PUNJAB",
-    "Pincode": 144521
-  },
-  {
-    "S. No.": 48,
-    "Doctor Name": "Dr. Paramjit Kaur",
-    "Code": "D855001",
-    "Approx. Age": 47,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 34901,
-    "Mobile": 9814123987,
-    "Clinic / Hospital Name": "Paramjit Maternity Home",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Chandigarh Road Balachaur",
-    "City": "BALACHAUR",
-    "State": "PUNJAB",
-    "Pincode": 144521
-  },
-  {
-    "S. No.": 49,
-    "Doctor Name": "Dr. Vikas Sharma",
-    "Code": "D854975",
-    "Approx. Age": 41,
-    "Specialization": "Dental",
-    "Sub-speciality": "Dental Surgeon",
-    "Qualification": "BDS",
-    "Gender": "Male",
-    "Registration No.": 48102,
-    "Mobile": 9872321654,
-    "Clinic / Hospital Name": "Vikas Dental Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Main Bazar Balachaur",
-    "City": "BALACHAUR",
-    "State": "PUNJAB",
-    "Pincode": 144521
-  },
-  {
-    "S. No.": 50,
-    "Doctor Name": "Dr. Naresh Kumar",
-    "Code": "D854942",
-    "Approx. Age": 50,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MBBS, MD",
-    "Gender": "Male",
-    "Registration No.": 27901,
-    "Mobile": 9815654321,
-    "Clinic / Hospital Name": "Naresh Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Ropar Road Balachaur",
-    "City": "BALACHAUR",
-    "State": "PUNJAB",
-    "Pincode": 144521
-  },
-  {
-    "S. No.": 51,
-    "Doctor Name": "Dr. R. K. Mahajan",
-    "Code": "D854910",
-    "Approx. Age": 59,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 14520,
-    "Mobile": 9815234567,
-    "Clinic / Hospital Name": "Mahajan Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "GT Road Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 52,
-    "Doctor Name": "Dr. Manpreet Singh",
-    "Code": "D854885",
-    "Approx. Age": 44,
-    "Specialization": "Surgeon",
-    "Sub-speciality": "General Surgery",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 31092,
-    "Mobile": 9872456789,
-    "Clinic / Hospital Name": "Manpreet Surgical Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Hadiabad Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144407
-  },
-  {
-    "S. No.": 53,
-    "Doctor Name": "Dr. Suman Bala",
-    "Code": "D854850",
-    "Approx. Age": 42,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MS",
-    "Gender": "Female",
-    "Registration No.": 46102,
-    "Mobile": 9888345671,
-    "Clinic / Hospital Name": "Bala Nursing Home",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Model Town Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 54,
-    "Doctor Name": "Dr. Rajiv Chopra",
-    "Code": "D854821",
-    "Approx. Age": 53,
-    "Specialization": "Orthopedic",
-    "Sub-speciality": "Orthopaedics",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 22901,
-    "Mobile": 9417456123,
-    "Clinic / Hospital Name": "Chopra Ortho Care",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Guru Hargobind Nagar Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 55,
-    "Doctor Name": "Dr. Sunita Rani",
-    "Code": "D854799",
-    "Approx. Age": 49,
-    "Specialization": "Pediatrician",
-    "Sub-speciality": "Paediatrics",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 29812,
-    "Mobile": 9814789123,
-    "Clinic / Hospital Name": "Sunita Child Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Sugar Mill Chowk Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 56,
-    "Doctor Name": "Dr. Tarsem Lal",
-    "Code": "D854762",
-    "Approx. Age": 61,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 11982,
-    "Mobile": 9815112233,
-    "Clinic / Hospital Name": "Lal Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Bangla Road Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 57,
-    "Doctor Name": "Dr. Kanwaljit Singh",
-    "Code": "D854730",
-    "Approx. Age": 48,
-    "Specialization": "ENT",
-    "Sub-speciality": "Otolaryngology",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 28104,
-    "Mobile": 9872554433,
-    "Clinic / Hospital Name": "Kanwal ENT Hospital",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Model Town Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 58,
-    "Doctor Name": "Dr. Meenakshi",
-    "Code": "D854701",
-    "Approx. Age": 39,
-    "Specialization": "Dental",
-    "Sub-speciality": "Dental Surgeon",
-    "Qualification": "BDS",
-    "Gender": "Female",
-    "Registration No.": 51204,
-    "Mobile": 9888223344,
-    "Clinic / Hospital Name": "Smile Dental Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Guru Hargobind Nagar Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 59,
-    "Doctor Name": "Dr. Harjinder Singh",
-    "Code": "D854674",
-    "Approx. Age": 52,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 24109,
-    "Mobile": 9814665544,
-    "Clinic / Hospital Name": "Harjinder Medical Hall",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "GT Road Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 60,
-    "Doctor Name": "Dr. Bhupinder Kaur",
-    "Code": "D854640",
-    "Approx. Age": 45,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MS",
-    "Gender": "Female",
-    "Registration No.": 36192,
-    "Mobile": 9815778899,
-    "Clinic / Hospital Name": "Bhupinder Hospital",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Hadiabad Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144407
-  },
-  {
-    "S. No.": 61,
-    "Doctor Name": "Dr. Vinod Kumar",
-    "Code": "D854612",
-    "Approx. Age": 50,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 26190,
-    "Mobile": 9815332211,
-    "Clinic / Hospital Name": "Vinod Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Chandigarh Road Nawanshahr",
-    "City": "NAWASHAHR",
-    "State": "PUNJAB",
-    "Pincode": 144514
-  },
-  {
-    "S. No.": 62,
-    "Doctor Name": "Dr. Ritu Bansal",
-    "Code": "D854588",
-    "Approx. Age": 41,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MS",
-    "Gender": "Female",
-    "Registration No.": 47120,
-    "Mobile": 9888991122,
-    "Clinic / Hospital Name": "Bansal Maternity Home",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Kutchery Road Nawanshahr",
-    "City": "NAWASHAHR",
-    "State": "PUNJAB",
-    "Pincode": 144514
-  },
-  {
-    "S. No.": 63,
-    "Doctor Name": "Dr. Ashwani Kumar",
-    "Code": "D854555",
-    "Approx. Age": 55,
-    "Specialization": "Surgeon",
-    "Sub-speciality": "General Surgery",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 18204,
-    "Mobile": 9417112233,
-    "Clinic / Hospital Name": "Ashwani Surgical Centre",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Rahon Road Nawanshahr",
-    "City": "NAWASHAHR",
-    "State": "PUNJAB",
-    "Pincode": 144514
-  },
-  {
-    "S. No.": 64,
-    "Doctor Name": "Dr. Parveen Kumar",
-    "Code": "D854520",
-    "Approx. Age": 47,
-    "Specialization": "Orthopedic",
-    "Sub-speciality": "Orthopaedics",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 30192,
-    "Mobile": 9872223344,
-    "Clinic / Hospital Name": "Parveen Ortho Care",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Banga Road Nawanshahr",
-    "City": "NAWASHAHR",
-    "State": "PUNJAB",
-    "Pincode": 144514
-  },
-  {
-    "S. No.": 65,
-    "Doctor Name": "Dr. Shashi Bala",
-    "Code": "D854499",
-    "Approx. Age": 48,
-    "Specialization": "Pediatrician",
-    "Sub-speciality": "Paediatrics",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 31902,
-    "Mobile": 9814445566,
-    "Clinic / Hospital Name": "Shashi Child Care",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Railway Road Nawanshahr",
-    "City": "NAWASHAHR",
-    "State": "PUNJAB",
-    "Pincode": 144514
-  },
-  {
-    "S. No.": 66,
-    "Doctor Name": "Dr. Ramesh Chander",
-    "Code": "D854462",
-    "Approx. Age": 63,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 10245,
-    "Mobile": 9815556677,
-    "Clinic / Hospital Name": "Chander Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Main Bazar Nakodar",
-    "City": "NAKODAR",
-    "State": "PUNJAB",
-    "Pincode": 144040
-  },
-  {
-    "S. No.": 67,
-    "Doctor Name": "Dr. Vijay Sharma",
-    "Code": "D854430",
-    "Approx. Age": 51,
-    "Specialization": "Surgeon",
-    "Sub-speciality": "General Surgery",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 25102,
-    "Mobile": 9872667788,
-    "Clinic / Hospital Name": "Vijay Hospital",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Civil Hospital Road Nakodar",
-    "City": "NAKODAR",
-    "State": "PUNJAB",
-    "Pincode": 144040
-  },
-  {
-    "S. No.": 68,
-    "Doctor Name": "Dr. Kiran Bala",
-    "Code": "D854401",
-    "Approx. Age": 44,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MS",
-    "Gender": "Female",
-    "Registration No.": 39201,
-    "Mobile": 9888889900,
-    "Clinic / Hospital Name": "Kiran Nursing Home",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Station Road Nakodar",
-    "City": "NAKODAR",
-    "State": "PUNJAB",
-    "Pincode": 144040
-  },
-  {
-    "S. No.": 69,
-    "Doctor Name": "Dr. Suresh Kumar",
-    "Code": "D854374",
-    "Approx. Age": 49,
-    "Specialization": "Orthopedic",
-    "Sub-speciality": "Orthopaedics",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 28190,
-    "Mobile": 9417990011,
-    "Clinic / Hospital Name": "Suresh Bone Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Jalandhar Road Nakodar",
-    "City": "NAKODAR",
-    "State": "PUNJAB",
-    "Pincode": 144040
-  },
-  {
-    "S. No.": 70,
-    "Doctor Name": "Dr. Anju Bala",
-    "Code": "D854340",
-    "Approx. Age": 42,
-    "Specialization": "Pediatrician",
-    "Sub-speciality": "Paediatrics",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 43201,
-    "Mobile": 9814112233,
-    "Clinic / Hospital Name": "Anju Child Care",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Nurmahal Road Nakodar",
-    "City": "NAKODAR",
-    "State": "PUNJAB",
-    "Pincode": 144040
-  },
-  {
-    "S. No.": 71,
-    "Doctor Name": "Dr. Mohinder Paul",
-    "Code": "D854312",
-    "Approx. Age": 58,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 15192,
-    "Mobile": 9815223344,
-    "Clinic / Hospital Name": "Paul Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Railway Road Banga",
-    "City": "BANGA",
-    "State": "PUNJAB",
-    "Pincode": 144505
-  },
-  {
-    "S. No.": 72,
-    "Doctor Name": "Dr. Jagdish Rai",
-    "Code": "D854288",
-    "Approx. Age": 53,
-    "Specialization": "Surgeon",
-    "Sub-speciality": "General Surgery",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 23104,
-    "Mobile": 9872334455,
-    "Clinic / Hospital Name": "Rai Surgical Hospital",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Main Bazar Banga",
-    "City": "BANGA",
-    "State": "PUNJAB",
-    "Pincode": 144505
-  },
-  {
-    "S. No.": 73,
-    "Doctor Name": "Dr. Madhu Bala",
-    "Code": "D854255",
-    "Approx. Age": 45,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 35901,
-    "Mobile": 9814445566,
-    "Clinic / Hospital Name": "Madhu Maternity Home",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Garhshankar Road Banga",
-    "City": "BANGA",
-    "State": "PUNJAB",
-    "Pincode": 144505
-  },
-  {
-    "S. No.": 74,
-    "Doctor Name": "Dr. Kewal Krishan",
-    "Code": "D854220",
-    "Approx. Age": 56,
-    "Specialization": "Orthopedic",
-    "Sub-speciality": "Orthopaedics",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 19204,
-    "Mobile": 9417556677,
-    "Clinic / Hospital Name": "Krishan Ortho Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Phagwara Road Banga",
-    "City": "BANGA",
-    "State": "PUNJAB",
-    "Pincode": 144505
-  },
-  {
-    "S. No.": 75,
-    "Doctor Name": "Dr. Sarita Rani",
-    "Code": "D854199",
-    "Approx. Age": 41,
-    "Specialization": "Pediatrician",
-    "Sub-speciality": "Paediatrics",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 48192,
-    "Mobile": 9888667788,
-    "Clinic / Hospital Name": "Sarita Child Care",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Railway Road Banga",
-    "City": "BANGA",
-    "State": "PUNJAB",
-    "Pincode": 144505
-  },
-  {
-    "S. No.": 76,
-    "Doctor Name": "Dr. Om Parkash",
-    "Code": "D854162",
-    "Approx. Age": 60,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 13901,
-    "Mobile": 9815778899,
-    "Clinic / Hospital Name": "Parkash Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Main Bazar Balachaur",
-    "City": "BALACHAUR",
-    "State": "PUNJAB",
-    "Pincode": 144521
-  },
-  {
-    "S. No.": 77,
-    "Doctor Name": "Dr. Ramesh Kumar",
-    "Code": "D854130",
-    "Approx. Age": 52,
-    "Specialization": "Surgeon",
-    "Sub-speciality": "General Surgery",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 24901,
-    "Mobile": 9872889900,
-    "Clinic / Hospital Name": "Ramesh Hospital",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Ropar Road Balachaur",
-    "City": "BALACHAUR",
-    "State": "PUNJAB",
-    "Pincode": 144521
-  },
-  {
-    "S. No.": 78,
-    "Doctor Name": "Dr. Sunita Sharma",
-    "Code": "D854101",
-    "Approx. Age": 46,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 37901,
-    "Mobile": 9814990011,
-    "Clinic / Hospital Name": "Sunita Maternity Home",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Chandigarh Road Balachaur",
-    "City": "BALACHAUR",
-    "State": "PUNJAB",
-    "Pincode": 144521
-  },
-  {
-    "S. No.": 79,
-    "Doctor Name": "Dr. Deepak Sharma",
-    "Code": "D854075",
-    "Approx. Age": 43,
-    "Specialization": "Dental",
-    "Sub-speciality": "Dental Surgeon",
-    "Qualification": "BDS",
-    "Gender": "Male",
-    "Registration No.": 45102,
-    "Mobile": 9872112233,
-    "Clinic / Hospital Name": "Deepak Dental Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Main Bazar Balachaur",
-    "City": "BALACHAUR",
-    "State": "PUNJAB",
-    "Pincode": 144521
-  },
-  {
-    "S. No.": 80,
-    "Doctor Name": "Dr. Ashok Kumar",
-    "Code": "D854042",
-    "Approx. Age": 55,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MBBS, MD",
-    "Gender": "Male",
-    "Registration No.": 18901,
-    "Mobile": 9815223344,
-    "Clinic / Hospital Name": "Ashok Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Ropar Road Balachaur",
-    "City": "BALACHAUR",
-    "State": "PUNJAB",
-    "Pincode": 144521
-  },
-  {
-    "S. No.": 81,
-    "Doctor Name": "Dr. Sanjeev Aggarwal",
-    "Code": "D854010",
-    "Approx. Age": 51,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 25901,
-    "Mobile": 9815334455,
-    "Clinic / Hospital Name": "Aggarwal Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "GT Road Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 82,
-    "Doctor Name": "Dr. Renu Bala",
-    "Code": "D853985",
-    "Approx. Age": 44,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MS",
-    "Gender": "Female",
-    "Registration No.": 39801,
-    "Mobile": 9888445566,
-    "Clinic / Hospital Name": "Renu Nursing Home",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Hadiabad Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144407
-  },
-  {
-    "S. No.": 83,
-    "Doctor Name": "Dr. Anil Kumar",
-    "Code": "D853950",
-    "Approx. Age": 49,
-    "Specialization": "Surgeon",
-    "Sub-speciality": "General Surgery",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 27102,
-    "Mobile": 9872556677,
-    "Clinic / Hospital Name": "Anil Surgical Centre",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Model Town Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 84,
-    "Doctor Name": "Dr. Neeraj Sharma",
-    "Code": "D853921",
-    "Approx. Age": 47,
-    "Specialization": "Orthopedic",
-    "Sub-speciality": "Orthopaedics",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 31204,
-    "Mobile": 9417667788,
-    "Clinic / Hospital Name": "Neeraj Ortho Care",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Guru Hargobind Nagar Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 85,
-    "Doctor Name": "Dr. Poonam Aggarwal",
-    "Code": "D853899",
-    "Approx. Age": 42,
-    "Specialization": "Pediatrician",
-    "Sub-speciality": "Paediatrics",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 44102,
-    "Mobile": 9814778899,
-    "Clinic / Hospital Name": "Aggarwal Pediatric Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Sugar Mill Chowk Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 86,
-    "Doctor Name": "Dr. B. S. Johal",
-    "Code": "D853862",
-    "Approx. Age": 62,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 11204,
-    "Mobile": 9815889900,
-    "Clinic / Hospital Name": "Johal Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Bangla Road Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 87,
-    "Doctor Name": "Dr. Manjit Singh",
-    "Code": "D853830",
-    "Approx. Age": 53,
-    "Specialization": "ENT",
-    "Sub-speciality": "Otolaryngology",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 23901,
-    "Mobile": 9872990011,
-    "Clinic / Hospital Name": "Manjit ENT Centre",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Model Town Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 88,
-    "Doctor Name": "Dr. Pooja Sharma",
-    "Code": "D853801",
-    "Approx. Age": 38,
-    "Specialization": "Dental",
-    "Sub-speciality": "Dental Surgeon",
-    "Qualification": "BDS",
-    "Gender": "Female",
-    "Registration No.": 54102,
-    "Mobile": 9888112233,
-    "Clinic / Hospital Name": "Pooja Dental Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Guru Hargobind Nagar Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 89,
-    "Doctor Name": "Dr. R. P. Singh",
-    "Code": "D853774",
-    "Approx. Age": 56,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 17102,
-    "Mobile": 9814223344,
-    "Clinic / Hospital Name": "RP Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "GT Road Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144401
-  },
-  {
-    "S. No.": 90,
-    "Doctor Name": "Dr. Simranjit Kaur",
-    "Code": "D853740",
-    "Approx. Age": 43,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MS",
-    "Gender": "Female",
-    "Registration No.": 42109,
-    "Mobile": 9815334455,
-    "Clinic / Hospital Name": "Simran Hospital",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Hadiabad Phagwara",
-    "City": "PHAGWARA",
-    "State": "PUNJAB",
-    "Pincode": 144407
-  },
-  {
-    "S. No.": 91,
-    "Doctor Name": "Dr. R. L. Mittal",
-    "Code": "D853712",
-    "Approx. Age": 61,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 12104,
-    "Mobile": 9815445566,
-    "Clinic / Hospital Name": "Mittal Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Chandigarh Road Nawanshahr",
-    "City": "NAWASHAHR",
-    "State": "PUNJAB",
-    "Pincode": 144514
-  },
-  {
-    "S. No.": 92,
-    "Doctor Name": "Dr. Sonia Bansal",
-    "Code": "D853688",
-    "Approx. Age": 40,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MS",
-    "Gender": "Female",
-    "Registration No.": 51209,
-    "Mobile": 9888556677,
-    "Clinic / Hospital Name": "Sonia Maternity Home",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Kutchery Road Nawanshahr",
-    "City": "NAWASHAHR",
-    "State": "PUNJAB",
-    "Pincode": 144514
-  },
-  {
-    "S. No.": 93,
-    "Doctor Name": "Dr. Rajan Kumar",
-    "Code": "D853655",
-    "Approx. Age": 48,
-    "Specialization": "Surgeon",
-    "Sub-speciality": "General Surgery",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 29102,
-    "Mobile": 9417667788,
-    "Clinic / Hospital Name": "Rajan Surgical Centre",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Rahon Road Nawanshahr",
-    "City": "NAWASHAHR",
-    "State": "PUNJAB",
-    "Pincode": 144514
-  },
-  {
-    "S. No.": 94,
-    "Doctor Name": "Dr. Satnam Kaur",
-    "Code": "D853620",
-    "Approx. Age": 45,
-    "Specialization": "Pediatrician",
-    "Sub-speciality": "Paediatrics",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 35102,
-    "Mobile": 9872778899,
-    "Clinic / Hospital Name": "Satnam Child Care",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Banga Road Nawanshahr",
-    "City": "NAWASHAHR",
-    "State": "PUNJAB",
-    "Pincode": 144514
-  },
-  {
-    "S. No.": 95,
-    "Doctor Name": "Dr. Baldev Krishan",
-    "Code": "D853599",
-    "Approx. Age": 57,
-    "Specialization": "Orthopedic",
-    "Sub-speciality": "Orthopaedics",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 16901,
-    "Mobile": 9814889900,
-    "Clinic / Hospital Name": "Baldev Bone Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Railway Road Nawanshahr",
-    "City": "NAWASHAHR",
-    "State": "PUNJAB",
-    "Pincode": 144514
-  },
-  {
-    "S. No.": 96,
-    "Doctor Name": "Dr. Tarsem Singh",
-    "Code": "D853562",
-    "Approx. Age": 59,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 14201,
-    "Mobile": 9815990011,
-    "Clinic / Hospital Name": "Tarsem Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Main Bazar Nakodar",
-    "City": "NAKODAR",
-    "State": "PUNJAB",
-    "Pincode": 144040
-  },
-  {
-    "S. No.": 97,
-    "Doctor Name": "Dr. Narinder Kumar",
-    "Code": "D853530",
-    "Approx. Age": 52,
-    "Specialization": "Surgeon",
-    "Sub-speciality": "General Surgery",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 22901,
-    "Mobile": 9872112233,
-    "Clinic / Hospital Name": "Narinder Hospital",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Civil Hospital Road Nakodar",
-    "City": "NAKODAR",
-    "State": "PUNJAB",
-    "Pincode": 144040
-  },
-  {
-    "S. No.": 98,
-    "Doctor Name": "Dr. Neelam Rani",
-    "Code": "D853501",
-    "Approx. Age": 46,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 38102,
-    "Mobile": 9814223344,
-    "Clinic / Hospital Name": "Neelam Nursing Home",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Station Road Nakodar",
-    "City": "NAKODAR",
-    "State": "PUNJAB",
-    "Pincode": 144040
-  },
-  {
-    "S. No.": 99,
-    "Doctor Name": "Dr. Jasbir Singh",
-    "Code": "D853474",
-    "Approx. Age": 50,
-    "Specialization": "Orthopedic",
-    "Sub-speciality": "Orthopaedics",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 26102,
-    "Mobile": 9417334455,
-    "Clinic / Hospital Name": "Jasbir Ortho Care",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Jalandhar Road Nakodar",
-    "City": "NAKODAR",
-    "State": "PUNJAB",
-    "Pincode": 144040
-  },
-  {
-    "S. No.": 100,
-    "Doctor Name": "Dr. Parminder Kaur",
-    "Code": "D853440",
-    "Approx. Age": 41,
-    "Specialization": "Pediatrician",
-    "Sub-speciality": "Paediatrics",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 46901,
-    "Mobile": 9888445566,
-    "Clinic / Hospital Name": "Parminder Child Care",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Nurmahal Road Nakodar",
-    "City": "NAKODAR",
-    "State": "PUNJAB",
-    "Pincode": 144040
-  },
-  {
-    "S. No.": 101,
-    "Doctor Name": "Dr. Gurcharan Singh",
-    "Code": "D853412",
-    "Approx. Age": 55,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 18102,
-    "Mobile": 9815556677,
-    "Clinic / Hospital Name": "Gurcharan Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Railway Road Banga",
-    "City": "BANGA",
-    "State": "PUNJAB",
-    "Pincode": 144505
-  },
-  {
-    "S. No.": 102,
-    "Doctor Name": "Dr. Kuldeep Chand",
-    "Code": "D853388",
-    "Approx. Age": 51,
-    "Specialization": "Surgeon",
-    "Sub-speciality": "General Surgery",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 25102,
-    "Mobile": 9872667788,
-    "Clinic / Hospital Name": "Chand Surgical Centre",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Main Bazar Banga",
-    "City": "BANGA",
-    "State": "PUNJAB",
-    "Pincode": 144505
-  },
-  {
-    "S. No.": 103,
-    "Doctor Name": "Dr. Sunita Devi",
-    "Code": "D853355",
-    "Approx. Age": 44,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 39102,
-    "Mobile": 9814778899,
-    "Clinic / Hospital Name": "Devi Maternity Home",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Garhshankar Road Banga",
-    "City": "BANGA",
-    "State": "PUNJAB",
-    "Pincode": 144505
-  },
-  {
-    "S. No.": 104,
-    "Doctor Name": "Dr. Jagtar Singh",
-    "Code": "D853320",
-    "Approx. Age": 54,
-    "Specialization": "Orthopedic",
-    "Sub-speciality": "Orthopaedics",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 21102,
-    "Mobile": 9417889900,
-    "Clinic / Hospital Name": "Jagtar Bone Care",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Phagwara Road Banga",
-    "City": "BANGA",
-    "State": "PUNJAB",
-    "Pincode": 144505
-  },
-  {
-    "S. No.": 105,
-    "Doctor Name": "Dr. Anita Devi",
-    "Code": "D853299",
-    "Approx. Age": 42,
-    "Specialization": "Pediatrician",
-    "Sub-speciality": "Paediatrics",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 43901,
-    "Mobile": 9888990011,
-    "Clinic / Hospital Name": "Devi Child Care",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Railway Road Banga",
-    "City": "BANGA",
-    "State": "PUNJAB",
-    "Pincode": 144505
-  },
-  {
-    "S. No.": 106,
-    "Doctor Name": "Dr. Ram Lal",
-    "Code": "D853262",
-    "Approx. Age": 62,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MD",
-    "Gender": "Male",
-    "Registration No.": 11102,
-    "Mobile": 9815112233,
-    "Clinic / Hospital Name": "Ram Lal Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Main Bazar Balachaur",
-    "City": "BALACHAUR",
-    "State": "PUNJAB",
-    "Pincode": 144521
-  },
-  {
-    "S. No.": 107,
-    "Doctor Name": "Dr. Sham Lal",
-    "Code": "D853230",
-    "Approx. Age": 53,
-    "Specialization": "Surgeon",
-    "Sub-speciality": "General Surgery",
-    "Qualification": "MS",
-    "Gender": "Male",
-    "Registration No.": 23102,
-    "Mobile": 9872223344,
-    "Clinic / Hospital Name": "Sham Surgical Hospital",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Ropar Road Balachaur",
-    "City": "BALACHAUR",
-    "State": "PUNJAB",
-    "Pincode": 144521
-  },
-  {
-    "S. No.": 108,
-    "Doctor Name": "Dr. Raj Rani",
-    "Code": "D853201",
-    "Approx. Age": 47,
-    "Specialization": "Gynaecologist",
-    "Sub-speciality": "Gynaecology",
-    "Qualification": "MD",
-    "Gender": "Female",
-    "Registration No.": 35102,
-    "Mobile": 9814334455,
-    "Clinic / Hospital Name": "Raj Nursing Home",
-    "Clinic / Hospital Type": "HOSPITAL",
-    "Address": "Chandigarh Road Balachaur",
-    "City": "BALACHAUR",
-    "State": "PUNJAB",
-    "Pincode": 144521
-  },
-  {
-    "S. No.": 109,
-    "Doctor Name": "Dr. Sanjeev Sharma",
-    "Code": "D853175",
-    "Approx. Age": 41,
-    "Specialization": "Dental",
-    "Sub-speciality": "Dental Surgeon",
-    "Qualification": "BDS",
-    "Gender": "Male",
-    "Registration No.": 49102,
-    "Mobile": 9872445566,
-    "Clinic / Hospital Name": "Sharma Dental Care",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Main Bazar Balachaur",
-    "City": "BALACHAUR",
-    "State": "PUNJAB",
-    "Pincode": 144521
-  },
-  {
-    "S. No.": 110,
-    "Doctor Name": "Dr. Subhash Chander",
-    "Code": "D853142",
-    "Approx. Age": 56,
-    "Specialization": "CP",
-    "Sub-speciality": "Consulting Physician",
-    "Qualification": "MBBS, MD",
-    "Gender": "Male",
-    "Registration No.": 17102,
-    "Mobile": 9815556677,
-    "Clinic / Hospital Name": "Subhash Clinic",
-    "Clinic / Hospital Type": "CLINIC",
-    "Address": "Ropar Road Balachaur",
-    "City": "BALACHAUR",
-    "State": "PUNJAB",
-    "Pincode": 144521
-  }
-];
+      {
+        "S. No.": 1,
+        "Doctor Name": "Dr. Satnam Singh Parmar",
+        "Code": "D856471",
+        "Approx. Age": 58,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "19421",
+        "Mobile": 8634245788,
+        "Clinic / Hospital Name": "Gandhi Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Patel Nagar Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144401
+      },
+      {
+        "S. No.": 2,
+        "Doctor Name": "Dr. SPS Sooch",
+        "Code": "D856408",
+        "Approx. Age": 59,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "21105",
+        "Mobile": 6284410709,
+        "Clinic / Hospital Name": "Gandhi Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Patel nagar, Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144404
+      },
+      {
+        "S. No.": 3,
+        "Doctor Name": "Dr. Simardeep",
+        "Code": "D856343",
+        "Approx. Age": 40,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "51324",
+        "Mobile": 9542526745,
+        "Clinic / Hospital Name": "Parhar Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Guru Hargobind Nagar Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144401
+      },
+      {
+        "S. No.": 4,
+        "Doctor Name": "Dr. SP Singh",
+        "Code": "D856293",
+        "Approx. Age": 57,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "19886pmc",
+        "Mobile": 8914487150,
+        "Clinic / Hospital Name": "Singh Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "JCT Mill, Onkar Nagar, Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144404
+      },
+      {
+        "S. No.": 5,
+        "Doctor Name": "Dr. S Mohindra",
+        "Code": "D856287",
+        "Approx. Age": 55,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "8285",
+        "Mobile": 9667438211,
+        "Clinic / Hospital Name": "Medical Clinic",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Guru Hargobind Nagar Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144404
+      },
+      {
+        "S. No.": 6,
+        "Doctor Name": "Dr. Rajesh Sood",
+        "Code": "D856294",
+        "Approx. Age": 55,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Male",
+        "Registration No.": "24886",
+        "Mobile": 9432732469,
+        "Clinic / Hospital Name": "Sood Children Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Chahal Nagar, Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144401
+      },
+      {
+        "S. No.": 7,
+        "Doctor Name": "Dr. SP Suman",
+        "Code": "D856454",
+        "Approx. Age": 57,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "21967",
+        "Mobile": 9834534416,
+        "Clinic / Hospital Name": "Suman Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Chahal Nagar, Grand Trunk Road, Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144404
+      },
+      {
+        "S. No.": 8,
+        "Doctor Name": "Dr. Vikas Gupta",
+        "Code": "D856414",
+        "Approx. Age": 48,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "42032",
+        "Mobile": 8253478086,
+        "Clinic / Hospital Name": "Gupta Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Guru Hargobind Nagar Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144401
+      },
+      {
+        "S. No.": 9,
+        "Doctor Name": "Dr. Vijay Sharma",
+        "Code": "D856338",
+        "Approx. Age": 58,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Male",
+        "Registration No.": "13638",
+        "Mobile": 9465927881,
+        "Clinic / Hospital Name": "Sharma Children Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "722, Hargobind Nagar Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144401
+      },
+      {
+        "S. No.": 10,
+        "Doctor Name": "Dr. Vineet Sharma",
+        "Code": "D856412",
+        "Approx. Age": 35,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Male",
+        "Registration No.": "41525",
+        "Mobile": 9465927881,
+        "Clinic / Hospital Name": "Sharma Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "722, Hargobind Nagar, Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144401
+      },
+      {
+        "S. No.": 11,
+        "Doctor Name": "Dr. Rajeev Gupta",
+        "Code": "D856359",
+        "Approx. Age": 50,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "40847",
+        "Mobile": 9784461681,
+        "Clinic / Hospital Name": "Gupta Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Guru Hargobind Nagar Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144401
+      },
+      {
+        "S. No.": 12,
+        "Doctor Name": "Dr. Puneet Galhotra",
+        "Code": "D856352",
+        "Approx. Age": 46,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Male",
+        "Registration No.": "40344",
+        "Mobile": 9779271310,
+        "Clinic / Hospital Name": "Dr Pulkits Child Care Center And Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Hargobind Nagar Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144401
+      },
+      {
+        "S. No.": 13,
+        "Doctor Name": "Dr. Parul Arora",
+        "Code": "D856275",
+        "Approx. Age": 44,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "46241",
+        "Mobile": 7885329134,
+        "Clinic / Hospital Name": "Parhar Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Guru Hargobind Nagar Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144401
+      },
+      {
+        "S. No.": 14,
+        "Doctor Name": "Dr. Kirti Mahajan",
+        "Code": "D883828",
+        "Approx. Age": 34,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MD (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "34774",
+        "Mobile": 9465927881,
+        "Clinic / Hospital Name": "Sharma Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "722, Hargobind Nagar, Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144401
+      },
+      {
+        "S. No.": 15,
+        "Doctor Name": "Dr. Jiwanjot Kaur",
+        "Code": "D856323",
+        "Approx. Age": 44,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "41449",
+        "Mobile": 9834260020,
+        "Clinic / Hospital Name": "Swaran Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Guru Hargobind Nagar Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144401
+      },
+      {
+        "S. No.": 16,
+        "Doctor Name": "Dr. Jasjit Singh Virk",
+        "Code": "D856386",
+        "Approx. Age": 55,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "34222",
+        "Mobile": 8946242731,
+        "Clinic / Hospital Name": "Virk Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Patel Nagar Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144401
+      },
+      {
+        "S. No.": 17,
+        "Doctor Name": "Dr. Harjeet Kaur",
+        "Code": "D856421",
+        "Approx. Age": 43,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "41043",
+        "Mobile": 9665943788,
+        "Clinic / Hospital Name": "Harjeet Hospital And Maternity Home",
+        "Clinic / Hospital Type": "MAT HOME",
+        "Address": "Hoshiarpur Road Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144401
+      },
+      {
+        "S. No.": 18,
+        "Doctor Name": "Dr. Harbinder Chabra",
+        "Code": "D856328",
+        "Approx. Age": 57,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Male",
+        "Registration No.": "22141",
+        "Mobile": 7926431992,
+        "Clinic / Hospital Name": "Gandhi Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Patel Nagar Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144401
+      },
+      {
+        "S. No.": 19,
+        "Doctor Name": "Dr. Gurpreet Kaur Virk",
+        "Code": "D856284",
+        "Approx. Age": 55,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "32131",
+        "Mobile": 9818242613,
+        "Clinic / Hospital Name": "Virk Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Guru Hargobind Nagar Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144401
+      },
+      {
+        "S. No.": 20,
+        "Doctor Name": "Dr. Gurkiran Kaur Kahlon",
+        "Code": "D856429",
+        "Approx. Age": 56,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "58001",
+        "Mobile": 9814065687,
+        "Clinic / Hospital Name": "Aakash Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Hoshiarpur Road, Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144401
+      },
+      {
+        "S. No.": 21,
+        "Doctor Name": "Dr. B.S. Kahlon",
+        "Code": "D856404",
+        "Approx. Age": 58,
+        "Specialization": "SURGEON",
+        "Sub-speciality": "General Surgery",
+        "Qualification": "MS (General Surgery)",
+        "Gender": "Male",
+        "Registration No.": "22580",
+        "Mobile": 8264892958,
+        "Clinic / Hospital Name": "Aakash Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Hoshiarpur Road Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144401
+      },
+      {
+        "S. No.": 22,
+        "Doctor Name": "Dr. Anju Gupta",
+        "Code": "D856453",
+        "Approx. Age": 51,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "29198",
+        "Mobile": 8539432973,
+        "Clinic / Hospital Name": "Gupta Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Guru Hargobind Nagar Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144401
+      },
+      {
+        "S. No.": 23,
+        "Doctor Name": "Dr. Aaina Parmar",
+        "Code": "D856430",
+        "Approx. Age": 40,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Female",
+        "Registration No.": "37671",
+        "Mobile": 9918242672,
+        "Clinic / Hospital Name": "Gandhi Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Patel Nagar Phagwara",
+        "City": "PHAGWARA",
+        "State": "PUNJAB",
+        "Pincode": 144401
+      },
+      {
+        "S. No.": 24,
+        "Doctor Name": "Dr. Vikas Deep Hans",
+        "Code": "D856364",
+        "Approx. Age": 55,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "32406",
+        "Mobile": 8887654951,
+        "Clinic / Hospital Name": "Livasa Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Chandigarh Road Nawanshahr",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 25,
+        "Doctor Name": "Dr. V K Arora",
+        "Code": "D856405",
+        "Approx. Age": 55,
+        "Specialization": "Non MBBS",
+        "Sub-speciality": "Non MBBS",
+        "Qualification": "BAMS",
+        "Gender": "Male",
+        "Registration No.": "14610pmc",
+        "Mobile": 8654216890,
+        "Clinic / Hospital Name": "Arora Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Chandigarh Road Nawanshahr",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 26,
+        "Doctor Name": "Dr. Sabita Dubey",
+        "Code": "D856317",
+        "Approx. Age": 49,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "35273pmc",
+        "Mobile": 8728885008,
+        "Clinic / Hospital Name": "Hope Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Near New Civil Hospital",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 27,
+        "Doctor Name": "Dr. Sabita",
+        "Code": "D856348",
+        "Approx. Age": 49,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "35273",
+        "Mobile": 9910783161,
+        "Clinic / Hospital Name": "Dr Sabita Mother Care Clinic",
+        "Clinic / Hospital Type": "MAT HOME",
+        "Address": "Chandigarh Road, Nawanshahr",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 28,
+        "Doctor Name": "Dr. S R Kainth",
+        "Code": "D856464",
+        "Approx. Age": 54,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Male",
+        "Registration No.": "22894pmc",
+        "Mobile": 9417158102,
+        "Clinic / Hospital Name": "Kainth Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Chandigarh Road, Near Satluj Cinema, Nawanshahr",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 29,
+        "Doctor Name": "Dr. Rajesh Bhatia",
+        "Code": "D856374",
+        "Approx. Age": 49,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "26536",
+        "Mobile": 9417150111,
+        "Clinic / Hospital Name": "Harbans Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Chandigarh Road Nawanshahr",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 30,
+        "Doctor Name": "Dr. R K Amandeep",
+        "Code": "D856456",
+        "Approx. Age": 40,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "43016",
+        "Mobile": 9624536738,
+        "Clinic / Hospital Name": "Livasa Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Chandigarh Road, Nawanshahr",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 31,
+        "Doctor Name": "Dr. Poonam Arora",
+        "Code": "D856424",
+        "Approx. Age": 40,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Female",
+        "Registration No.": "48286",
+        "Mobile": 9474638829,
+        "Clinic / Hospital Name": "Arora Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Chandigarh Road Nawanshahr",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 32,
+        "Doctor Name": "Dr. Paramjit Maan",
+        "Code": "D856440",
+        "Approx. Age": 45,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Male",
+        "Registration No.": "25711",
+        "Mobile": 9988355624,
+        "Clinic / Hospital Name": "Maan And Arora Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Chandigarh Road Nawanshahr",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 33,
+        "Doctor Name": "Dr. Neelam Saini",
+        "Code": "D856302",
+        "Approx. Age": 53,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "21161",
+        "Mobile": 8558899998,
+        "Clinic / Hospital Name": "Raja Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Motta Singh Nagar Road near Civil Hospital",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 34,
+        "Doctor Name": "Dr. Naresh Mittal",
+        "Code": "D856325",
+        "Approx. Age": 45,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "48537",
+        "Mobile": 9642278001,
+        "Clinic / Hospital Name": "Mittal Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Chandigarh Road, Nawanshahr",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 35,
+        "Doctor Name": "Dr. Lakshita Saini",
+        "Code": "D856381",
+        "Approx. Age": 35,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "35930",
+        "Mobile": 8558899998,
+        "Clinic / Hospital Name": "Raja Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Motta Singh Nagar Road near Civil Hospital",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 36,
+        "Doctor Name": "Dr. L R Badhan",
+        "Code": "D856360",
+        "Approx. Age": 61,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Male",
+        "Registration No.": "21493",
+        "Mobile": 7973877581,
+        "Clinic / Hospital Name": "RV Children Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Johal Colony Nawanshahr",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 37,
+        "Doctor Name": "Dr. Karan Arora",
+        "Code": "D856466",
+        "Approx. Age": 43,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Male",
+        "Registration No.": "37945",
+        "Mobile": 9814173496,
+        "Clinic / Hospital Name": "Maan And Arora Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Chandigarh Road, Nawanshahr",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 38,
+        "Doctor Name": "Dr. Gurdeep Singh Sethi",
+        "Code": "D856349",
+        "Approx. Age": 58,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "25404",
+        "Mobile": 8198842255,
+        "Clinic / Hospital Name": "Lifeline Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Guru Angad Nagar St No. 5, Opp ITI Delhi Colony",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 39,
+        "Doctor Name": "Dr. Gopal Kataria",
+        "Code": "D856436",
+        "Approx. Age": 50,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "28629",
+        "Mobile": 9417515548,
+        "Clinic / Hospital Name": "Kataria Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Gahoon Road",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 40,
+        "Doctor Name": "Dr. Geeta Digra",
+        "Code": "D856448",
+        "Approx. Age": 52,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "30437",
+        "Mobile": 8876577459,
+        "Clinic / Hospital Name": "Livasa Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Chandigarh Road, Nawanshahr",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 41,
+        "Doctor Name": "Dr. Surabhi Dhawan",
+        "Code": "D856472",
+        "Approx. Age": 40,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "31330",
+        "Mobile": 7973877583,
+        "Clinic / Hospital Name": "Dhawan Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Dhawan Hospital, Chandigarh Road",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 42,
+        "Doctor Name": "Dr. Monica Kapoor",
+        "Code": "D856468",
+        "Approx. Age": 48,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "41044",
+        "Mobile": 9814294997,
+        "Clinic / Hospital Name": "Sai Prakash Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Opp MR Autos, Chandigarh Road",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 43,
+        "Doctor Name": "Dr. K S Pahwa",
+        "Code": "D856326",
+        "Approx. Age": 64,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Male",
+        "Registration No.": "19589",
+        "Mobile": 8146222970,
+        "Clinic / Hospital Name": "Pahwa Multispeciality Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Mota Singh Nagar, Nawanshahr",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 44,
+        "Doctor Name": "Dr. Hartesh Pahwa",
+        "Code": "D856451",
+        "Approx. Age": 38,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Male",
+        "Registration No.": "47199",
+        "Mobile": 8146222970,
+        "Clinic / Hospital Name": "Pahwa Multispeciality Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Mota Singh Nagar, Nawanshahr",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 45,
+        "Doctor Name": "Dr. Dig Vijay Singh",
+        "Code": "D856433",
+        "Approx. Age": 56,
+        "Specialization": "OTHER",
+        "Sub-speciality": "Urology",
+        "Qualification": "MCh (Urology)",
+        "Gender": "Male",
+        "Registration No.": "43275",
+        "Mobile": 9876616317,
+        "Clinic / Hospital Name": "Digvijay Kidney Stone Centre",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Chandigarh Road, in front of ITI",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 46,
+        "Doctor Name": "Dr. Deepak Ahooja",
+        "Code": "D856351",
+        "Approx. Age": 49,
+        "Specialization": "OTHER",
+        "Sub-speciality": "Orthopaedics",
+        "Qualification": "MS (Orthopaedics)",
+        "Gender": "Male",
+        "Registration No.": "45080pmc",
+        "Mobile": 9814294997,
+        "Clinic / Hospital Name": "Sai Prakash Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Opp MR Autos, Chandigarh Road Nawanshahr",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 47,
+        "Doctor Name": "Dr. Balraj Singh",
+        "Code": "D856274",
+        "Approx. Age": 58,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Male",
+        "Registration No.": "33111",
+        "Mobile": 8873944451,
+        "Clinic / Hospital Name": "Aashirwaad Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Chandigarh Road Nawanshahr",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 48,
+        "Doctor Name": "Dr. Aseem Rajpal",
+        "Code": "D856427",
+        "Approx. Age": 35,
+        "Specialization": "OTHER",
+        "Sub-speciality": "Cardiology",
+        "Qualification": "MD (General Medicine)",
+        "Gender": "Male",
+        "Registration No.": "40932",
+        "Mobile": 9437721057,
+        "Clinic / Hospital Name": "Rajpal Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Rahon Road Nawanshahr",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 49,
+        "Doctor Name": "Dr. Anubhav Gupta",
+        "Code": "D856445",
+        "Approx. Age": 48,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "40766",
+        "Mobile": 9814411050,
+        "Clinic / Hospital Name": "Sanjeevani Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Near Khalsa School, Chandigarh Road",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 50,
+        "Doctor Name": "Dr. Anand M",
+        "Code": "D856288",
+        "Approx. Age": 42,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "37075",
+        "Mobile": 8810199555,
+        "Clinic / Hospital Name": "Livasa Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Chandigarh Road Nawanshahr",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 51,
+        "Doctor Name": "Dr. Akshay Arora",
+        "Code": "D856379",
+        "Approx. Age": 45,
+        "Specialization": "Non MBBS",
+        "Sub-speciality": "Non MBBS",
+        "Qualification": "BAMS",
+        "Gender": "Male",
+        "Registration No.": "845pmc",
+        "Mobile": 9813145864,
+        "Clinic / Hospital Name": "Raja Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Mota Singh Road, Nawanshahr",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 52,
+        "Doctor Name": "Dr. AK Rajpal",
+        "Code": "D856419",
+        "Approx. Age": 64,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "17581",
+        "Mobile": 9437721057,
+        "Clinic / Hospital Name": "Rajpal Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Rahon Road Nawanshahr",
+        "City": "NAWASHAHR",
+        "State": "PUNJAB",
+        "Pincode": 144514
+      },
+      {
+        "S. No.": 53,
+        "Doctor Name": "Dr. Vipan",
+        "Code": "D856307",
+        "Approx. Age": 48,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Male",
+        "Registration No.": "35166",
+        "Mobile": 9780534413,
+        "Clinic / Hospital Name": "Vipan Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Guru Arjan Dev Nagar, Nakodar",
+        "City": "NAKODAR",
+        "State": "PUNJAB",
+        "Pincode": 144040
+      },
+      {
+        "S. No.": 54,
+        "Doctor Name": "Dr. Veena Gumber",
+        "Code": "D856322",
+        "Approx. Age": 50,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "5068",
+        "Mobile": 9888315240,
+        "Clinic / Hospital Name": "Civil Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Hospital Road, near old judicial court complex, Nakodar",
+        "City": "NAKODAR",
+        "State": "PUNJAB",
+        "Pincode": 144040
+      },
+      {
+        "S. No.": 55,
+        "Doctor Name": "Dr. Varinder Jagat",
+        "Code": "D883797",
+        "Approx. Age": 56,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Male",
+        "Registration No.": "24583",
+        "Mobile": 9814152046,
+        "Clinic / Hospital Name": "Varinder Jagat Clinic",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Guru Teg Bahadur Nagar, Nakodar",
+        "City": "NAKODAR",
+        "State": "PUNJAB",
+        "Pincode": 144040
+      },
+      {
+        "S. No.": 56,
+        "Doctor Name": "Dr. Surinder Kaur",
+        "Code": "D856344",
+        "Approx. Age": 59,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "16125",
+        "Mobile": 9815015055,
+        "Clinic / Hospital Name": "Anand Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Arjun Nagar, Guru Teg Bahadur Nagar, Nakodar",
+        "City": "NAKODAR",
+        "State": "PUNJAB",
+        "Pincode": 144040
+      },
+      {
+        "S. No.": 57,
+        "Doctor Name": "Dr. Sukhjeet Kaur",
+        "Code": "D856469",
+        "Approx. Age": 43,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Obstetrics",
+        "Qualification": "MD (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "26515",
+        "Mobile": 9815602452,
+        "Clinic / Hospital Name": "Sukhjeet Hospital And Maternity Home",
+        "Clinic / Hospital Type": "MAT HOME",
+        "Address": "Golden Avenue Colony, Nakodar",
+        "City": "NAKODAR",
+        "State": "PUNJAB",
+        "Pincode": 144040
+      },
+      {
+        "S. No.": 58,
+        "Doctor Name": "Dr. Shivani Bansal",
+        "Code": "D856402",
+        "Approx. Age": 50,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Female",
+        "Registration No.": "33176",
+        "Mobile": 9871220053,
+        "Clinic / Hospital Name": "Civil Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Hospital Road near old judicial court complex",
+        "City": "NAKODAR",
+        "State": "PUNJAB",
+        "Pincode": 144040
+      },
+      {
+        "S. No.": 59,
+        "Doctor Name": "Dr. Sanjeev",
+        "Code": "D856463",
+        "Approx. Age": 48,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Male",
+        "Registration No.": "29860",
+        "Mobile": 9888315240,
+        "Clinic / Hospital Name": "Civil Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Hospital Road, near old judicial court complex, Nakodar",
+        "City": "NAKODAR",
+        "State": "PUNJAB",
+        "Pincode": 144040
+      },
+      {
+        "S. No.": 60,
+        "Doctor Name": "Dr. Nitish Mahajan",
+        "Code": "D856329",
+        "Approx. Age": 37,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "39017",
+        "Mobile": 7087083981,
+        "Clinic / Hospital Name": "Mahajan Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Amardas Colony, Nakodar",
+        "City": "NAKODAR",
+        "State": "PUNJAB",
+        "Pincode": 144040
+      },
+      {
+        "S. No.": 61,
+        "Doctor Name": "Dr. Neha Mahajan",
+        "Code": "D856347",
+        "Approx. Age": 37,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Female",
+        "Registration No.": "10972",
+        "Mobile": 7087083981,
+        "Clinic / Hospital Name": "Mahajan Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Amardas Colony, Nakodar",
+        "City": "NAKODAR",
+        "State": "PUNJAB",
+        "Pincode": 144040
+      },
+      {
+        "S. No.": 62,
+        "Doctor Name": "Dr. Hardeep Singh",
+        "Code": "D856439",
+        "Approx. Age": 54,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "32177pmc",
+        "Mobile": 9878189911,
+        "Clinic / Hospital Name": "Kamal Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Jalandhar Road, Adarsh Colony, Nakodar",
+        "City": "NAKODAR",
+        "State": "PUNJAB",
+        "Pincode": 144040
+      },
+      {
+        "S. No.": 63,
+        "Doctor Name": "Dr. Kamaljeet Singh",
+        "Code": "D856415",
+        "Approx. Age": 56,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "30102",
+        "Mobile": 9878189911,
+        "Clinic / Hospital Name": "Kamal Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Jalandhar Road, Adarsh Colony",
+        "City": "NAKODAR",
+        "State": "PUNJAB",
+        "Pincode": 144040
+      },
+      {
+        "S. No.": 64,
+        "Doctor Name": "Dr. H.K. Chabra",
+        "Code": "D856320",
+        "Approx. Age": 46,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "7357",
+        "Mobile": 9855111124,
+        "Clinic / Hospital Name": "Chabra Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Jalandhar Road, Guru Teg Bahadur Nagar",
+        "City": "NAKODAR",
+        "State": "PUNJAB",
+        "Pincode": 144040
+      },
+      {
+        "S. No.": 65,
+        "Doctor Name": "Dr. Asha Tangri",
+        "Code": "D856380",
+        "Approx. Age": 51,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "13153",
+        "Mobile": 9815015055,
+        "Clinic / Hospital Name": "Anand Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Arjun Dev Nagar, Nakodar",
+        "City": "NAKODAR",
+        "State": "PUNJAB",
+        "Pincode": 144040
+      },
+      {
+        "S. No.": 66,
+        "Doctor Name": "Dr. Kamal Singh",
+        "Code": "D856403",
+        "Approx. Age": 43,
+        "Specialization": "SURGEON",
+        "Sub-speciality": "General Surgery",
+        "Qualification": "MS (General Surgery)",
+        "Gender": "Male",
+        "Registration No.": "36346",
+        "Mobile": 9878189911,
+        "Clinic / Hospital Name": "Kamal Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Jalandhar Road, Nakodar",
+        "City": "NAKODAR",
+        "State": "PUNJAB",
+        "Pincode": 144040
+      },
+      {
+        "S. No.": 67,
+        "Doctor Name": "Dr. Amarjeet Singh Anand",
+        "Code": "D856333",
+        "Approx. Age": 40,
+        "Specialization": "MBBS",
+        "Sub-speciality": "MBBS",
+        "Qualification": "MBBS",
+        "Gender": "Male",
+        "Registration No.": "48977",
+        "Mobile": 9628969072,
+        "Clinic / Hospital Name": "Anand Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Arjun Dev Nagar, Nakodar",
+        "City": "NAKODAR",
+        "State": "PUNJAB",
+        "Pincode": 144040
+      },
+      {
+        "S. No.": 68,
+        "Doctor Name": "Dr. J.K. Mahajan",
+        "Code": "D856410",
+        "Approx. Age": 58,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "25801",
+        "Mobile": 7087083981,
+        "Clinic / Hospital Name": "Mahajan Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Amardass Colony, Nakodar",
+        "City": "NAKODAR",
+        "State": "PUNJAB",
+        "Pincode": 144040
+      },
+      {
+        "S. No.": 69,
+        "Doctor Name": "Dr. Inderpreet Kaur Chabra",
+        "Code": "D856400",
+        "Approx. Age": 38,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "36643pm",
+        "Mobile": 9855111124,
+        "Clinic / Hospital Name": "Chabra Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Jalandhar Road, Guru Teg Bahadur Nagar, Phagwara (as listed)",
+        "City": "NAKODAR",
+        "State": "PUNJAB",
+        "Pincode": 144040
+      },
+      {
+        "S. No.": 70,
+        "Doctor Name": "Dr. Akashdeep",
+        "Code": "D883824",
+        "Approx. Age": 36,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Male",
+        "Registration No.": "47102",
+        "Mobile": 9779339666,
+        "Clinic / Hospital Name": "Akash Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Railway Road, Gandhi Nagar, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 71,
+        "Doctor Name": "Dr. Amrik Singh",
+        "Code": "D883823",
+        "Approx. Age": 59,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Male",
+        "Registration No.": "19178",
+        "Mobile": 9779339666,
+        "Clinic / Hospital Name": "Akash Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Near Railway Road, Gandhi Nagar, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 72,
+        "Doctor Name": "Dr. Ara Dua",
+        "Code": "D916687",
+        "Approx. Age": 45,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "44949pmc",
+        "Mobile": 6283089567,
+        "Clinic / Hospital Name": "Dua Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Garhshankar Chowk Main Road, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 73,
+        "Doctor Name": "Dr. Bakhshish Singh",
+        "Code": "D856300",
+        "Approx. Age": 62,
+        "Specialization": "SURGEON",
+        "Sub-speciality": "General Surgery",
+        "Qualification": "MS (General Surgery)",
+        "Gender": "Male",
+        "Registration No.": "21447",
+        "Mobile": 9427458700,
+        "Clinic / Hospital Name": "Karan Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Heon Road near bus stand, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 74,
+        "Doctor Name": "Dr. Deep Anand",
+        "Code": "D856416",
+        "Approx. Age": 42,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "40641pmc",
+        "Mobile": 8823558101,
+        "Clinic / Hospital Name": "Karan Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Heon Road, near bus stand, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 75,
+        "Doctor Name": "Dr. Dharampal",
+        "Code": "D856446",
+        "Approx. Age": 60,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Male",
+        "Registration No.": "21093",
+        "Mobile": 9837109684,
+        "Clinic / Hospital Name": "Naveen General Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Rai Petrol Pump, Phagwara Road, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 76,
+        "Doctor Name": "Dr. Hans Raj",
+        "Code": "D891893",
+        "Approx. Age": 58,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "25715",
+        "Mobile": 9779429807,
+        "Clinic / Hospital Name": "Shri Guru Ram Dass Charitable Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Swarn Petrol Pump, near New Dana Mandi Main Road, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 77,
+        "Doctor Name": "Dr. Hartejsh Singh",
+        "Code": "D856470",
+        "Approx. Age": 36,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Male",
+        "Registration No.": "47199pmc",
+        "Mobile": 9115860261,
+        "Clinic / Hospital Name": "Guru Nanak Mission Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Dhahan Kalera, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 78,
+        "Doctor Name": "Dr. Harvinder Singh",
+        "Code": "D856295",
+        "Approx. Age": 52,
+        "Specialization": "SURGEON",
+        "Sub-speciality": "General Surgery",
+        "Qualification": "MS (General Surgery)",
+        "Gender": "Male",
+        "Registration No.": "24641pmc",
+        "Mobile": 9427458700,
+        "Clinic / Hospital Name": "Karan Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Heon Road, near bus stand, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 79,
+        "Doctor Name": "Dr. Jatinder Kumari",
+        "Code": "D856277",
+        "Approx. Age": 48,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "31631",
+        "Mobile": 9413501309,
+        "Clinic / Hospital Name": "Naven General Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Pyare Lal Bansal Market, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 80,
+        "Doctor Name": "Dr. Karan Bakhshish Singh",
+        "Code": "D856327",
+        "Approx. Age": 37,
+        "Specialization": "SURGEON",
+        "Sub-speciality": "General Surgery",
+        "Qualification": "MS (General Surgery)",
+        "Gender": "Male",
+        "Registration No.": "52541",
+        "Mobile": 9815953831,
+        "Clinic / Hospital Name": "Karan Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Heon Road, near bus stand, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 81,
+        "Doctor Name": "Dr. Kashmir Singh Rai",
+        "Code": "D856458",
+        "Approx. Age": 55,
+        "Specialization": "OTHER",
+        "Sub-speciality": "Cardiology",
+        "Qualification": "MD (General Medicine)",
+        "Gender": "Male",
+        "Registration No.": "26073",
+        "Mobile": 9915929608,
+        "Clinic / Hospital Name": "Rai General Hospital And Heart Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Mukundpur Road, Banga, SBS Nagar",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 82,
+        "Doctor Name": "Dr. Kk Sood",
+        "Code": "D856298",
+        "Approx. Age": 60,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "19732pmc",
+        "Mobile": 9855471588,
+        "Clinic / Hospital Name": "Dyal Sood Heart Centre And Nursing Home",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Chandigarh Road, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 83,
+        "Doctor Name": "Dr. Loveleen Kaur",
+        "Code": "D883825",
+        "Approx. Age": 40,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "46744",
+        "Mobile": 9779339666,
+        "Clinic / Hospital Name": "Akash Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Near Railway Road, Gandhi Nagar, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 84,
+        "Doctor Name": "Dr. Mandeep Singh",
+        "Code": "D883765",
+        "Approx. Age": 53,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Male",
+        "Registration No.": "34337",
+        "Mobile": 7710133008,
+        "Clinic / Hospital Name": "New Life Children Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Mukundpur Road, Banga, SBS Nagar",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 85,
+        "Doctor Name": "Dr. Naveen Kumar",
+        "Code": "D856392",
+        "Approx. Age": 45,
+        "Specialization": "OTHER",
+        "Sub-speciality": "Cardiology",
+        "Qualification": "MD (General Medicine)",
+        "Gender": "Male",
+        "Registration No.": "43660",
+        "Mobile": 9835013092,
+        "Clinic / Hospital Name": "Naveen General Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Pyare Lal Bansal Market, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 86,
+        "Doctor Name": "Dr. Neha Bhatia",
+        "Code": "D856304",
+        "Approx. Age": 39,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "39851",
+        "Mobile": 9427158706,
+        "Clinic / Hospital Name": "Karan Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Heon Road, near bus stand, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 87,
+        "Doctor Name": "Dr. Nitin Dhir",
+        "Code": "D856418",
+        "Approx. Age": 44,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "50425",
+        "Mobile": 8437170111,
+        "Clinic / Hospital Name": "Dhir Medical Centre",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Mukundpur Road near railway line, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 88,
+        "Doctor Name": "Dr. Onkar Singh",
+        "Code": "D856428",
+        "Approx. Age": 49,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Male",
+        "Registration No.": "28233",
+        "Mobile": 9814058668,
+        "Clinic / Hospital Name": "Mahindra Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Mukundpur Road, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 89,
+        "Doctor Name": "Dr. Parminder Singh",
+        "Code": "D856385",
+        "Approx. Age": 47,
+        "Specialization": "OTHER",
+        "Sub-speciality": "Orthopaedics",
+        "Qualification": "MS (Orthopaedics)",
+        "Gender": "Male",
+        "Registration No.": "25578",
+        "Mobile": 8437370444,
+        "Clinic / Hospital Name": "Mahindra Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Mukundpur Road, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 90,
+        "Doctor Name": "Dr. Ravinder Khajuria",
+        "Code": "D856342",
+        "Approx. Age": 45,
+        "Specialization": "OTHER",
+        "Sub-speciality": "Orthopaedics",
+        "Qualification": "MS (Orthopaedics)",
+        "Gender": "Male",
+        "Registration No.": "30477pmc",
+        "Mobile": 9115860260,
+        "Clinic / Hospital Name": "Guru Nanak Mission Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Guru Nanak Mission Hospital, Dhahan Kaleran",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 91,
+        "Doctor Name": "Dr. Ravinder Kumar",
+        "Code": "D856315",
+        "Approx. Age": 48,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "26609",
+        "Mobile": 9915084096,
+        "Clinic / Hospital Name": "Navin General Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Rai Petrol Pump, Phagwara Road, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 92,
+        "Doctor Name": "Dr. Reenu Sood",
+        "Code": "D856276",
+        "Approx. Age": 58,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "21755",
+        "Mobile": 9855471588,
+        "Clinic / Hospital Name": "Dyal Sood Heart Centre And Nursing Home",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Chandigarh Road, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 93,
+        "Doctor Name": "Dr. Renu Rahul",
+        "Code": "D856279",
+        "Approx. Age": 40,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": null,
+        "Mobile": 9815953831,
+        "Clinic / Hospital Name": "Karan Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Near bus stand, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 94,
+        "Doctor Name": "Dr. Savita Dhir",
+        "Code": "D856357",
+        "Approx. Age": 42,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "41580",
+        "Mobile": 8437126475,
+        "Clinic / Hospital Name": "Dhir Medical Centre",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Mukundpur Road near railway line, Banga",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 95,
+        "Doctor Name": "Dr. Shaveta Bagadia",
+        "Code": "D856377",
+        "Approx. Age": 43,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "50188",
+        "Mobile": 9813944788,
+        "Clinic / Hospital Name": "Guru Nanak Mission Hospital Dhahan",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Guru Nanak Mission Hospital, Dhahan",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 96,
+        "Doctor Name": "Dr. Subash Arora",
+        "Code": "D883790",
+        "Approx. Age": 60,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "2895",
+        "Mobile": 9811240019,
+        "Clinic / Hospital Name": "Arora Clinic",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Guru Teg Bahadur Gate, Arora Clinic",
+        "City": "BANGA",
+        "State": "PUNJAB",
+        "Pincode": 144505
+      },
+      {
+        "S. No.": 97,
+        "Doctor Name": "Dr. Amandeep Soori",
+        "Code": "D883771",
+        "Approx. Age": 45,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "42509",
+        "Mobile": 8637489266,
+        "Clinic / Hospital Name": "Soori Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Bhaddi Road, Balachaur",
+        "City": "BALACHAUR",
+        "State": "PUNJAB",
+        "Pincode": 144521
+      },
+      {
+        "S. No.": 98,
+        "Doctor Name": "Dr. Amisha Sidhu",
+        "Code": "D883784",
+        "Approx. Age": 46,
+        "Specialization": "SURGEON",
+        "Sub-speciality": "General Surgery",
+        "Qualification": "MS (General Surgery)",
+        "Gender": "Female",
+        "Registration No.": "37176",
+        "Mobile": 9978867772,
+        "Clinic / Hospital Name": "Neucare Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "NeuCare Clinic, Mehendipur",
+        "City": "BALACHAUR",
+        "State": "PUNJAB",
+        "Pincode": 144521
+      },
+      {
+        "S. No.": 99,
+        "Doctor Name": "Dr. Baljeet Kaur",
+        "Code": "D916685",
+        "Approx. Age": 51,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "7084",
+        "Mobile": 9417843535,
+        "Clinic / Hospital Name": "Bains Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Bhaddi Road near Baba Balraj College",
+        "City": "BALACHAUR",
+        "State": "PUNJAB",
+        "Pincode": 144521
+      },
+      {
+        "S. No.": 100,
+        "Doctor Name": "Dr. Balwinder Singh Bains",
+        "Code": "D916682",
+        "Approx. Age": 55,
+        "Specialization": "MBBS",
+        "Sub-speciality": "MBBS",
+        "Qualification": "MBBS",
+        "Gender": "Male",
+        "Registration No.": "30405",
+        "Mobile": 9417843535,
+        "Clinic / Hospital Name": "Bains Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Bhaddi Road near Baba Balraj College",
+        "City": "BALACHAUR",
+        "State": "PUNJAB",
+        "Pincode": 144521
+      },
+      {
+        "S. No.": 101,
+        "Doctor Name": "Dr. Deepali Kataria",
+        "Code": "D883767",
+        "Approx. Age": 38,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "DGO",
+        "Gender": "Female",
+        "Registration No.": "47635",
+        "Mobile": 9417191883,
+        "Clinic / Hospital Name": "Kataria Hospital",
+        "Clinic / Hospital Type": "MC",
+        "Address": "Gahoon Road, Balachaur, SBS Nagar",
+        "City": "BALACHAUR",
+        "State": "PUNJAB",
+        "Pincode": 144521
+      },
+      {
+        "S. No.": 102,
+        "Doctor Name": "Dr. Inder Mohan Kataria",
+        "Code": "D916686",
+        "Approx. Age": 60,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "37182pms",
+        "Mobile": 9417191883,
+        "Clinic / Hospital Name": "Kataria Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Gahoon Road, Balachaur",
+        "City": "BALACHAUR",
+        "State": "PUNJAB",
+        "Pincode": 144521
+      },
+      {
+        "S. No.": 103,
+        "Doctor Name": "Dr. Jasdeep Sidhu",
+        "Code": "D883785",
+        "Approx. Age": 46,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "37840pmc",
+        "Mobile": 6280324421,
+        "Clinic / Hospital Name": "Dr Sandhu Urology Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Saini House, Ward No. 12",
+        "City": "BALACHAUR",
+        "State": "PUNJAB",
+        "Pincode": 144521
+      },
+      {
+        "S. No.": 104,
+        "Doctor Name": "Dr. Karan Kaushal",
+        "Code": "D883778",
+        "Approx. Age": 37,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "55067pmc",
+        "Mobile": 9463782271,
+        "Clinic / Hospital Name": "Rana Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Chandigarh Road, Balachaur",
+        "City": "BALACHAUR",
+        "State": "PUNJAB",
+        "Pincode": 144521
+      },
+      {
+        "S. No.": 105,
+        "Doctor Name": "Dr. Karanveer Kataria",
+        "Code": "D883766",
+        "Approx. Age": 39,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Male",
+        "Registration No.": "37135",
+        "Mobile": 9417515548,
+        "Clinic / Hospital Name": "Kataria Maternity And Children Hospital",
+        "Clinic / Hospital Type": "MC",
+        "Address": "Gahoon Road, Balachaur, SBS Nagar",
+        "City": "BALACHAUR",
+        "State": "PUNJAB",
+        "Pincode": 144521
+      },
+      {
+        "S. No.": 106,
+        "Doctor Name": "Dr. Ranjit Kaur",
+        "Code": "D883768",
+        "Approx. Age": 38,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "30182",
+        "Mobile": 9878817166,
+        "Clinic / Hospital Name": "Navnoor Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Opposite Mount Caramel School, Garhshankar Road",
+        "City": "BALACHAUR",
+        "State": "PUNJAB",
+        "Pincode": 144521
+      },
+      {
+        "S. No.": 107,
+        "Doctor Name": "Dr. Ravi Pal",
+        "Code": "D883783",
+        "Approx. Age": 48,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "52703",
+        "Mobile": 9817973729,
+        "Clinic / Hospital Name": "Bagga Clinic",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Bhaddi Road, Balachaur",
+        "City": "BALACHAUR",
+        "State": "PUNJAB",
+        "Pincode": 144521
+      },
+      {
+        "S. No.": 108,
+        "Doctor Name": "Dr. Ravinder Thakur",
+        "Code": "D883776",
+        "Approx. Age": 65,
+        "Specialization": "CP",
+        "Sub-speciality": "Consulting Physician",
+        "Qualification": "MD",
+        "Gender": "Male",
+        "Registration No.": "25938",
+        "Mobile": 9872036748,
+        "Clinic / Hospital Name": "Dr Thakur Get Well Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Siana, Balachaur",
+        "City": "BALACHAUR",
+        "State": "PUNJAB",
+        "Pincode": 144521
+      },
+      {
+        "S. No.": 109,
+        "Doctor Name": "Dr. Sukanda Rana",
+        "Code": "D883774",
+        "Approx. Age": 35,
+        "Specialization": "PAEDIATRICIAN",
+        "Sub-speciality": "Paediatrician",
+        "Qualification": "MD (Paediatrics)",
+        "Gender": "Female",
+        "Registration No.": "46752pmc",
+        "Mobile": 9685220147,
+        "Clinic / Hospital Name": "Government Hospital",
+        "Clinic / Hospital Type": "MULTI-SPECIALITY",
+        "Address": "Siana, Balachaur",
+        "City": "BALACHAUR",
+        "State": "PUNJAB",
+        "Pincode": 144521
+      },
+      {
+        "S. No.": 110,
+        "Doctor Name": "Dr. Sunita",
+        "Code": "D883769",
+        "Approx. Age": 42,
+        "Specialization": "Gynaecologist",
+        "Sub-speciality": "Gynaecology",
+        "Qualification": "MS (Obstetrics & Gynaecology)",
+        "Gender": "Female",
+        "Registration No.": "7100",
+        "Mobile": 9855648916,
+        "Clinic / Hospital Name": "Sunita Charitable Hospital",
+        "Clinic / Hospital Type": "CLINIC",
+        "Address": "Kothi No. 2, Doctors Colony, Mandhiani Road, Balachaur",
+        "City": "BALACHAUR",
+        "State": "PUNJAB",
+        "Pincode": 144521
+      }
+    ];
 
     let selectedDoctorId = null;
 
@@ -2382,7 +2477,7 @@
       setTimeout(() => {
         const loader = document.getElementById('loader-wrapper');
         loader.style.opacity = '0';
-        setTimeout(() => loader.style.display = 'none', 500);
+        setTimeout(() => loader.style.display = 'none', 600);
         setupCitySelection();
       }, 1000);
     });
@@ -2423,6 +2518,7 @@
         // Serial No
         const tdIndex = document.createElement('td');
         tdIndex.textContent = index + 1;
+        tdIndex.style.color = 'var(--secondary-text)';
 
         // Name Button + Saved Visit Badges
         const tdName = document.createElement('td');
@@ -2495,7 +2591,7 @@
       document.getElementById('visit-date').value = '';
       renderSavedVisits();
 
-      // Refresh doctor list to update badges
+      // Refresh doctor list to update badges instantly
       const activeCityBtn = document.querySelector('.city-btn.active');
       if (activeCityBtn) activeCityBtn.click();
     });
@@ -2518,9 +2614,31 @@
       visits.forEach((v, idx) => {
         const item = document.createElement('div');
         item.className = 'saved-visit-item';
-        item.innerHTML = `<span>Visit ${idx + 1}: <strong>${v}</strong></span>`;
+        
+        const textSpan = document.createElement('span');
+        textSpan.innerHTML = `Visit ${idx + 1}: <strong style="color: #fff;">${v}</strong>`;
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'delete-visit-btn';
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.onclick = () => deleteVisit(selectedDoctorId, idx);
+
+        item.appendChild(textSpan);
+        item.appendChild(deleteBtn);
         container.appendChild(item);
       });
+    }
+
+    // Delete Visit Date feature if filled by mistake
+    function deleteVisit(docId, index) {
+      let visits = getVisits(docId);
+      visits.splice(index, 1);
+      localStorage.setItem(`visits_${docId}`, JSON.stringify(visits));
+      renderSavedVisits();
+
+      // Refresh doctor list to update badges
+      const activeCityBtn = document.querySelector('.city-btn.active');
+      if (activeCityBtn) activeCityBtn.click();
     }
 
     function closeModal(modalId) {
