@@ -1,0 +1,1450 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#edf1fc" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#101421" media="(prefers-color-scheme: dark)">
+  <title>Raptakos, Brett &amp; Co. Ltd. DBMS</title>
+  <meta name="description" content="Doctor directory and personal visit history for Raptakos, Brett &amp; Co. Ltd.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="RB DBMS">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="icon" type="image/png" href="https://chamanlal1972.github.io/ChamanLal/logo.png?v=20261019-2">
+  <link rel="apple-touch-icon" href="https://chamanlal1972.github.io/ChamanLal/logo.png?v=20261019-2">
+  <link rel="preload" as="image" href="./logo.png">
+
+  <!-- Sharing preview configured for https://chamanlal1972.github.io/ChamanLal/
+       WhatsApp reads these original HTML tags without running JavaScript.
+       Keep logo.png beside this index.html. -->
+  <link rel="canonical" href="https://chamanlal1972.github.io/ChamanLal/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Raptakos, Brett &amp; Co. Ltd. DBMS">
+  <meta property="og:description" content="Your doctor directory and visit history, together.">
+  <meta property="og:url" content="https://chamanlal1972.github.io/ChamanLal/">
+  <meta property="og:image" content="https://chamanlal1972.github.io/ChamanLal/logo.png">
+  <meta property="og:image:secure_url" content="https://chamanlal1972.github.io/ChamanLal/logo.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="Raptakos, Brett &amp; Co. Ltd. logo">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Raptakos, Brett &amp; Co. Ltd. DBMS">
+  <meta name="twitter:image" content="https://chamanlal1972.github.io/ChamanLal/logo.png">
+
+  <style>
+    .home-cloud-notice { margin:22px 0; align-items:center; flex-wrap:wrap; }
+    .home-cloud-notice p { flex:1 1 200px; min-width:0; }
+    .home-cloud-actions { display:flex; align-items:center; gap:8px; margin-left:auto; }
+    .home-cloud-actions button { min-height:44px; }
+    :root {
+      color-scheme: light dark;
+      --bg: #edf1fc; --ink: #18223c; --muted: #596780; --faint: #76839a;
+      --glass: rgba(255,255,255,.50); --glass-strong: rgba(250,252,255,.87);
+      --input: rgba(255,255,255,.55); --edge: rgba(255,255,255,.88);
+      --line: rgba(56,76,122,.1); --accent: #3564df; --accent-ink: #244fc5;
+      --accent-soft: rgba(67,112,242,.11); --green: #21815c;
+      --danger: #b73550; --danger-soft: rgba(217,62,86,.10); --danger-edge: rgba(160,90,110,.19);
+      --glow-blue: rgba(146,183,255,.31); --glow-violet: rgba(206,174,255,.29); --glow-mint: rgba(138,223,202,.27);
+      --shadow: 0 12px 28px -17px rgba(44,66,116,.38), 0 3px 7px -3px rgba(44,66,116,.14);
+      --inner: inset 0 1px 1px rgba(255,255,255,.98), inset 1px 0 0 rgba(255,255,255,.28), inset 0 -1px 1px rgba(56,77,121,.08);
+      --control-shadow: 0 4px 9px -5px rgba(40,62,113,.24);
+      --surface-sheen: linear-gradient(145deg,rgba(255,255,255,.66) 0%,rgba(255,255,255,.16) 37%,rgba(255,255,255,0) 59%,rgba(255,255,255,.22) 100%);
+      --well-sheen: linear-gradient(160deg,rgba(255,255,255,.24),rgba(255,255,255,0) 58%);
+      --danger-sheen: linear-gradient(155deg,rgba(255,255,255,.22),rgba(255,255,255,0) 65%);
+      --sheet-shadow: 0 40px 100px rgba(25,40,77,.22), 0 8px 24px -12px rgba(25,40,77,.24);
+      --blur: blur(24px) saturate(1.55);
+      --ease: cubic-bezier(.22,1,.36,1);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #101421; --ink: #f0f3ff; --muted: #abb7d0; --faint: #95a2be;
+        --glass: rgba(35,43,65,.56); --glass-strong: rgba(28,35,54,.91);
+        --input: rgba(24,32,51,.53); --edge: rgba(206,221,255,.19);
+        --line: rgba(202,218,255,.13); --accent: #90b0ff; --accent-ink: #adc4ff;
+        --accent-soft: rgba(137,169,255,.14); --green: #8ad9b7;
+        --danger: #ffa1b5; --danger-soft: rgba(255,115,139,.12); --danger-edge: rgba(255,188,207,.16);
+        --glow-blue: rgba(32,53,88,.78); --glow-violet: rgba(42,34,71,.78); --glow-mint: rgba(22,55,56,.78);
+        --shadow: 0 14px 28px -15px rgba(0,0,0,.65), 0 3px 8px -3px rgba(0,0,0,.28);
+        --inner: inset 0 1px 1px rgba(230,239,255,.17), inset 1px 0 0 rgba(230,239,255,.045), inset 0 -1px 1px rgba(0,0,0,.24);
+        --control-shadow: 0 5px 10px -5px rgba(0,0,0,.48);
+        --surface-sheen: linear-gradient(145deg,rgba(224,235,255,.115) 0%,rgba(224,235,255,.025) 37%,rgba(224,235,255,0) 59%,rgba(224,235,255,.035) 100%);
+        --well-sheen: linear-gradient(160deg,rgba(224,235,255,.055),rgba(224,235,255,0) 58%);
+        --danger-sheen: linear-gradient(155deg,rgba(255,205,223,.045),rgba(255,205,223,0) 65%);
+        --sheet-shadow: 0 40px 100px rgba(0,0,0,.52), 0 8px 24px -12px rgba(0,0,0,.46);
+      }
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { min-height: 100%; background: var(--bg); scroll-padding-top: 106px; }
+    body {
+      margin: 0; min-width: 280px; min-height: 100svh; color: var(--ink); font-size: 15px; line-height: 1.45;
+      /* Paint one background with the document. A fixed negative-z layer can
+         flash during mobile viewport resizing and glass-surface compositing. */
+      background:
+        radial-gradient(ellipse at 4% 14%, var(--glow-blue), transparent 47%),
+        radial-gradient(ellipse at 97% 34%, var(--glow-violet), transparent 45%),
+        radial-gradient(ellipse at 25% 94%, var(--glow-mint), transparent 47%),
+        var(--bg);
+      background-repeat: no-repeat;
+      background-attachment: scroll;
+    }
+    button, input, select, textarea { font: inherit; }
+    button { color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+    button, a, input, select, textarea { outline-offset: 4px; }
+    button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--accent); }
+    button:disabled { cursor: default; opacity: .5; }
+    button { -webkit-appearance: none; appearance: none; }
+    a { color: var(--accent-ink); }
+    [hidden] { display: none !important; }
+    .icon { width: 21px; height: 21px; display: inline-block; fill: none; stroke: currentColor; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; vertical-align: middle; }
+    .svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+    .glass { background: var(--surface-sheen), var(--glass); border: 1px solid var(--edge); box-shadow: var(--shadow), var(--inner); -webkit-backdrop-filter: var(--blur); backdrop-filter: var(--blur); }
+    /* Repeated list surfaces keep their tint, transparency and highlights.
+       Reserve live backdrop blur for the header, search field and dialogs. */
+    .city-card.glass, .doctor-name-button.glass, .details-button.glass { -webkit-backdrop-filter: none; backdrop-filter: none; }
+    .press { transition: transform .28s var(--ease), background-color .22s, box-shadow .22s; }
+    .press:active:not(:disabled) { transform: translateY(1px) scale(.98); }
+    @media (hover: hover) {
+      .press:hover:not(:disabled) { background-color: var(--glass-strong); }
+      .city-card:hover:not(:disabled), .doctor-name-button:hover:not(:disabled) { transform: translateY(-1px); }
+      .primary:hover:not(:disabled) { filter: brightness(1.07); }
+    }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .skip { position: fixed; top: -80px; left: 16px; z-index: 100; padding: 12px 18px; border-radius: 20px; background: var(--glass-strong); }
+    .skip:focus { top: 12px; }
+    .app-header { position: sticky; top: 0; z-index: 10; padding: calc(env(safe-area-inset-top,0px) + 14px) 20px 0; }
+    .header-inner { width: min(100%, 960px); min-height: 76px; margin: auto; padding: 12px 15px; border-radius: 27px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .brand { display: flex; align-items: center; gap: 12px; border: 0; background: none; padding: 0; text-align: left; min-width: 0; border-radius: 14px; }
+    .logo-wrap { width: 46px; height: 46px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 15px; background: var(--surface-sheen),rgba(255,255,255,.75); border: 1px solid var(--edge); box-shadow: var(--control-shadow),var(--inner); position: relative; overflow: hidden; }
+    .logo-wrap img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+    .logo-wrap.missing img { display: none; }
+    .brand-title { font-size: 14px; font-weight: 690; letter-spacing: -.25px; line-height: 1.3; display: block; }
+    .brand-subtitle { color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: 1.8px; display: block; margin-top: 3px; }
+    .account-button { display: flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; padding: 9px 14px; border-radius: 16px; border: 1px solid var(--edge); color: var(--accent-ink); background: var(--surface-sheen),var(--accent-soft); box-shadow:var(--control-shadow),var(--inner); font-size: 13px; font-weight: 650; white-space: nowrap; flex: 0 0 auto; }
+    .account-button .icon { width: 18px; height: 18px; }
+    main { width: min(100% - 40px, 760px); margin: 0 auto; padding: 0 0 44px; }
+    .home-view { padding-top: clamp(35px,7vh,72px); max-width: 620px; margin: 0 auto; }
+    .eyebrow { font-size: 10px; letter-spacing: 2.1px; font-weight: 700; color: var(--muted); margin: 0 0 12px; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { font-weight: 730; font-size: clamp(36px,7vw,52px); line-height: 1.12; letter-spacing: -2px; margin-bottom: 13px; }
+    .intro { margin-bottom: 30px; color: var(--muted); font-size: 15px; line-height: 1.65; max-width: 430px; }
+    .city-list { display: grid; gap: 11px; }
+    .city-card { width: 100%; display: flex; align-items: center; text-align: left; gap: 15px; min-height: 77px; border-radius: 25px; padding: 13px 19px 13px 14px; background:var(--surface-sheen),linear-gradient(110deg,hsla(var(--hue),85%,80%,.16),transparent 73%),var(--glass); }
+    .city-symbol { width: 47px; height: 47px; border-radius: 17px; display: grid; place-items: center; flex: 0 0 auto; background:var(--surface-sheen),hsla(var(--hue),80%,76%,.28); color: hsl(var(--hue),57%,38%); box-shadow:var(--control-shadow),var(--inner); border: 1px solid var(--edge); }
+    .city-card > span:nth-child(2) { min-width:0; flex:1; }
+    .city-name { overflow-wrap:anywhere; display: block; font-size: 17px; font-weight: 650; letter-spacing: -.3px; }
+    .city-meta { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .city-arrow { margin-left: auto; width: 18px; color: var(--faint); }
+    .directory-view { padding-top: 28px; }
+    .back-button { background:var(--surface-sheen),var(--glass); border:1px solid var(--edge); box-shadow:var(--control-shadow),var(--inner); min-height:44px; padding:9px 13px 9px 9px; display: inline-flex; align-items: center; gap: 3px; color: var(--accent-ink); font-size: 14px; font-weight: 560; border-radius: 15px; margin-left:0; }
+    .back-button .icon { width: 18px; }
+    .directory-heading { display: grid; grid-template-columns: minmax(0,1fr) 44px; grid-template-areas: "eyebrow eyebrow" "title add" "summary summary"; align-items: center; gap: 8px 16px; margin: 16px 0 21px; }
+    .directory-heading > .eyebrow { grid-area: eyebrow; margin: 0 0 2px; }
+    .directory-heading h1 { grid-area: title; font-size: clamp(32px,6vw,42px); letter-spacing: -1.5px; margin: 0; min-width: 0; overflow-wrap: anywhere; }
+    .directory-heading > .add-button { grid-area: add; }
+    .directory-summary { grid-area: summary; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; margin-top: 1px; }
+    .directory-meta { color: var(--muted); font-size: 13px; margin: 0; }
+    .sync-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; line-height: 1.45; color: var(--muted); white-space: nowrap; }
+    .sync-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    .sync-badge[data-state="live"] { color: var(--green); }
+    .sync-badge[data-state="error"] { color: var(--danger); }
+    .sync-badge[data-state="setup"] { color: var(--accent-ink); }
+    .search-wrap { display: flex; gap: 10px; align-items: center; padding: 0 14px; min-height: 50px; border-radius: 19px; margin-bottom: 19px; }
+    .search-wrap > .icon { width: 19px; color: var(--muted); }
+    #search { border: 0; background: none; color: var(--ink); min-width: 0; width: 100%; height: 48px; padding: 0; outline: none; font-size: 15px; -webkit-appearance: none; appearance: none; }
+    #search::placeholder { color: var(--faint); opacity: 1; }
+    #search::-webkit-search-cancel-button { -webkit-appearance: none; }
+    .search-wrap:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .clear-search { border: 0; padding: 8px; margin-right: -8px; background: none; color: var(--muted); border-radius: 50%; min-width: 38px; min-height: 38px; }
+    .clear-search .icon { width: 17px; height: 17px; }
+    .list-caption { display: flex; align-items: center; justify-content: space-between; padding: 0 4px; font-size: 10px; letter-spacing: 1.5px; font-weight: 650; color: var(--muted); margin-bottom: 10px; }
+    .doctor-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+    .doctor-row { display: flex; gap: 9px; align-items: stretch; min-width: 0; }
+    .doctor-name-button { display: flex; align-items: center; text-align: left; gap: 12px; flex: 1; min-width: 0; border-radius: 22px; padding: 14px 15px; min-height: 82px; background:var(--surface-sheen),linear-gradient(115deg,hsla(var(--hue),85%,82%,.22),transparent 80%),var(--glass); }
+    .serial { display: grid; place-items: center; width: 36px; height: 36px; flex: 0 0 auto; border-radius: 13px; font-size: 12px; font-variant-numeric: tabular-nums; font-weight: 650; color: var(--accent-ink); background:var(--surface-sheen),var(--input); border: 1px solid var(--edge); box-shadow:var(--control-shadow),var(--inner); }
+    .doctor-copy { display: block; min-width: 0; }
+    .doctor-name { display: block; font-size: 15px; font-weight: 650; line-height: 1.35; letter-spacing: -.25px; overflow-wrap: anywhere; }
+    .doctor-clinic { display: block; color: var(--muted); font-size: 11px; line-height: 1.5; margin-top: 3px; overflow-wrap: anywhere; }
+    .doctor-visit { display: block; color: var(--green); font-size: 10px; font-weight: 550; margin-top: 4px; line-height: 1.4; }
+    .details-button { align-self: stretch; padding: 11px 14px; border-radius: 22px; color: var(--accent-ink); font-size: 12px; font-weight: 630; min-width: 78px; }
+    .empty { text-align: center; color: var(--muted); padding: 38px 15px; border-radius: 24px; font-size: 14px; }
+    .empty .icon { display: block; margin: 0 auto 12px; width: 27px; height: 27px; color: var(--faint); }
+    .empty strong { display: block; color: var(--ink); font-size: 15px; margin-bottom: 6px; font-weight: 600; }
+    dialog { color: var(--ink); border: 1px solid var(--edge); background:var(--surface-sheen),var(--glass-strong); box-shadow: var(--sheet-shadow), var(--inner); -webkit-backdrop-filter: blur(28px) saturate(1.65); backdrop-filter: blur(28px) saturate(1.65); padding: 0; }
+    dialog::backdrop { background: rgba(20,30,51,.25); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+    dialog[open] { animation: sheet-in .38s var(--ease) both; }
+    @keyframes sheet-in { from { opacity: 0; transform: translateY(22px) scale(.97); } to { opacity: 1; transform: none; } }
+    .sheet { width: min(calc(100% - 28px),550px); max-height: min(86dvh,850px); border-radius: 31px; margin: auto; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+    .sheet-top { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; padding: 17px 22px 12px; gap: 10px; background: var(--glass-strong); -webkit-backdrop-filter: var(--blur); backdrop-filter: var(--blur); border-radius: 31px 31px 0 0; }
+    .sheet-top .eyebrow { margin: 0; font-size: 10px; letter-spacing: 1.6px; }
+    .icon-button { display: grid; place-items: center; border: 1px solid var(--edge); background:var(--surface-sheen),var(--accent-soft); box-shadow:var(--control-shadow),var(--inner); color: var(--muted); min-height: 38px; min-width: 38px; border-radius:14px; padding: 8px; }
+    .icon-button .icon { width: 18px; height: 18px; }
+    .sheet-content { padding: 0 25px 27px; }
+    .sheet h2 { font-size: 26px; font-weight: 700; letter-spacing: -.8px; line-height: 1.2; margin: 6px 0 7px; }
+    .sheet-subtitle { color: var(--muted); font-size: 12px; line-height: 1.65; margin-bottom: 23px; }
+    .cloud-notice { display: flex; align-items: center; gap: 11px; border-radius: 18px; border: 1px solid var(--line); background: var(--input); padding: 13px; margin-bottom: 17px; }
+    .cloud-notice > .icon { color: var(--accent); width: 20px; }
+    .cloud-notice p { color: var(--muted); font-size: 12px; margin: 0; flex: 1; }
+    .text-button { border: 0; background: transparent; color: var(--accent-ink); padding: 9px 5px; font-size: 12px; font-weight: 650; white-space: nowrap; border-radius: 12px; }
+    .field-label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 8px; }
+    .calendar-button { min-height: 58px; padding: 13px 15px; border-radius: 19px; display: flex; gap: 12px; align-items: center; text-align: left; width: 100%; background:var(--surface-sheen),var(--input); }
+    .calendar-button > .icon:first-child { color: var(--accent); }
+    .calendar-button > .icon:last-child { margin-left: auto; width: 16px; color: var(--faint); }
+    #dateLabel { font-size: 15px; font-weight: 600; letter-spacing: -.2px; }
+    .date-picker { padding: 15px 13px 13px; margin-top: 10px; border: 1px solid var(--edge); border-radius: 22px; background: var(--input); box-shadow: var(--inner); }
+    .calendar-month-bar { display: flex; align-items: center; justify-content: space-between; margin: 0 0 12px; gap: 10px; }
+    .calendar-month { margin: 0; font-size: 14px; font-weight: 650; letter-spacing: -.2px; }
+    .calendar-arrows { display: flex; gap: 5px; }
+    .calendar-arrows .icon-button { min-height: 32px; min-width: 32px; padding: 5px; }
+    .calendar-weekdays, .calendar-grid { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); gap: 3px; }
+    .calendar-weekdays { color: var(--muted); text-align: center; font-size: 9px; font-weight: 600; margin-bottom: 6px; }
+    .calendar-day { width: 100%; min-height: 34px; aspect-ratio: 1.15; max-height: 44px; border: 1px solid transparent; border-radius: 13px; background: transparent; font-size: 12px; font-variant-numeric: tabular-nums; display: grid; place-items: center; padding: 0; }
+    .calendar-day.today { border-color: var(--accent); color: var(--accent-ink); }
+    .calendar-day[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--edge); color: var(--accent-ink); box-shadow: var(--inner),0 3px 10px rgba(74,104,181,.1); font-weight: 750; }
+    .calendar-day:disabled { opacity: .25; }
+    .date-picker-controls { display: flex; gap: 9px; align-items: center; margin-top: 13px; padding-top: 12px; border-top: 1px solid var(--line); }
+    .input { display: block; width: 100%; border: 1px solid var(--line); border-radius: 17px; min-height: 52px; padding: 12px 14px; background:var(--well-sheen),var(--input); box-shadow:inset 0 1px 3px rgba(25,40,77,.055),inset 0 -1px 0 var(--edge); color: var(--ink); outline-offset: 2px; font-size: 16px; min-width: 0; }
+    input[type="date"] { -webkit-appearance: none; appearance: none; min-height: 49px; flex: 1; }
+    .small-ok { min-height: 49px; padding: 10px 19px; border-radius: 16px; border: 1px solid var(--edge); background:var(--surface-sheen),var(--accent-soft); box-shadow:var(--control-shadow),var(--inner); color: var(--accent-ink); font-weight: 650; }
+    .primary { display: flex; align-items: center; justify-content: center; gap: 9px; width: 100%; min-height: 52px; border-radius: 18px; background:linear-gradient(165deg,rgba(255,255,255,.18),transparent 54%),linear-gradient(160deg,#4771d0,#2e55b8); border: 1px solid rgba(255,255,255,.42); color: #fff; box-shadow:inset 0 1px 1px rgba(255,255,255,.65),inset 0 -2px 2px rgba(22,55,139,.20),0 7px 18px -5px rgba(57,96,197,.34); font-size: 14px; font-weight: 650; margin-top: 14px; transition: transform .28s var(--ease), filter .2s; }
+    .primary .icon { width: 19px; height: 19px; }
+    .history-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; border-top: 1px solid var(--line); padding-top: 24px; margin-top: 25px; margin-bottom: 14px; }
+    .history-heading h3 { font-size: 16px; margin: 0; letter-spacing: -.3px; font-weight: 650; }
+    .history-count { color: var(--muted); font-size: 11px; }
+    .visit-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 9px; }
+    .visit-entry { display: flex; gap: 12px; align-items: center; padding: 11px 11px 11px 14px; border: 1px solid var(--line); border-radius: 18px; background: var(--input); }
+    .date-tile { width:44px; height:44px; flex:0 0 44px; border-radius:14px; border:1px solid var(--edge); background:var(--surface-sheen),var(--accent-soft); box-shadow:var(--control-shadow),var(--inner); display: flex; align-items: center; justify-content: center; flex-direction: column; color: var(--accent-ink); }
+    .date-tile small { font-size: 8px; line-height: 1; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; }
+    .date-tile b { font-size: 18px; font-weight: 650; letter-spacing: -.5px; line-height: 1.25; margin-top: 3px; }
+    .visit-entry-copy { flex: 1; min-width: 0; }
+    .visit-entry-date { font-weight: 600; font-size: 13px; display: block; }
+    .visit-entry-meta { font-size: 10px; color: var(--green); display: block; margin-top: 3px; }
+    .delete-entry { border:1px solid var(--danger-edge); background:var(--danger-sheen),var(--danger-soft); color:var(--danger); width:44px; min-width:44px; height:44px; min-height:44px; flex:0 0 44px; padding:12px; display:grid; place-items:center; border-radius:14px; box-shadow:var(--control-shadow),var(--inner); }
+    .delete-entry .icon { width: 18px; height: 18px; }
+    .history-message { color: var(--muted); font-size: 12px; line-height: 1.65; margin: 0; padding: 17px 5px 10px; text-align: center; }
+    .inline-error { color: var(--danger); font-size: 12px; line-height: 1.6; margin: 12px 2px 0; overflow-wrap: anywhere; }
+    .fine-print { font-size: 11px; line-height: 1.6; color: var(--muted); margin: 12px 2px 0; }
+    .detail-grid { margin: 0; padding: 0; border: 1px solid var(--line); border-radius: 20px; background: var(--input); overflow: hidden; }
+    .detail-field { display: grid; grid-template-columns: minmax(100px,.8fr) minmax(0,1.2fr); gap: 15px; padding: 13px 16px; border-bottom: 1px solid var(--line); }
+    .detail-field:last-child { border-bottom: 0; }
+    .detail-field dt { color: var(--muted); font-size: 11px; line-height: 1.6; }
+    .detail-field dd { margin: 0; font-size: 12px; font-weight: 550; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .detail-action { margin-top: 18px; }
+    .confirm { width: min(calc(100% - 44px),340px); max-height: 88dvh; margin: auto; overflow-y: auto; overscroll-behavior: contain; border-radius: 29px; text-align: center; padding: 26px 23px 16px; }
+    .confirm-icon { width:49px; height:49px; border-radius:17px; display:grid; place-items:center; background:var(--danger-sheen),var(--danger-soft); color:var(--danger); margin:0 auto 15px; box-shadow:var(--control-shadow),var(--inner); border:1px solid var(--danger-edge); }
+    .confirm h2 { font-size: 20px; letter-spacing: -.6px; line-height: 1.3; margin: 0 0 9px; }
+    .confirm p { color: var(--muted); font-size: 12px; line-height: 1.6; margin: 0 0 17px; }
+    .confirm-actions { display: flex; gap: 9px; border-top: 1px solid var(--line); padding-top: 12px; }
+    .confirm-actions button { flex:1; padding:12px; border:1px solid var(--edge); background:var(--surface-sheen),var(--input); box-shadow:var(--control-shadow),var(--inner); border-radius:15px; font-weight:650; font-size:13px; min-height:46px; }
+    .confirm-actions .danger-button { color:var(--danger); border-color:var(--danger-edge); background:var(--danger-sheen),var(--danger-soft); }
+    .confirm .inline-error { color: var(--danger); margin-bottom: 16px; }
+    .account-form label { margin-top: 17px; }
+    .password-field { position: relative; }
+    .password-field input { padding-right: 49px; }
+    .password-toggle { position: absolute; right: 6px; top: 5px; min-height: 42px; min-width: 40px; display: grid; place-items: center; background: none; border: 0; color: var(--muted); border-radius: 12px; }
+    .password-toggle .icon { width: 19px; height: 19px; }
+    .account-identity { margin: 15px 0 19px; padding: 17px; background: var(--input); border: 1px solid var(--line); border-radius: 20px; display: flex; align-items: center; gap: 12px; }
+    .account-identity > .icon { width: 27px; height: 27px; color: var(--accent); }
+    #accountEmail { display: block; font-size: 14px; font-weight: 600; overflow-wrap: anywhere; }
+    #accountStatus { display: block; font-size: 11px; color: var(--muted); margin-top: 4px; }
+    .secondary { width:100%; min-height:49px; padding:12px 15px; border-radius:17px; border:1px solid var(--edge); background:var(--surface-sheen),var(--input); box-shadow:var(--control-shadow),var(--inner); font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:center; gap:9px; margin-top:11px; }
+    .secondary .icon { width: 18px; height: 18px; }
+    .sign-out { color:var(--danger); border-color:var(--danger-edge); background:var(--danger-sheen),var(--danger-soft); }
+    .toast { position: fixed; z-index: 100; top: calc(106px + env(safe-area-inset-top,0px)); left: 50%; transform: translate(-50%,-12px) scale(.97); width: max-content; max-width: calc(100% - 32px); display: flex; align-items: center; justify-content: center; gap: 9px; padding: 13px 20px; background: var(--glass-strong); border: 1px solid var(--edge); border-radius: 23px; -webkit-backdrop-filter: var(--blur); backdrop-filter: var(--blur); box-shadow: var(--shadow); opacity: 0; pointer-events: none; transition: transform .4s var(--ease), opacity .3s; font-size: 13px; font-weight: 600; text-align: center; }
+    .toast.visible { opacity: 1; transform: translate(-50%,0) scale(1); }
+    .toast .icon { color: var(--green); width: 19px; height: 19px; }
+    .boot { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 28px; background: var(--bg); transition: opacity .32s ease, visibility .32s; }
+    .boot .logo-wrap { width: 90px; height: 90px; border-radius: 27px; box-shadow: var(--shadow); }
+    .boot .logo-wrap img { padding: 9px; }
+    .loading-track { height: 3px; width: 132px; border-radius: 5px; overflow: hidden; background: var(--line); }
+    .loading-line { height: 100%; width: 45%; border-radius: inherit; background: linear-gradient(90deg,#a6bbff,#4f7bea); animation: loading 1s ease-in-out infinite; }
+    @keyframes loading { from { transform: translateX(-120%); } to { transform: translateX(340%); } }
+    .boot.done { opacity: 0; visibility: hidden; pointer-events: none; }
+    .boot-name { font-size: 10px; color: var(--muted); letter-spacing: 1.7px; font-weight: 650; margin-top: -10px; }
+    .modal-open { overflow: hidden; }
+    .spinner { animation: spin .8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-color-scheme: dark) {
+      .city-symbol { color:hsl(var(--hue),85%,80%); background:var(--surface-sheen),hsla(var(--hue),65%,65%,.12); }
+      .doctor-name-button { background:var(--surface-sheen),linear-gradient(115deg,hsla(var(--hue),55%,50%,.15),transparent 80%),var(--glass); }
+      .city-card { background:var(--surface-sheen),linear-gradient(110deg,hsla(var(--hue),55%,50%,.11),transparent 73%),var(--glass); }
+      .primary { background:linear-gradient(165deg,rgba(255,255,255,.16),transparent 54%),linear-gradient(155deg,#5074cd,#3655a7); }
+      dialog::backdrop { background: rgba(0,0,0,.48); }
+    }
+    @media (max-width: 550px) {
+      .app-header { padding-right: 14px; padding-left: 14px; padding-top: calc(env(safe-area-inset-top,0px) + 10px); }
+      .header-inner { min-height: 71px; border-radius: 24px; padding: 11px; gap: 8px; }
+      .brand { gap: 9px; }
+      .brand-title { font-size: 11px; max-width: 205px; letter-spacing: -.15px; }
+      .brand-subtitle { font-size: 9px; margin-top: 4px; }
+      .logo-wrap { width: 40px; height: 40px; border-radius: 13px; }
+      .account-button { padding: 10px 11px; min-width: 39px; min-height: 39px; font-size: 11px; gap: 5px; }
+      .account-button .icon { width: 16px; height: 16px; }
+      main { width: calc(100% - 30px); }
+      .home-view { padding-top: 36px; }
+      .intro { font-size: 13px; margin-bottom: 25px; max-width: 290px; }
+      .city-card { min-height: 73px; padding: 12px 16px 12px 12px; border-radius: 23px; gap: 13px; }
+      .city-symbol { width: 43px; height: 43px; border-radius: 15px; }
+      .city-name { font-size: 16px; }
+      .directory-view { padding-top: 20px; }
+      .directory-heading { margin-top: 13px; gap: 8px; }
+      .doctor-name-button { padding: 13px 11px; border-radius: 20px; gap: 10px; }
+      .doctor-name { font-size: 13px; }
+      .doctor-clinic { font-size: 10px; }
+      .serial { width: 32px; height: 34px; border-radius: 12px; font-size: 11px; }
+      .details-button { min-width: 64px; padding: 10px; border-radius: 20px; font-size: 11px; }
+      .doctor-row { gap: 7px; }
+      .sheet { margin: auto; max-height: 88dvh; }
+      .sheet-content { padding: 0 21px 25px; }
+      .sheet h2 { font-size: 24px; }
+      .sheet-top { padding: 14px 17px 11px; }
+      .detail-field { padding: 12px 13px; gap: 12px; }
+      .sync-badge { font-size: 10px; }
+    }
+    @media (max-width: 350px) {
+      .brand-title { font-size: 10px; max-width: 160px; }
+      #accountButtonLabel { display: none; }
+      .details-button { min-width: 55px; padding: 8px; }
+      .doctor-name-button { gap: 7px; padding: 11px 9px; }
+      .serial { width: 29px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+    }
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      .glass { background: var(--glass-strong); }
+    }
+    .section-title-row { display:grid; grid-template-columns:minmax(0,1fr) 44px; align-items:center; gap:16px; margin-bottom:13px; }
+    .section-title-row h1 { margin:0; }
+    .add-button { display:grid; place-items:center; width:44px; height:44px; border-radius:15px; color:var(--accent-ink); padding:11px; line-height:1; }
+    .add-button .icon { width:20px; height:20px; stroke-width:2; }
+    .manage-hint { font-size:10px; line-height:1.6; color:var(--muted); margin:15px 3px 0; }
+    .city-card, .doctor-name-button, .details-button { -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
+    .hold-selected { outline:2px solid var(--accent); outline-offset:3px; }
+    .management-notice { padding:13px 14px; border:1px solid var(--line); background:var(--input); border-radius:17px; margin-bottom:18px; font-size:12px; color:var(--muted); line-height:1.6; overflow-wrap:anywhere; }
+    .management-notice .text-button { display:flex; align-items:center; justify-content:center; gap:7px; min-height:40px; padding:8px 12px; border:1px solid var(--edge); background:var(--accent-soft); margin-top:10px; }
+    .management-notice .text-button .icon { width:15px; height:15px; }
+    .confirm .management-notice { text-align:left; }
+    .confirm .management-notice .text-button { width:100%; }
+    .management-form .field-label { margin:0 0 8px; }
+    .management-form .core-fields { display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr); align-items:start; gap:14px; }
+    .management-form select { appearance:auto; -webkit-appearance:auto; padding-right:10px; }
+    .management-form textarea { resize:vertical; min-height:76px; font-size:16px; line-height:1.5; border-radius:14px; }
+    .editor-section-title { font-size:12px; font-weight:650; color:var(--muted); margin:23px 2px 11px; }
+    .edit-fields { display:grid; gap:12px; margin:0 0 14px; }
+    .edit-field { padding:12px; border:1px solid var(--line); background:var(--input); border-radius:20px; }
+    .edit-field-top { display:grid; grid-template-columns:minmax(0,1fr) 44px; align-items:center; gap:10px; margin-bottom:9px; }
+    .edit-field-label { display:flex; align-items:center; min-height:44px; font-size:12px; line-height:1.5; color:var(--muted); font-weight:600; overflow-wrap:anywhere; padding-left:2px; }
+    .edit-field-name { min-width:0; }
+    .edit-field-top .input { min-height:44px; padding:9px 11px; font-size:16px; border-radius:13px; }
+    .remove-field { width:44px; height:44px; border:1px solid var(--danger-edge); border-radius:14px; background:var(--danger-sheen),var(--danger-soft); box-shadow:var(--control-shadow),var(--inner); color:var(--danger); display:grid; place-items:center; padding:12px; }
+    .remove-field .icon { width:16px; height:16px; }
+    .remove-field:focus-visible { color:var(--danger); }
+    @media (hover:hover) { .remove-field:hover:not(:disabled) { background:var(--danger-soft); color:var(--danger); } }
+    .add-detail-label { margin-top:17px !important; }
+    .add-detail-row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; align-items:stretch; }
+    .add-detail-row .input { min-height:50px; font-size:16px; }
+    .add-detail-row .small-ok { display:flex; align-items:center; justify-content:center; gap:6px; min-height:50px; padding:11px 13px; font-size:13px; white-space:nowrap; }
+    .add-detail-row .small-ok .icon { width:16px; height:16px; }
+    .management-form .primary { margin-top:22px; }
+    .sheet-top .icon-button { width:44px; min-width:44px; height:44px; min-height:44px; padding:12px; }
+    .manage-actions { margin-top:20px; }
+    .manage-actions .secondary { justify-content:flex-start; padding:14px 16px; }
+    .manage-delete { color:var(--danger); border-color:var(--danger-edge); background:var(--danger-sheen),var(--danger-soft); }
+    .date-picker, .visit-entry, .account-identity, .edit-field, .deleted-row, .detail-grid, .cloud-notice, .management-notice { background-image:var(--well-sheen); box-shadow:var(--inner); }
+    .deleted-row .text-button, .management-notice .text-button { background-image:var(--surface-sheen); box-shadow:var(--control-shadow),var(--inner); }
+    @media (hover:hover) {
+      .delete-entry:hover:not(:disabled), .manage-delete:hover:not(:disabled), .remove-field:hover:not(:disabled), .sign-out:hover:not(:disabled), .confirm-actions .danger-button:hover:not(:disabled) { background-color:var(--danger-soft); }
+      .city-card:active:not(:disabled), .doctor-name-button:active:not(:disabled) { transform:translateY(1px) scale(.98); }
+    }
+    .deleted-list { display:grid; gap:10px; margin-top:16px; }
+    .deleted-row { display:flex; align-items:center; gap:12px; padding:13px; border:1px solid var(--line); background:var(--input); border-radius:18px; }
+    .deleted-copy { flex:1; min-width:0; }
+    .deleted-copy strong { font-size:13px; display:block; overflow-wrap:anywhere; }
+    .deleted-copy small { display:block; font-size:10px; color:var(--muted); margin-top:3px; }
+    .deleted-row .text-button { padding:10px 12px; min-height:44px; border:1px solid var(--edge); background:var(--accent-soft); }
+    .empty-city-message { font-size:13px; color:var(--muted); text-align:center; padding:25px 10px; }
+    @media (max-width:550px) {
+      .sheet { margin:auto; max-height:88dvh; }
+      .management-form .core-fields { grid-template-columns:minmax(0,1fr); gap:17px; }
+      .edit-field { padding:11px; }
+    }
+
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to directory</a>
+  <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="m14 5-7 7 7 7"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="4"/><path d="M7 3v4m10-4v4M3 10h18m-13 5h1m6 0h1m-8 3h1"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18H6a4 4 0 0 1-.5-8A6.5 6.5 0 0 1 18 8.5a4.8 4.8 0 0 1 .5 9.5H17"/><path d="m9 16 3-3 3 3m-3-3v8"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15m-8 4v7m4-7v7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v4h16v-4"/></symbol>
+    <symbol id="i-exit" viewBox="0 0 24 24"><path d="M10 5H4v14h6m5-14 7 7-7 7m-7-7h14"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-spinner" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9"/></symbol>
+  </svg>
+
+  <div class="boot" id="boot" role="status" aria-label="Loading doctor directory">
+    <div class="logo-wrap"><img src="./logo.png" alt="Raptakos, Brett &amp; Co. Ltd." width="90" height="90" onerror="this.parentElement.classList.add('missing')"></div>
+    <div class="loading-track"><div class="loading-line"></div></div>
+    <div class="boot-name">RB DBMS</div>
+  </div>
+  <noscript><style>.boot{display:none}</style><p style="padding:30px">Please enable JavaScript to use the doctor directory and visit history.</p></noscript>
+  <header class="app-header">
+    <div class="header-inner glass">
+      <button class="brand" id="homeButton" type="button" aria-label="Raptakos, Brett & Co. Ltd. DBMS, choose city">
+        <span class="logo-wrap"><img src="./logo.png" alt="" width="46" height="46" onerror="this.parentElement.classList.add('missing')"></span>
+        <span><span class="brand-title">Raptakos, Brett &amp; Co. Ltd.</span><span class="brand-subtitle">DBMS</span></span>
+      </button>
+      <button class="account-button press" id="accountButton" type="button" aria-label="Sign in to sync visit history"><svg class="icon" aria-hidden="true"><use href="#i-cloud"></use></svg><span id="accountButtonLabel">Sign in</span></button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="homeView" class="home-view" aria-labelledby="homeTitle">
+      <p class="eyebrow" id="homeCloudStatus">YOUR PERSONAL CLOUD DIRECTORY</p>
+      <div class="section-title-row"><h1 id="homeTitle" tabindex="-1">Choose city.</h1><button type="button" class="add-button glass press" id="addCityButton" aria-label="Add city" title="Add city"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button></div>
+      <p class="intro">Select a city to find your doctors<br>and keep track of every visit.</p>
+      <div class="cloud-notice home-cloud-notice" id="homeDirectoryNotice" role="status" aria-live="polite"><svg class="icon" aria-hidden="true"><use href="#i-cloud"></use></svg><p id="homeDirectoryText">Connecting securely…</p><div class="home-cloud-actions"><button type="button" class="text-button press" id="homeSignIn" hidden>Sign in</button><button type="button" class="text-button press" id="homeRetry" hidden>Retry</button></div></div><div class="city-list" id="cityList"></div><p class="manage-hint" id="homeManageHint">Hold a city to manage it.</p>
+    </section>
+    <section id="directoryView" class="directory-view" aria-labelledby="cityTitle" hidden>
+      <button type="button" class="back-button press" id="backButton"><svg class="icon" aria-hidden="true"><use href="#i-back"></use></svg>Cities</button>
+      <div class="directory-heading">
+        <p class="eyebrow">DOCTOR DIRECTORY</p>
+        <h1 id="cityTitle" tabindex="-1"></h1>
+        <button type="button" class="add-button glass press" id="addDoctorButton" aria-label="Add doctor" title="Add doctor"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button>
+        <div class="directory-summary"><p class="directory-meta" id="directoryMeta"></p><span class="sync-badge" id="syncBadge" data-state="signedout" role="status"><span class="sync-dot" aria-hidden="true"></span><span id="syncLabel">Sign in to sync</span></span></div>
+      </div>
+      <div class="search-wrap glass">
+        <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+        <label class="sr-only" for="search">Search doctors in this city</label>
+        <input type="search" id="search" placeholder="Search doctor or hospital" autocomplete="off" spellcheck="false">
+        <button class="clear-search press" id="clearSearch" type="button" aria-label="Clear search" hidden><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button>
+      </div>
+      <div class="list-caption"><span id="resultCount"></span><span>TAP A NAME TO LOG A VISIT</span></div>
+      <ul class="doctor-list" id="doctorList"></ul><p class="manage-hint">Hold a name to manage the doctor. Hold Details to edit.</p>
+      <div id="noResults" class="empty glass" hidden><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg><strong>No matching doctors</strong>Try another name, hospital or registration number.</div>
+      <span id="searchAnnouncement" class="sr-only" aria-live="polite" aria-atomic="true"></span>
+    </section>
+  </main>
+
+  <dialog class="sheet" id="visitDialog" aria-labelledby="visitTitle" aria-describedby="visitSubtitle">
+    <div class="sheet-top"><p class="eyebrow">VISIT HISTORY</p><button type="button" class="icon-button press" data-close="visitDialog" aria-label="Close visit history"><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button></div>
+    <div class="sheet-content">
+      <h2 id="visitTitle"></h2><p class="sheet-subtitle" id="visitSubtitle"></p>
+      <div class="cloud-notice" id="visitNotice" role="status" aria-live="polite"><svg class="icon" aria-hidden="true"><use href="#i-cloud"></use></svg><p id="visitNoticeText"></p><button type="button" class="text-button press" id="visitSignIn">Sign in</button><button type="button" class="text-button press" id="visitRetry" hidden>Retry</button></div>
+      <form id="visitForm" novalidate>
+        <label class="field-label" for="calendarButton">Date of visit</label>
+        <button type="button" class="calendar-button glass press" id="calendarButton" aria-expanded="false" aria-controls="datePicker"><svg class="icon" aria-hidden="true"><use href="#i-calendar"></use></svg><span id="dateLabel"></span><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></button>
+        <div class="date-picker" id="datePicker" hidden>
+          <div class="calendar-month-bar"><p class="calendar-month" id="calendarMonth" aria-live="polite"></p><div class="calendar-arrows"><button type="button" class="icon-button press" id="previousMonth" aria-label="Previous month"><svg class="icon" aria-hidden="true"><use href="#i-back"></use></svg></button><button type="button" class="icon-button press" id="nextMonth" aria-label="Next month"><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></button></div></div>
+          <div class="calendar-weekdays" aria-hidden="true"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+          <div class="calendar-grid" id="calendarGrid" role="group" aria-labelledby="calendarMonth"></div>
+          <div class="date-picker-controls"><label for="visitDate" class="sr-only">Choose or enter a visit date</label><input id="visitDate" class="input" type="date" min="1900-01-01" required><button type="button" class="small-ok press" id="dateOK">OK</button></div>
+        </div>
+        <button type="submit" class="primary press" id="registerButton"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg><span>Register visit</span></button>
+        <p class="inline-error" id="visitError" role="alert" hidden></p>
+      </form>
+      <div class="history-heading"><h3>Previous visits</h3><span class="history-count" id="historyCount"></span></div>
+      <ol class="visit-list" id="visitList"></ol><p class="history-message" id="historyMessage"></p>
+    </div>
+  </dialog>
+
+  <dialog class="sheet" id="detailsDialog" aria-labelledby="detailsTitle">
+    <div class="sheet-top"><p class="eyebrow">DOCTOR DETAILS</p><button type="button" class="icon-button press" data-close="detailsDialog" aria-label="Close doctor details"><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button></div>
+    <div class="sheet-content"><h2 id="detailsTitle"></h2><p class="sheet-subtitle" id="detailsSubtitle"></p><dl class="detail-grid" id="detailGrid"></dl><button type="button" class="primary press detail-action" id="detailsVisitButton"><svg class="icon" aria-hidden="true"><use href="#i-calendar"></use></svg>Visit history</button></div>
+  </dialog>
+
+  <dialog class="confirm" id="deleteDialog" aria-labelledby="deleteTitle" aria-describedby="deleteDescription">
+    <div class="confirm-icon"><svg class="icon" aria-hidden="true"><use href="#i-trash"></use></svg></div>
+    <h2 id="deleteTitle">Delete this visit?</h2><p id="deleteDescription"></p>
+    <p class="inline-error" id="deleteError" role="alert" hidden></p>
+    <div class="confirm-actions"><button type="button" class="press" id="cancelDelete" autofocus>Keep visit</button><button type="button" class="danger-button press" id="confirmDelete">Delete</button></div>
+  </dialog>
+
+  <dialog class="sheet" id="accountDialog" aria-labelledby="accountTitle">
+    <div class="sheet-top"><p class="eyebrow">YOUR ACCOUNT</p><button type="button" class="icon-button press" data-close="accountDialog" aria-label="Close account"><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button></div>
+    <div class="sheet-content">
+      <div id="signedOutPanel">
+        <h2 id="accountTitle">Every visit, with you.</h2>
+        <p class="sheet-subtitle">Sign in with the same account on each device to see your directory and personal visit history.</p>
+        <form class="account-form" id="signInForm">
+          <label class="field-label" for="email">Email</label><input class="input" id="email" type="email" autocomplete="username" inputmode="email" required placeholder="you@example.com">
+          <label class="field-label" for="password">Password</label><div class="password-field"><input class="input" id="password" type="password" autocomplete="current-password" required placeholder="Your password"><button type="button" class="password-toggle" id="passwordToggle" aria-label="Show password" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-eye"></use></svg></button></div>
+          <button type="submit" class="primary press" id="signInButton">Sign in</button>
+        </form>
+        <button type="button" class="text-button press" id="resetPassword">Forgot password?</button>
+        <p class="fine-print">Use the account created for you in Firebase Authentication.</p>
+      </div>
+      <div id="signedInPanel" hidden>
+        <h2 id="signedInTitle">Your cloud directory.</h2>
+        <p class="sheet-subtitle">Use this account on all your devices.</p>
+        <div class="account-identity"><svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg><div><span id="accountEmail"></span><span id="accountStatus"></span></div></div>
+        <button type="button" class="secondary press" id="accountRetry" hidden>Retry connection</button>
+        <button type="button" class="secondary press" id="backupButton"><svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>Download data backup</button>
+        <p class="fine-print" id="backupStatus" role="status" aria-live="polite" hidden></p>
+        <p class="fine-print" id="directoryAccountStatus"></p><button type="button" class="secondary press" id="deletedItemsButton">Deleted items</button>
+        <button type="button" class="secondary press sign-out" id="signOutButton"><svg class="icon" aria-hidden="true"><use href="#i-exit"></use></svg>Sign out</button>
+        <p class="fine-print">Signing out keeps your directory and confirmed visits in Firebase. Backups contain personal data; keep them private.</p>
+      </div>
+      <p class="inline-error" id="accountError" role="alert" hidden></p>
+    </div>
+  </dialog>
+
+  <dialog class="sheet" id="directoryEditorDialog" aria-labelledby="directoryEditorTitle">
+    <div class="sheet-top"><p class="eyebrow" id="directoryEditorEyebrow">YOUR DIRECTORY</p><button type="button" class="icon-button press" data-close="directoryEditorDialog" aria-label="Close directory editor"><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button></div>
+    <div class="sheet-content">
+      <h2 id="directoryEditorTitle">Add doctor</h2><p class="sheet-subtitle" id="directoryEditorSubtitle"></p>
+      <div class="management-notice" id="editorConnectionNotice" role="status" hidden><span id="editorConnectionText"></span><button type="button" class="text-button press" id="editorRetry" hidden>Retry connection</button></div>
+      <form id="directoryEditorForm" class="management-form" novalidate>
+        <div id="cityNameField"><label class="field-label" for="newCityName">City name</label><input class="input" id="newCityName" maxlength="80" autocomplete="address-level2" placeholder="Enter city name"></div>
+        <div id="doctorCoreFields">
+          <div class="core-fields">
+            <div><label class="field-label" for="editorDoctorName">Doctor name</label><input class="input" id="editorDoctorName" maxlength="200" placeholder="Dr. Name" autocomplete="off" required></div>
+            <div><label class="field-label" for="editorDoctorCity">City</label><select class="input" id="editorDoctorCity" required></select></div>
+          </div>
+          <h3 class="editor-section-title">Doctor details</h3>
+          <div class="edit-fields" id="editorFields"></div>
+          <label class="field-label add-detail-label" for="detailFieldType">Add another detail</label>
+          <div class="add-detail-row"><select class="input" id="detailFieldType"></select><button type="button" class="small-ok press" id="addDetailField"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg><span>Add detail</span></button></div>
+        </div>
+        <p class="inline-error" id="directoryEditorError" role="alert" hidden></p><button type="submit" class="primary press" id="saveDirectoryButton">Save</button>
+      </form>
+    </div>
+  </dialog>
+  <dialog class="sheet" id="directoryActionsDialog" aria-labelledby="directoryActionsTitle">
+    <div class="sheet-top"><p class="eyebrow">MANAGE</p><button type="button" class="icon-button press" data-close="directoryActionsDialog" aria-label="Close actions"><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button></div>
+    <div class="sheet-content"><h2 id="directoryActionsTitle"></h2><p class="sheet-subtitle" id="directoryActionsSubtitle"></p><div class="manage-actions"><button type="button" class="secondary press manage-delete" id="chooseDirectoryDelete"><svg class="icon" aria-hidden="true"><use href="#i-trash"></use></svg><span id="chooseDirectoryDeleteLabel">Delete</span></button></div></div>
+  </dialog>
+  <dialog class="confirm" id="directoryDeleteDialog" aria-labelledby="directoryDeleteTitle" aria-describedby="directoryDeleteDescription">
+    <div class="confirm-icon"><svg class="icon" aria-hidden="true"><use href="#i-trash"></use></svg></div>
+    <h2 id="directoryDeleteTitle"></h2><p id="directoryDeleteDescription"></p>
+    <div class="management-notice" id="directoryDeleteNotice" role="status" hidden><span id="directoryDeleteConnectionText"></span><button type="button" class="text-button press" id="directoryDeleteRetry" hidden>Retry connection</button></div>
+    <p class="inline-error" id="directoryDeleteError" role="alert" hidden></p>
+    <div class="confirm-actions"><button type="button" class="press" id="cancelDirectoryDelete" autofocus>Cancel</button><button type="button" class="danger-button press" id="confirmDirectoryDelete">Delete</button></div>
+  </dialog>
+  <dialog class="sheet" id="deletedItemsDialog" aria-labelledby="deletedItemsTitle">
+    <div class="sheet-top"><p class="eyebrow">YOUR DIRECTORY</p><button type="button" class="icon-button press" data-close="deletedItemsDialog" aria-label="Close deleted items"><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button></div><div class="sheet-content"><h2 id="deletedItemsTitle">Deleted items.</h2><p class="sheet-subtitle">Restore a city or doctor along with its connection to saved visits.</p><div class="management-notice" id="deletedConnectionNotice"></div><div class="deleted-list" id="deletedItemsList"></div><p class="inline-error" id="restoreDirectoryError" role="alert" hidden></p></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span id="toastText"></span></div>
+
+  <!-- Cloud directory schema v2. Stable doctor document IDs preserve visit links. -->
+  <script>
+  (function () {
+    "use strict";
+    const $ = function (id) { return document.getElementById(id); };
+    const raw = {headers:["S. No.","Doctor Name","Code","Approx. Age","Specialization","Sub-speciality","Qualification","Gender","Registration No.","Mobile","Clinic / Hospital Name","Clinic / Hospital Type","Address","City","State","Pincode"]};
+    const COL = {serial:0, name:1, code:2, age:3, specialization:4, sub:5, qualification:6, gender:7, registration:8, mobile:9, clinic:10, type:11, address:12, city:13, state:14, pin:15};
+    const HUES = [220,270,167,332,28,192];
+    const norm = function (value) { return String(value == null ? "" : value).trim().toLocaleLowerCase("en-IN"); };
+    const titleCase = function (value) { return norm(value).replace(/\b\w/g,function (c) { return c.toUpperCase(); }); };
+    const escapeHTML = function (value) { return String(value == null ? "" : value).replace(/[&<>"']/g,function (c) { return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); };
+    const icon = function (name, extra) { return '<svg class="icon' + (extra ? " " + extra : "") + '" aria-hidden="true"><use href="#i-' + name + '"></use></svg>'; };
+    const doctors=[], cities=[];
+    const doctorById=new Map();
+    const state = {city:null, doctor:null, detailDoctor:null, user:null, visits:new Map(), sync:"signedout", serverSeen:false, syncError:"", busy:false, deleting:false, authBusy:false, backupBusy:false, pendingDelete:null};
+    const CITY_HISTORY_KEY = "rbDbmsCity";
+    let returningToCities = false;
+    const SYNC_TIMEOUT_MS = 15000;
+    let cloud = null, cloudPromise = null, unsubscribe = null, toastTimer = null, calendarView = new Date();
+    let syncTimer = null, listenerGeneration = 0, listeningUid = null;
+    const todayISO = function () {
+      const d = new Date();
+      return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+    };
+    const dateObject = function (iso) { return new Date(iso + "T12:00:00"); };
+    const formatDate = function (iso) { return new Intl.DateTimeFormat("en-IN",{day:"numeric",month:"short",year:"numeric"}).format(dateObject(iso)); };
+    function validDate(iso) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(iso) || iso < "1900-01-01" || iso > todayISO()) return false;
+      const d = dateObject(iso);
+      return !Number.isNaN(d.getTime()) && d.getFullYear() === Number(iso.slice(0,4)) && d.getMonth()+1 === Number(iso.slice(5,7)) && d.getDate() === Number(iso.slice(8,10));
+    }
+    function errorText(error) {
+      const code = String(error && error.code || "");
+      const message = String(error && error.message || "").toLowerCase();
+      if (code === "already-registered") return "This date is already registered for this doctor.";
+      if (code === "backup-timeout") return "The latest backup could not be retrieved in time. Check your connection and download it again.";
+      if (code === "backup-incomplete") return "Your history is still updating. Wait for it to sync, then download the backup again.";
+      if (code === "sync-timeout") return "Your visit history could not connect. Tap Retry, or try another internet connection. If this continues, check that the visit database has been set up.";
+      if (code.includes("invalid-credential") || code.includes("wrong-password") || code.includes("user-not-found")) return "Check your email and password, then try again.";
+      if (code.includes("operation-not-allowed") || code.includes("configuration-not-found")) return "Email/password sign-in needs to be enabled in your Firebase project.";
+      if (message.includes("service_disabled") || (message.includes("api") && (message.includes("not been used") || message.includes("disabled")))) return "Cloud Firestore is not enabled for this project. Open its Firestore Database page to finish setup, then tap Retry.";
+      if (code === "not-found" || code === "firestore/not-found" || message.includes("database (default) does not exist")) return "The visit database has not been created. Create the default Cloud Firestore database in this Firebase project, then tap Retry.";
+      if (code.includes("failed-precondition") && (message.includes("database") || message.includes("datastore"))) return "This site needs the default Cloud Firestore database in Native mode. Check its setup, then tap Retry.";
+      if (code.includes("permission-denied")) return "Access was denied. Check that your Firestore rules allow this account to read and save its visits.";
+      if (code.includes("unauthorized-domain")) return "Add your GitHub Pages domain to Firebase Authentication's authorized domains.";
+      if (code.includes("too-many-requests")) return "Too many attempts. Please wait a little and try again.";
+      if (code.includes("user-disabled")) return "This account is disabled. Check the account in Firebase Authentication.";
+      if (code.includes("invalid-email")) return "Enter a valid email address.";
+      if (code.includes("api-key") || code.includes("invalid-app")) return "Check the Firebase web configuration in index.html.";
+      if (!navigator.onLine || code.includes("unavailable") || code.includes("network") || code.includes("deadline")) return "An internet connection is needed. Your change has not been confirmed; please try again when connected.";
+      if (code.includes("resource-exhausted")) return "The database limit has been reached. Your change has not been confirmed.";
+      if (error instanceof TypeError) return "The secure connection could not load. Check your connection and try again.";
+      return "Could not complete this request. Please try again. " + (code ? "(" + code + ")" : "");
+    }
+    function showError(id,message) { $(id).textContent=message || ""; $(id).hidden=!message; }
+    function toast(message) {
+      clearTimeout(toastTimer); $("toastText").textContent=message; $("toast").classList.add("visible");
+      toastTimer=setTimeout(function () { $("toast").classList.remove("visible"); },3400);
+    }
+    function refreshModalLock() { document.documentElement.classList.toggle("modal-open",Boolean(document.querySelector("dialog[open]"))); }
+    function showDialog(dialog) { if (!dialog.open) dialog.showModal(); refreshModalLock(); }
+    function closeDialog(dialog) {
+      if (state.directoryBusy) return;
+      if ((dialog.id === "visitDialog" && state.busy) || (dialog.id === "deleteDialog" && state.deleting) || (dialog.id === "accountDialog" && state.authBusy)) return;
+      dialog.close(); refreshModalLock();
+    }
+    function buildCities() {
+      $("cityList").innerHTML = cities.map(function (c) {
+        return '<button type="button" class="city-card glass press" data-city="' + escapeHTML(c.key) + '" style="--hue:' + c.hue + '"><span class="city-symbol">' + icon("pin") + '</span><span><span class="city-name">' + escapeHTML(c.label) + '</span><span class="city-meta">' + c.doctors.length + ' doctors</span></span>' + icon("chevron","city-arrow") + '</button>';
+      }).join("");
+    }
+    function chooseCity(key, fromHistory) {
+      const city=cities.find(function (c) { return c.key === key; }); if (!city) return;
+      if (fromHistory!==true) pendingDirectoryCity=null;
+      if (returningToCities && fromHistory!==true) return;
+      // Give the doctor's list its own history entry, so system Back returns
+      // to city selection without leaving this document or changing its URL.
+      if (fromHistory!==true && state.city!==key) {
+        window.history.pushState(Object.assign({},window.history.state,{[CITY_HISTORY_KEY]:key}),"");
+      }
+      state.city=key; $("homeView").hidden=true; $("directoryView").hidden=false;
+      $("cityTitle").textContent=city.label;
+      $("directoryMeta").textContent=city.doctors.length + " doctors"; $("search").value=""; $("clearSearch").hidden=true;
+      renderDoctors(); updateSyncUI();
+      window.scrollTo({top:0,behavior:"instant"}); $("cityTitle").focus({preventScroll:true});
+    }
+    function goHome(fromHistory) {
+      if (fromHistory!==true && state.city && window.history.state && window.history.state[CITY_HISTORY_KEY]===state.city) {
+        // Use the same route for the site's Cities button. Repeated taps while
+        // traversal is pending must not issue another Back and leave the app.
+        if (!returningToCities) { returningToCities=true; window.history.back(); }
+        return;
+      }
+      returningToCities=false;
+      state.city=null; $("homeView").hidden=false; $("directoryView").hidden=true;
+      window.scrollTo({top:0,behavior:"instant"}); $("homeTitle").focus({preventScroll:true});
+    }
+    function visitsFor(doctorId) {
+      return Array.from(state.visits.values()).filter(function (v) { return v.doctorId === doctorId; }).sort(function (a,b) { return b.visitDate.localeCompare(a.visitDate); });
+    }
+    function renderDoctors() {
+      const city=cities.find(function (c) { return c.key === state.city; }); if (!city) return;
+      const search=norm($("search").value), matches=city.doctors.filter(function (d) { return !search || d.search.includes(search); });
+      $("clearSearch").hidden=!search; $("noResults").hidden=matches.length!==0;
+      $("noResults").innerHTML=city.doctors.length ? icon("search")+"<strong>No matching doctors</strong>Try another name, hospital or registration number." : icon("plus")+"<strong>No doctors yet</strong>Use the + button above to add your first doctor.";
+      $("resultCount").textContent=matches.length + (matches.length===1 ? " DOCTOR" : " DOCTORS");
+      $("searchAnnouncement").textContent=matches.length + (matches.length===1 ? " doctor found" : " doctors found");
+      $("doctorList").innerHTML=matches.map(function (d,index) {
+        const v=d.values, history=state.user ? visitsFor(d.id) : [], last=history[0];
+        const visitText=last ? (state.sync==="live" ? "Last visit " : "Last received visit ") + formatDate(last.visitDate) : "";
+        return '<li class="doctor-row"><button type="button" class="doctor-name-button glass press" style="--hue:' + HUES[index % HUES.length] + '" data-visit="' + escapeHTML(d.id) + '" aria-label="' + escapeHTML(String(d.citySerial) + ". " + v[COL.name] + ", visit history") + '"><span class="serial">' + escapeHTML(d.citySerial) + '</span><span class="doctor-copy"><span class="doctor-name">' + escapeHTML(v[COL.name]) + '</span><span class="doctor-clinic">' + escapeHTML(v[COL.clinic]) + '</span>' + (visitText ? '<span class="doctor-visit">' + escapeHTML(visitText) + '</span>' : "") + '</span></button><button type="button" class="details-button glass press" data-details="' + escapeHTML(d.id) + '" aria-label="Details for ' + escapeHTML(v[COL.name]) + '">Details</button></li>';
+      }).join("");
+    }
+    function setDate(iso) {
+      $("visitDate").value=iso; $("visitDate").max=todayISO();
+      $("dateLabel").textContent=(iso===todayISO() ? "Today · " : "") + formatDate(iso);
+    }
+    function renderCalendar() {
+      const year=calendarView.getFullYear(), month=calendarView.getMonth(), today=todayISO();
+      const start=(new Date(year,month,1).getDay()+6)%7, days=new Date(year,month+1,0).getDate();
+      $("calendarMonth").textContent=new Intl.DateTimeFormat("en-IN",{month:"long",year:"numeric"}).format(calendarView);
+      $("previousMonth").disabled=year===1900 && month===0;
+      $("nextMonth").disabled=year===new Date().getFullYear() && month===new Date().getMonth();
+      let cells="";
+      for (let i=0;i<start;i++) cells+='<span aria-hidden="true"></span>';
+      for (let day=1;day<=days;day++) {
+        const iso=year + "-" + String(month+1).padStart(2,"0") + "-" + String(day).padStart(2,"0");
+        cells+='<button type="button" class="calendar-day press' + (iso===today ? " today" : "") + '" data-date="' + iso + '" aria-label="' + escapeHTML(formatDate(iso)) + '" aria-pressed="' + String(iso===$("visitDate").value) + '"' + (iso>today ? " disabled" : "") + '>' + day + '</button>';
+      }
+      $("calendarGrid").innerHTML=cells;
+    }
+    function moveMonth(delta) {
+      const next=new Date(calendarView.getFullYear(),calendarView.getMonth()+delta,1);
+      const now=new Date();
+      if (next.getFullYear()<1900 || next>new Date(now.getFullYear(),now.getMonth(),1)) return;
+      calendarView=next; renderCalendar();
+    }
+    function openVisit(id) {
+      const d=doctorById.get(id); if (!d) return; state.doctor=d;
+      $("visitTitle").textContent=d.values[COL.name]; $("visitSubtitle").textContent=d.values[COL.clinic] + " · " + cityName(d.city);
+      setDate(todayISO()); $("datePicker").hidden=true; $("calendarButton").setAttribute("aria-expanded","false");
+      showError("visitError",""); updateVisitUI(); showDialog($("visitDialog"));
+    }
+    function openDetails(id) {
+      const d=doctorById.get(id); if (!d) return; state.detailDoctor=d;
+      $("detailsTitle").textContent=d.values[COL.name]; $("detailsSubtitle").textContent=d.values[COL.clinic] + " · " + cityName(d.city);
+      $("detailGrid").innerHTML=directoryFields(d).map(function (field) {
+        const label=field.label, value=field.value; const content=value == null || value === "" ? "Not provided" : String(value);
+        return '<div class="detail-field"><dt>' + escapeHTML(label) + '</dt><dd>' + escapeHTML(content) + '</dd></div>';
+      }).join("");
+      showDialog($("detailsDialog"));
+    }
+    function updateVisitUI() {
+      const signedIn=Boolean(state.user), canWrite=signedIn && state.sync==="live" && state.directorySync==="live" && navigator.onLine && !state.busy && Boolean(state.doctor && doctorById.has(state.doctor.id));
+      $("registerButton").disabled=!canWrite; $("calendarButton").disabled=state.busy; $("visitDate").disabled=state.busy; $("dateOK").disabled=state.busy;
+      $("visitSignIn").hidden=signedIn; $("visitNotice").hidden=signedIn && state.sync==="live" && navigator.onLine;
+      $("visitRetry").hidden=!signedIn || (state.sync!=="error" && state.sync!=="offline");
+      $("visitRetry").disabled=!navigator.onLine || state.busy || state.deleting;
+      $("visitNoticeText").textContent=!signedIn ? "Sign in to view and register your visits on every device." : !navigator.onLine ? "You're offline. Reconnect to register or delete a visit." : state.sync==="error" ? state.syncError : "Connecting to your saved visit history…";
+      renderHistory();
+    }
+    function renderHistory() {
+      if (!state.doctor) return;
+      const history=state.user ? visitsFor(state.doctor.id) : [];
+      $("historyCount").textContent=state.user && (state.serverSeen || history.length) ? history.length + (history.length===1 ? " visit" : " visits") : "";
+      $("visitList").innerHTML=history.map(function (v) {
+        const date=dateObject(v.visitDate), day=date.getDate(), month=new Intl.DateTimeFormat("en-IN",{month:"short"}).format(date);
+        return '<li class="visit-entry"><span class="date-tile" aria-hidden="true"><small>' + escapeHTML(month) + '</small><b>' + day + '</b></span><span class="visit-entry-copy"><span class="visit-entry-date">' + escapeHTML(formatDate(v.visitDate)) + '</span><span class="visit-entry-meta">' + (state.sync==="live" ? "Saved to your account" : "Last received from your account") + '</span></span><button type="button" class="delete-entry press" data-delete="' + escapeHTML(v.id) + '" aria-label="Delete visit on ' + escapeHTML(formatDate(v.visitDate)) + '"' + (state.sync!=="live" || state.busy || !navigator.onLine ? " disabled" : "") + '>' + icon("trash") + '</button></li>';
+      }).join("");
+      let message="";
+      if (!state.user) message="Your visits will appear here after you sign in.";
+      else if (!navigator.onLine) message="You're offline. Your saved visits will refresh when you reconnect.";
+      else if (state.sync==="error") message=history.length ? "Showing the last visits received. Retry to refresh your history." : "Your saved visits will appear here when the connection is restored.";
+      else if (!state.serverSeen && !history.length) message="Loading your saved visits…";
+      else if (!history.length && state.sync==="live") message="No visits yet. Choose a date to register your first visit.";
+      else if (state.sync!=="live") message="Reconnect to refresh your complete history.";
+      $("historyMessage").textContent=message; $("historyMessage").hidden=!message;
+    }
+    function refreshSyncBadge() {
+      let status="connecting", label="Syncing…", message="Connecting to your saved visits and directory.";
+      if (!state.user) { status="signedout"; label="Sign in to sync"; message="Sign in with the same account on each device."; }
+      else if (!navigator.onLine) { status="offline"; label="Offline"; message="Reconnect to save changes."; }
+      else if (state.directorySync==="error" && String(state.directoryErrorCode).includes("permission-denied")) { status="setup"; label="Setup needed"; message=state.directoryError; }
+      else if (state.sync==="error" || state.directorySync==="error") { status="error"; label="Sync unavailable"; message=state.sync==="error" ? state.syncError : state.directoryError; }
+      else if (state.sync==="live" && state.directorySync==="live") {
+        const saving=state.busy || state.deleting || state.directoryBusy;
+        status=saving ? "saving" : "live"; label=saving ? "Saving…" : "Synced"; message=saving ? "Waiting for Firebase to confirm your change." : "Your visits and directory changes are synced.";
+      }
+      $("syncBadge").dataset.state=status; $("syncLabel").textContent=label; $("syncBadge").setAttribute("title",message);
+      return label;
+    }
+    function updateSyncUI() {
+      const label=refreshSyncBadge();
+      $("accountButtonLabel").textContent=state.user ? "Account" : "Sign in";
+      $("accountButton").setAttribute("aria-label",state.user ? "Your account and visit backup" : "Sign in to sync visit history");
+      $("signedOutPanel").hidden=Boolean(state.user); $("signedInPanel").hidden=!state.user;
+      $("accountDialog").setAttribute("aria-labelledby",state.user ? "signedInTitle" : "accountTitle");
+      $("accountEmail").textContent=state.user ? state.user.email || "Signed in" : "";
+      $("accountStatus").textContent=state.sync==="error" && navigator.onLine ? state.syncError : state.sync==="live" && navigator.onLine ? "All visits received · " + state.visits.size + " saved" : label;
+      $("accountRetry").hidden=!state.user || (state.sync!=="error" && state.sync!=="offline" && state.directorySync!=="error" && state.directorySync!=="offline");
+      $("accountRetry").disabled=!navigator.onLine || state.busy || state.deleting || state.directoryBusy;
+      $("backupButton").disabled=state.backupBusy || state.busy || state.deleting || !state.user || state.sync!=="live" || state.directorySync!=="live" || state.directoryBusy || !state.serverSeen || !navigator.onLine;
+      $("backupButton").innerHTML=state.backupBusy ? icon("spinner","spinner") + "<span>Preparing backup…</span>" : icon("download") + "<span>Download data backup (" + state.visits.size + ")</span>";
+      updateVisitUI(); updateDirectoryUI();
+    }
+    function clearSyncTimer() { clearTimeout(syncTimer); syncTimer=null; }
+    function waitForVisitServer(generation) {
+      if (syncTimer!==null || !navigator.onLine || state.sync==="error") return;
+      // A cache-only snapshot is not proof that the database is reachable.
+      // Bound the loading UI while allowing a late server reply to recover it.
+      syncTimer=setTimeout(function () {
+        syncTimer=null;
+        if (generation!==listenerGeneration || !state.user || !navigator.onLine || state.sync==="live") return;
+        state.sync="error"; state.syncError=errorText({code:"sync-timeout"});
+        updateSyncUI(); renderDoctors();
+      },SYNC_TIMEOUT_MS);
+    }
+    function attachVisitListener(user) {
+      attachDirectoryListener(user);
+      const generation=++listenerGeneration;
+      if (unsubscribe) { unsubscribe(); unsubscribe=null; }
+      clearSyncTimer();
+      // Retain confirmed history on a retry for the same account. Clear it
+      // immediately when signing out or switching accounts.
+      if (!user || user.uid!==listeningUid) { state.visits=new Map(); state.serverSeen=false; showError("backupStatus",""); }
+      listeningUid=user ? user.uid : null; state.syncError="";
+      if (!user) { state.sync="signedout"; updateSyncUI(); renderDoctors(); return; }
+      state.sync=navigator.onLine ? "connecting" : "offline"; updateSyncUI(); renderDoctors();
+      const uid=user.uid;
+      waitForVisitServer(generation);
+      function listenerError(error) {
+        if (generation!==listenerGeneration || !state.user || state.user.uid!==uid) return;
+        clearSyncTimer(); state.sync="error"; state.syncError=errorText(error); updateSyncUI(); renderDoctors();
+      }
+      try {
+        unsubscribe=cloud.fs.onSnapshot(cloud.fs.collection(cloud.db,"users",uid,"visits"),{includeMetadataChanges:true},function (snapshot) {
+          if (generation!==listenerGeneration || !state.user || state.user.uid!==uid) return;
+          const received=new Map();
+          snapshot.forEach(function (docSnapshot) {
+            const data=docSnapshot.data();
+            if (typeof data.doctorId==="string" && /^\d{4}-\d{2}-\d{2}$/.test(data.visitDate || "") && !Number.isNaN(dateObject(data.visitDate).getTime())) {
+              received.set(docSnapshot.id,Object.assign({},data,{id:docSnapshot.id}));
+            }
+          });
+          // After a retry, an empty initial cache must not erase the last history
+          // acknowledged by the server. A confirmed empty server result may do so.
+          if (!snapshot.metadata.hasPendingWrites && (!snapshot.metadata.fromCache || !state.serverSeen)) state.visits=received;
+          if (!snapshot.metadata.fromCache && !snapshot.metadata.hasPendingWrites) {
+            clearSyncTimer(); state.serverSeen=true; state.sync=navigator.onLine ? "live" : "offline"; state.syncError="";
+          } else if (!navigator.onLine) { clearSyncTimer(); state.sync="offline"; }
+          else if (state.sync!=="error") { state.sync="connecting"; waitForVisitServer(generation); }
+          updateSyncUI(); renderDoctors();
+        },listenerError);
+      } catch (error) { listenerError(error); }
+    }
+    function retryVisitConnection() {
+      if (state.busy || state.deleting || state.directoryBusy) return;
+      if (!state.user) { openAccount(); return; }
+      if (!navigator.onLine) { updateSyncUI(); return; }
+      showError("visitError",""); attachVisitListener(state.user);
+    }
+    async function connectCloud() {
+      if (cloud) return cloud;
+      if (cloudPromise) return cloudPromise;
+      cloudPromise=(async function () {
+        // Only Firebase's app, authentication and database modules are loaded.
+        // Cities, doctor details and personal visits are all read directly from Firebase.
+        const modules=await Promise.all([
+          import("https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js"),
+          import("https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js"),
+          import("https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js")
+        ]);
+        const appApi=modules[0], authApi=modules[1], fs=modules[2];
+        const firebaseConfig={
+          apiKey:"AIzaSyCWNEIQKuZkwFU2Cp_iZWnWTewAjZ4AOIs",
+          authDomain:"chaman-lal-dbms.firebaseapp.com",
+          projectId:"chaman-lal-dbms",
+          storageBucket:"chaman-lal-dbms.firebasestorage.app",
+          messagingSenderId:"260357437311",
+          appId:"1:260357437311:web:6591bd908f44a35ed20c4a",
+          measurementId:"G-E3DRLN5NL4"
+        };
+        const app=appApi.initializeApp(firebaseConfig), auth=authApi.getAuth(app);
+        // Visit durability comes from Firestore, never localStorage. Auth persistence
+        // only remembers the session; the password is never stored in this file.
+        try { await authApi.setPersistence(auth,authApi.browserLocalPersistence); }
+        catch (_) {
+          try { await authApi.setPersistence(auth,authApi.browserSessionPersistence); }
+          catch (_) { await authApi.setPersistence(auth,authApi.inMemoryPersistence); }
+        }
+        // Use the normal real-time stream, with automatic fallback for mobile
+        // networks and proxies that buffer streaming responses.
+        const db=fs.initializeFirestore(app,{experimentalAutoDetectLongPolling:true});
+        cloud={app:app,auth:auth,db:db,authApi:authApi,fs:fs};
+        authApi.onAuthStateChanged(auth,function (user) {
+          const oldUid=state.user && state.user.uid; state.user=user; state.authReady=true; state.bootError="";
+          if (oldUid!==(user && user.uid) || (user && !unsubscribe)) attachVisitListener(user);
+          else updateSyncUI();
+        });
+        return cloud;
+      })().catch(function (error) {
+        cloudPromise=null; state.authReady=true; state.bootError=errorText(error); updateDirectoryUI();
+        if ($("accountDialog").open) showError("accountError",errorText(error));
+        throw error;
+      });
+      return cloudPromise;
+    }
+    function setRegisterBusy(busy) {
+      state.busy=busy;
+      $("registerButton").innerHTML=busy ? icon("spinner","spinner") + "<span>Saving visit…</span>" : icon("plus") + "<span>Register visit</span>";
+      $("visitDialog").querySelector("[data-close]").disabled=busy;
+      updateVisitUI();
+    }
+    async function registerVisit(event) {
+      event.preventDefault(); showError("visitError","");
+      if (state.busy) return;
+      if (!state.user) { openAccount(); return; }
+      if (!state.doctor || !doctorById.has(state.doctor.id)) { showError("visitError","This doctor is no longer in your active directory. Restore it from Account to register another visit."); return; }
+      if (state.sync!=="live" || state.directorySync!=="live" || !navigator.onLine) { showError("visitError","Connect and wait for your directory and visit history to sync before registering."); return; }
+      const iso=$("visitDate").value, doctor=state.doctor, uid=state.user.uid;
+      if (!validDate(iso)) { $("datePicker").hidden=false; $("calendarButton").setAttribute("aria-expanded","true"); showError("visitError","Choose a valid date on or before today."); return; }
+      setRegisterBusy(true);
+      try {
+        const ref=cloud.fs.doc(cloud.db,"users",uid,"visits",doctor.id + "__" + iso);
+        await cloud.fs.runTransaction(cloud.db,async function (transaction) {
+          const existing=await transaction.get(ref);
+          const latest=await transaction.get(cloud.fs.doc(cloud.db,"users",uid,"doctors",doctor.id));
+          if (!latest.exists() || latest.data().deleted) throw directoryFailure("directory-city-unavailable","Doctor unavailable");
+          const parent=await transaction.get(cloud.fs.doc(cloud.db,"users",uid,"cities",latest.data().cityId));
+          if (!parent.exists() || parent.data().deleted) throw directoryFailure("directory-city-unavailable","City unavailable");
+          if (existing.exists()) { const duplicate=new Error("Already registered"); duplicate.code="already-registered"; throw duplicate; }
+          transaction.set(ref,{doctorId:doctor.id,doctorName:latest.data().name,city:parent.data().name,visitDate:iso,createdAt:cloud.fs.serverTimestamp(),schemaVersion:1});
+        },{maxAttempts:3});
+        // A successful transaction promise is the server's commit acknowledgement.
+        // Never close the window or announce "saved" for only a local pending write.
+        if (!state.user || state.user.uid!==uid) return;
+        state.visits.set(ref.id,{id:ref.id,doctorId:doctor.id,doctorName:String(doctor.values[COL.name]),city:cityName(doctor.city),visitDate:iso,schemaVersion:1});
+        setRegisterBusy(false); closeDialog($("visitDialog")); renderDoctors(); updateSyncUI(); toast("Visit registered · " + formatDate(iso));
+      } catch (error) { if (state.user && state.user.uid===uid) { setRegisterBusy(false); showError("visitError",managementError(error)); } }
+    }
+    function requestDelete(id) {
+      const visit=state.visits.get(id); if (!visit || state.sync!=="live") return;
+      state.pendingDelete=visit; showError("deleteError","");
+      $("deleteDescription").textContent="Remove the visit on " + formatDate(visit.visitDate) + " for " + visit.doctorName + " from your account on every device? This cannot be undone.";
+      showDialog($("deleteDialog"));
+    }
+    async function deleteVisit() {
+      if (state.deleting || !state.pendingDelete || !state.user) return;
+      if (!navigator.onLine || state.sync!=="live") { showError("deleteError","Reconnect and wait for your history to sync before deleting."); return; }
+      const visit=state.pendingDelete, uid=state.user.uid;
+      state.deleting=true; $("confirmDelete").disabled=true; $("cancelDelete").disabled=true; $("confirmDelete").textContent="Deleting…";
+      try {
+        const ref=cloud.fs.doc(cloud.db,"users",uid,"visits",visit.id);
+        await cloud.fs.runTransaction(cloud.db,async function (transaction) {
+          const snapshot=await transaction.get(ref); if (snapshot.exists()) transaction.delete(ref);
+        },{maxAttempts:3});
+        if (!state.user || state.user.uid!==uid) return;
+        state.visits.delete(visit.id);
+        state.pendingDelete=null; state.deleting=false;
+        closeDialog($("deleteDialog")); updateSyncUI(); renderDoctors(); toast("Visit deleted");
+      } catch (error) { state.deleting=false; showError("deleteError",errorText(error)); }
+      finally { $("confirmDelete").disabled=false; $("cancelDelete").disabled=false; $("confirmDelete").textContent="Delete"; }
+    }
+    function openAccount() {
+      showError("accountError",""); updateSyncUI(); showDialog($("accountDialog"));
+      connectCloud().catch(function () {});
+    }
+    async function signIn(event) {
+      event.preventDefault(); if (state.authBusy) return; showError("accountError","");
+      state.authBusy=true; $("signInButton").disabled=true; $("signInButton").textContent="Signing in…";
+      try {
+        const c=await connectCloud();
+        await c.authApi.signInWithEmailAndPassword(c.auth,$("email").value.trim(),$("password").value);
+        $("password").value=""; state.authBusy=false; closeDialog($("accountDialog")); toast("Signed in");
+      } catch (error) { showError("accountError",errorText(error)); }
+      finally { state.authBusy=false; $("signInButton").disabled=false; $("signInButton").textContent="Sign in"; }
+    }
+    async function signOut() {
+      if (!cloud || state.authBusy || state.directoryBusy || state.busy || state.deleting || state.backupBusy) return; state.authBusy=true; $("signOutButton").disabled=true; showError("accountError","");
+      try { await cloud.authApi.signOut(cloud.auth); state.authBusy=false; closeDialog($("accountDialog")); toast("Signed out"); }
+      catch (error) { showError("accountError",errorText(error)); }
+      finally { state.authBusy=false; $("signOutButton").disabled=false; }
+    }
+    async function resetPassword() {
+      const email=$("email").value.trim();
+      if (!email || !$("email").checkValidity()) { showError("accountError","Enter your account email above first."); $("email").focus(); return; }
+      if (state.authBusy) return; state.authBusy=true; $("resetPassword").disabled=true; showError("accountError","");
+      try { const c=await connectCloud(); await c.authApi.sendPasswordResetEmail(c.auth,email); toast("If this account exists, a reset email has been sent."); }
+      catch (error) { showError("accountError",errorText(error)); }
+      finally { state.authBusy=false; $("resetPassword").disabled=false; }
+    }
+    async function downloadBackup() {
+      if (state.backupBusy || state.directoryBusy || state.busy || state.deleting || !state.user || state.sync!=="live" || state.directorySync!=="live" || !navigator.onLine) return;
+      const uid=state.user.uid, generation=listenerGeneration, startedAt=new Date().toISOString();
+      let deadline=null;
+      state.backupBusy=true; showError("accountError",""); showError("backupStatus",""); updateSyncUI();
+      try {
+        const received=await Promise.race([
+          Promise.all([
+            cloud.fs.getDocFromServer(cloud.fs.doc(cloud.db,"users",uid,"settings","catalog")),
+            cloud.fs.getDocsFromServer(cloud.fs.collection(cloud.db,"users",uid,"cities")),
+            cloud.fs.getDocsFromServer(cloud.fs.collection(cloud.db,"users",uid,"doctors")),
+            cloud.fs.getDocsFromServer(cloud.fs.collection(cloud.db,"users",uid,"visits"))
+          ]),
+          new Promise(function (_,reject) { deadline=setTimeout(function () { reject(directoryFailure("backup-timeout","Backup timed out")); },SYNC_TIMEOUT_MS); })
+        ]);
+        clearTimeout(deadline); deadline=null;
+        if (!state.user || state.user.uid!==uid || generation!==listenerGeneration) return;
+        if (received.some(function (s) { return s.metadata.fromCache || s.metadata.hasPendingWrites; }) || !received[0].exists()) throw directoryFailure("backup-incomplete","Backup not confirmed");
+        function serializable(value) {
+          if (value && typeof value.toDate==="function") return value.toDate().toISOString();
+          if (Array.isArray(value)) return value.map(serializable);
+          if (value && typeof value==="object") return Object.fromEntries(Object.entries(value).map(function ([key,v]) { return [key,serializable(v)]; }));
+          return value;
+        }
+        function records(snapshot) {
+          const result={}; snapshot.forEach(function (doc) { Object.defineProperty(result,doc.id,{value:serializable(doc.data()),enumerable:true}); }); return result;
+        }
+        const savedCities=records(received[1]), savedDoctors=records(received[2]), savedVisits=records(received[3]);
+        if (Array.from(state.visits.keys()).some(function (id) { return !Object.prototype.hasOwnProperty.call(savedVisits,id); })) throw directoryFailure("backup-incomplete","History changed during backup");
+        const visits=Object.entries(savedVisits).map(function ([id,data]) { return Object.assign({},data,{id:id}); }).sort(function (a,b) { return a.id.localeCompare(b.id); });
+        const now=new Date(), backup={app:"Raptakos, Brett & Co. Ltd. DBMS",schemaVersion:2,projectId:"chaman-lal-dbms",accountUid:uid,
+          exportStartedAt:startedAt,exportedAt:now.toISOString(),visitCount:visits.length,visits:visits,directoryIncluded:true,
+          directory:{catalog:serializable(received[0].data()),cities:savedCities,doctors:savedDoctors},
+          note:"Includes deleted directory records and every saved visit. Server collections are read individually; this is not an atomic point-in-time export. Keep this file private."};
+        const url=URL.createObjectURL(new Blob([JSON.stringify(backup,null,2)],{type:"application/json"})), a=document.createElement("a");
+        a.href=url; a.download="RB-DBMS-backup-"+now.toISOString().replace(/[:.]/g,"-")+".json";
+        document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(url); },60000);
+        const message="Backup prepared · "+Object.keys(savedDoctors).length+" doctor records · "+visits.length+" visits";
+        showError("backupStatus",message); toast(message);
+      } catch (error) {
+        if (state.user && state.user.uid===uid && generation===listenerGeneration) showError("accountError",errorText(error));
+      } finally { clearTimeout(deadline); state.backupBusy=false; updateSyncUI(); }
+    }
+
+    // Firebase is the only directory source. This app never seeds or reimports data.
+    let directoryUid=null, directoryUnsubscribe=null, directoryTimer=null, directoryGeneration=0;
+    let directoryServerSeen=false, editorSequence=0, pendingDirectoryCity=null;
+    let directoryParts={catalog:null,cities:new Map(),doctors:new Map()};
+    const allDirectoryDoctors=new Map(), allDirectoryCities=new Map();
+    state.directorySync="signedout"; state.directoryError=""; state.directoryErrorCode=""; state.directoryBusy=false; state.editor=null; state.directoryAction=null;
+    state.authReady=false; state.bootError="";
+    function directoryFailure(code,message) { const error=new Error(message); error.code=code; return error; }
+    function cityName(key) { return allDirectoryCities.get(key)?.label || "Unknown city"; }
+    function managementError(error) {
+      if (error && ["directory-not-ready","directory-validation","directory-setup"].includes(error.code)) return error.message;
+      if (error && error.code==="directory-conflict") return "This item changed on another device. Close this window and open it again to use the latest version.";
+      if (error && error.code==="directory-city-unavailable") return "This city is unavailable. Restore or choose an available city first.";
+      if (error && String(error.code).includes("permission-denied")) return "Firebase denied this change. Check that you published the supplied firestore-cloud.rules in this project and signed in to the account used for the import. Then tap Retry connection.";
+      if (error && error.code==="sync-timeout") return "Your directory could not connect. Check your connection and tap Retry.";
+      return errorText(error);
+    }
+    function directoryConnectionText() {
+      if (!state.user) return state.bootError || (!state.authReady ? "Connecting securely…" : "Sign in with the same account you used for the import.");
+      if (!navigator.onLine) return "You're offline. Showing the last received data, if available. Reconnect to save changes.";
+      if (state.directorySync==="error") return state.directoryError;
+      return state.directorySync==="live" ? "" : "Loading your directory from Firebase…";
+    }
+    function canManageDirectory() { return Boolean(state.user && state.directorySync==="live" && navigator.onLine && !state.directoryBusy); }
+    function reportDirectoryWriteError(error,target) {
+      if (error && String(error.code).includes("permission-denied")) {
+        state.directorySync="error"; state.directoryErrorCode=String(error.code); state.directoryError=managementError(error);
+        showError(target,"");
+      } else showError(target,managementError(error));
+    }
+    function updateDirectoryUI() {
+      const notice=directoryConnectionText();
+      refreshSyncBadge();
+      $("directoryEditorForm").querySelectorAll("input,select,textarea,button").forEach(function (control) { control.disabled=state.directoryBusy; });
+      $("signOutButton").disabled=state.directoryBusy || state.authBusy || state.busy || state.deleting || state.backupBusy;
+      $("editorConnectionText").textContent=notice; $("editorConnectionNotice").hidden=!notice;
+      ["editorRetry","directoryDeleteRetry"].forEach(function (id) {
+        $(id).hidden=state.directorySync!=="error" && state.directorySync!=="offline";
+        $(id).disabled=state.directoryBusy || !navigator.onLine;
+      });
+      $("saveDirectoryButton").disabled=!canManageDirectory();
+      $("saveDirectoryButton").innerHTML=state.directoryBusy ? icon("spinner","spinner")+"<span>Saving…</span>" : state.editor?.mode==="city" ? "Add city" : state.editor?.isNew ? "Add doctor" : "Save changes";
+      $("confirmDirectoryDelete").disabled=!canManageDirectory(); $("cancelDirectoryDelete").disabled=state.directoryBusy;
+      $("confirmDirectoryDelete").textContent=state.directoryBusy ? "Deleting…" : "Delete";
+      $("directoryDeleteConnectionText").textContent=notice; $("directoryDeleteNotice").hidden=!notice;
+      $("deletedConnectionNotice").textContent=notice; $("deletedConnectionNotice").hidden=!notice;
+      $("deletedItemsButton").hidden=!state.user;
+      $("directoryAccountStatus").textContent=state.user ? state.directorySync==="live" ? cities.length+" cities · "+doctors.length+" active doctors · Synced" : notice : "";
+      $("directoryAccountStatus").hidden=!state.user;
+      $("accountRetry").hidden=!state.user || ![state.sync,state.directorySync].some(function (s) { return s==="error" || s==="offline"; });
+      $("accountRetry").disabled=!navigator.onLine || state.busy || state.deleting || state.directoryBusy;
+      $("homeDirectoryNotice").hidden=!notice && cities.length>0;
+      $("homeDirectoryText").textContent=notice || "No cities yet. Tap + to add your first city.";
+      $("homeSignIn").hidden=Boolean(state.user) || !state.authReady;
+      $("homeRetry").hidden=!state.bootError && (!state.user || !["error","offline"].includes(state.directorySync));
+      $("homeRetry").disabled=!navigator.onLine || state.directoryBusy;
+      $("addCityButton").hidden=!state.user; $("addCityButton").disabled=!canManageDirectory();
+      $("addDoctorButton").disabled=!canManageDirectory();
+      $("homeManageHint").hidden=!cities.length;
+      $("homeCloudStatus").textContent=state.user && state.directorySync==="live" ? cities.length+" cities · "+doctors.length+" doctors · Synced" : "YOUR PERSONAL CLOUD DIRECTORY";
+      if ($("deletedItemsDialog").open) renderDeletedItems();
+    }
+    function directoryFields(doctor) {
+      return doctor.fieldOrder.map(function (label) { return {label:label,value:doctor.details[label]}; });
+    }
+    function recordForDoctor(doctor) {
+      return {name:doctor.values[COL.name],cityId:doctor.city,order:doctor.order,details:{...doctor.details},fieldOrder:doctor.fieldOrder.slice(),deleted:Boolean(doctor.deleted)};
+    }
+    function applyDirectoryData() {
+      allDirectoryCities.clear(); allDirectoryDoctors.clear();
+      const sorted=function (a,b) { return a[1].order-b[1].order || a[0].localeCompare(b[0]); };
+      Array.from(directoryParts.cities).sort(sorted).forEach(function ([key,c]) {
+        allDirectoryCities.set(key,{key:key,label:c.name,order:c.order,deleted:c.deleted,rev:c.rev});
+      });
+      Array.from(directoryParts.doctors).sort(sorted).forEach(function ([id,d]) {
+        const values=raw.headers.map(function (h) { return Object.prototype.hasOwnProperty.call(d.details,h) ? d.details[h] : ""; });
+        allDirectoryDoctors.set(id,{id:id,city:d.cityId,order:d.order,values:values,details:d.details,fieldOrder:d.fieldOrder.slice(),rev:d.rev,deleted:d.deleted,
+          hiddenFields:raw.headers.map(function (_,i) { return i; }).filter(function (i) { return !Object.prototype.hasOwnProperty.call(d.details,raw.headers[i]); }),
+          extraFields:d.fieldOrder.filter(function (label) { return !raw.headers.includes(label); }).map(function (label) { return {label:label,value:d.details[label]}; })});
+      });
+      const activeDoctors=Array.from(allDirectoryDoctors.values()).filter(function (d) { const c=allDirectoryCities.get(d.city); return !d.deleted && c && !c.deleted; });
+      doctors.splice(0,doctors.length,...activeDoctors); doctorById.clear();
+      doctors.forEach(function (d) { d.search=norm(directoryFields(d).map(function (f) { return f.label+" "+String(f.value ?? ""); }).join(" ")); doctorById.set(d.id,d); });
+      cities.splice(0,cities.length,...Array.from(allDirectoryCities.values()).filter(function (c) { return !c.deleted; }).map(function (city,index) {
+        const list=doctors.filter(function (d) { return d.city===city.key; }); list.forEach(function (d,i) { d.citySerial=i+1; });
+        return {key:city.key,label:city.label,hue:HUES[index%HUES.length],doctors:list,rev:city.rev};
+      }));
+      buildCities();
+      if (state.city && !cities.some(function (c) { return c.key===state.city; })) {
+        window.history.replaceState(Object.assign({},window.history.state,{[CITY_HISTORY_KEY]:null}),""); goHome(true);
+      } else if (state.city) {
+        const city=cities.find(function (c) { return c.key===state.city; }); $("directoryMeta").textContent=city.doctors.length+" doctors"; $("cityTitle").textContent=city.label;
+      }
+      renderDoctors();
+      if (state.doctor && doctorById.has(state.doctor.id)) {
+        state.doctor=doctorById.get(state.doctor.id); $("visitTitle").textContent=state.doctor.values[COL.name];
+        $("visitSubtitle").textContent=[state.doctor.values[COL.clinic],cityName(state.doctor.city)].filter(Boolean).join(" · ");
+      } else if (state.doctor) { state.doctor=null; if ($("visitDialog").open) $("visitDialog").close(); }
+      if (state.detailDoctor && doctorById.has(state.detailDoctor.id)) {
+        state.detailDoctor=doctorById.get(state.detailDoctor.id); if ($("detailsDialog").open) openDetails(state.detailDoctor.id);
+      } else if (state.detailDoctor) { state.detailDoctor=null; if ($("detailsDialog").open) $("detailsDialog").close(); }
+      if (pendingDirectoryCity) {
+        const key=cities.find(function (c) { return c.key===pendingDirectoryCity || c.key==="city_"+encodeURIComponent(pendingDirectoryCity); })?.key;
+        if (key) { pendingDirectoryCity=null; window.history.replaceState(Object.assign({},window.history.state,{[CITY_HISTORY_KEY]:key}),""); chooseCity(key,true); }
+      }
+      refreshModalLock(); updateSyncUI(); updateDirectoryUI();
+    }
+    function attachDirectoryListener(user) {
+      const generation=++directoryGeneration;
+      if (directoryUnsubscribe) { directoryUnsubscribe(); directoryUnsubscribe=null; }
+      clearTimeout(directoryTimer); directoryTimer=null;
+      if (!user || user.uid!==directoryUid) {
+        directoryUid=user ? user.uid : null; directoryServerSeen=false; state.directoryBusy=false;
+        state.editor=null; state.directoryAction=null; state.doctor=null; state.detailDoctor=null; state.pendingDelete=null;
+        state.busy=false; state.deleting=false;
+        ["directoryEditorDialog","directoryActionsDialog","directoryDeleteDialog","deletedItemsDialog","visitDialog","detailsDialog","deleteDialog"].forEach(function (id) { if ($(id).open) $(id).close(); });
+        ["editorFields","doctorList","detailGrid","visitList","deletedItemsList"].forEach(function (id) { $(id).innerHTML=""; });
+        $("editorDoctorName").value=""; $("newCityName").value=""; $("search").value="";
+        directoryParts={catalog:null,cities:new Map(),doctors:new Map()};
+        applyDirectoryData();
+      }
+      state.directoryError=""; state.directoryErrorCode="";
+      if (!user) { state.directorySync="signedout"; updateDirectoryUI(); return; }
+      const uid=user.uid, seen=new Set(), stops=[]; let terminated=false;
+      state.directorySync=navigator.onLine ? "connecting" : "offline"; updateDirectoryUI();
+      function current() { return generation===directoryGeneration && state.user && state.user.uid===uid; }
+      function failed(error) {
+        if (!current()) return;
+        clearTimeout(directoryTimer); directoryTimer=null;
+        if (error?.code!=="sync-timeout") terminated=true;
+        state.directorySync="error"; state.directoryErrorCode=String(error?.code || "unknown"); state.directoryError=managementError(error); updateDirectoryUI(); updateVisitUI();
+      }
+      function accepted(part,snapshot) {
+        if (!current() || terminated || snapshot.metadata.hasPendingWrites) return;
+        if (snapshot.metadata.fromCache) {
+          if (!navigator.onLine) state.directorySync="offline";
+          else { state.directorySync="connecting"; seen.delete(part); if (!directoryTimer) directoryTimer=setTimeout(function () { failed({code:"sync-timeout"}); },SYNC_TIMEOUT_MS); }
+          updateDirectoryUI(); updateVisitUI(); return;
+        }
+        try {
+          if (part==="catalog") {
+            const data=snapshot.exists() ? snapshot.data() : null;
+            if (!data || data.schemaVersion!==2 || data.status!=="ready") throw directoryFailure("directory-setup","No completed import was found for this account. Sign in to the account used for your verified import. Do not reimport an existing directory.");
+            if (!Array.isArray(data.headers) || JSON.stringify(data.headers)!==JSON.stringify(raw.headers)) throw directoryFailure("directory-setup","The directory has an unsupported field format. Your saved data has not been changed.");
+            directoryParts.catalog=data;
+          } else {
+            const next=new Map();
+            snapshot.forEach(function (doc) {
+              const data=doc.data();
+              if (data.schemaVersion!==2 || !Number.isInteger(data.rev) || data.rev<1 || !Number.isInteger(data.order) || data.order<0 || typeof data.deleted!=="boolean") throw directoryFailure("directory-setup","A saved directory record has an unsupported format. Your data has not been changed.");
+              if (part==="cities" && (typeof data.name!=="string" || !data.name.trim())) throw directoryFailure("directory-setup","A city record is incomplete.");
+              if (part==="doctors" && (!/^D[0-9]+$/.test(doc.id) || typeof data.cityId!=="string" || !data.details || !Array.isArray(data.fieldOrder) || data.fieldOrder.length!==Object.keys(data.details).length || new Set(data.fieldOrder).size!==data.fieldOrder.length || !data.fieldOrder.every(function (key) { return Object.prototype.hasOwnProperty.call(data.details,key); }) || data.name!==data.details["Doctor Name"] || typeof data.details.City!=="string")) throw directoryFailure("directory-setup","A doctor record is incomplete.");
+              const previous=directoryParts[part].get(doc.id); next.set(doc.id,previous && previous.rev>data.rev ? previous : data);
+            });
+            directoryParts[part]=next;
+          }
+          seen.add(part);
+          if (seen.size===3) {
+            clearTimeout(directoryTimer); directoryTimer=null; directoryServerSeen=true;
+            state.directorySync=navigator.onLine ? "live" : "offline"; state.directoryError=""; state.directoryErrorCode=""; applyDirectoryData();
+          } else updateDirectoryUI();
+        } catch (error) { failed(error); }
+      }
+      directoryTimer=setTimeout(function () { failed({code:"sync-timeout"}); },SYNC_TIMEOUT_MS);
+      directoryUnsubscribe=function () { stops.forEach(function (stop) { stop(); }); };
+      try {
+        stops.push(cloud.fs.onSnapshot(cloud.fs.doc(cloud.db,"users",uid,"settings","catalog"),{includeMetadataChanges:true},function (s) { accepted("catalog",s); },failed));
+        ["cities","doctors"].forEach(function (part) { stops.push(cloud.fs.onSnapshot(cloud.fs.collection(cloud.db,"users",uid,part),{includeMetadataChanges:true},function (s) { accepted(part,s); },failed)); });
+      } catch (error) { failed(error); }
+    }
+    function requireDirectoryAccount() {
+      if (state.user) return true;
+      openAccount(); showError("accountError","Sign in to add, edit or delete directory items."); return false;
+    }
+    async function commitDirectoryChange(change) {
+      if (!canManageDirectory()) throw directoryFailure("directory-not-ready",directoryConnectionText());
+      const uid=state.user.uid, part=change.kind==="city" ? "cities" : "doctors";
+      const ref=cloud.fs.doc(cloud.db,"users",uid,part,change.key);
+      const committed=await cloud.fs.runTransaction(cloud.db,async function (transaction) {
+        const snapshot=await transaction.get(ref), existing=snapshot.exists() ? snapshot.data() : null;
+        if ((existing?.rev || 0)!==change.expectedRev) throw directoryFailure("directory-conflict","Directory conflict");
+        if (change.kind==="doctor" && !change.record.deleted) {
+          const parent=await transaction.get(cloud.fs.doc(cloud.db,"users",uid,"cities",change.record.cityId));
+          if (!parent.exists() || parent.data().deleted) throw directoryFailure("directory-city-unavailable","City unavailable");
+        }
+        // All reads occur before this write; every record has an independent revision.
+        const stamp=cloud.fs.serverTimestamp();
+        const next=Object.assign({},change.record,{rev:(existing?.rev || 0)+1,schemaVersion:2,createdAt:existing ? existing.createdAt : stamp,updatedAt:stamp});
+        transaction.set(ref,next); return next;
+      },{maxAttempts:3});
+      if (state.user && state.user.uid===uid) { directoryParts[part].set(change.key,committed); applyDirectoryData(); }
+      return uid;
+    }
+
+    function makeEditorField(index,label,value) { return {token:String(++editorSequence),index:index,label:label,value:String(value==null ? "" : value),originalValue:value,originalText:String(value==null ? "" : value)}; }
+    function openCityEditor() {
+      if (!requireDirectoryAccount()) return;
+      state.editor={mode:"city",isNew:true}; $("directoryEditorTitle").textContent="Add city."; $("directoryEditorSubtitle").textContent="Create a city, then add its doctors.";
+      $("cityNameField").hidden=false; $("doctorCoreFields").hidden=true; $("newCityName").value=""; showError("directoryEditorError","");
+      updateDirectoryUI(); showDialog($("directoryEditorDialog")); $("newCityName").focus();
+    }
+    function openDoctorEditor(id) {
+      if (!requireDirectoryAccount()) return;
+      const doctor=id ? doctorById.get(id) : null, isNew=!doctor;
+      if (id && !doctor) return;
+      const first=cities.find(function (city) { return city.key===state.city; }) || cities[0];
+      if (!first) { openCityEditor(); return; }
+      const values=doctor ? doctor.values : Array(raw.headers.length).fill("");
+      const hidden=new Set(doctor ? doctor.hiddenFields || [] : raw.headers.map(function (_,i) { return i; }).filter(function (i) { return ![COL.name,COL.city,COL.qualification,COL.specialization,COL.clinic].includes(i); }));
+      state.editor={mode:"doctor",isNew:isNew,id:doctor ? doctor.id : "D"+Date.now()+String(Math.floor(Math.random()*1000000)).padStart(6,"0"),expectedRev:doctor ? doctor.rev : 0,fields:raw.headers.map(function (label,i) { return makeEditorField(i,label,values[i]); }).filter(function (f) { return f.index!==COL.name && f.index!==COL.city && !hidden.has(f.index); }).concat((doctor && doctor.extraFields || []).map(function (f) { return makeEditorField(null,f.label,f.value); }))};
+      $("directoryEditorTitle").textContent=isNew ? "Add doctor." : "Edit details."; $("directoryEditorSubtitle").textContent=isNew ? "Add a doctor to your directory." : "Update details, add a field or remove one.";
+      $("cityNameField").hidden=true; $("doctorCoreFields").hidden=false; $("editorDoctorName").value=doctor ? values[COL.name] : "";
+      $("editorDoctorCity").innerHTML=cities.map(function (city) { return '<option value="'+escapeHTML(city.key)+'">'+escapeHTML(city.label)+'</option>'; }).join("");
+      $("editorDoctorCity").value=doctor ? doctor.city : first.key;
+      showError("directoryEditorError",""); renderEditorFields(); updateDirectoryUI(); showDialog($("directoryEditorDialog"));
+    }
+    function renderEditorFields() {
+      const editor=state.editor; if (!editor || editor.mode!=="doctor") return;
+      $("editorFields").innerHTML=editor.fields.map(function (field) {
+        const labelId="detail-label-"+field.token, valueId="detail-value-"+field.token;
+        const label=field.index===null ? '<div class="edit-field-name"><label class="sr-only" for="'+labelId+'">Detail name</label><input id="'+labelId+'" class="input" data-field-label="'+field.token+'" maxlength="80" placeholder="Detail name" value="'+escapeHTML(field.label)+'"></div>' : '<label class="edit-field-label" for="'+valueId+'">'+escapeHTML(field.label)+'</label>';
+        const valueLabel=field.index===null ? '<label class="sr-only" for="'+valueId+'">'+escapeHTML(field.label || "Detail value")+'</label>' : "";
+        return '<div class="edit-field" role="group" aria-label="'+escapeHTML(field.label || "Custom detail")+'"><div class="edit-field-top">'+label+'<button type="button" class="remove-field press" data-remove-field="'+field.token+'" aria-label="Remove '+escapeHTML(field.label || "detail")+'" title="Remove this detail">'+icon("close")+'</button></div>'+valueLabel+'<textarea id="'+valueId+'" class="input" data-field-value="'+field.token+'" maxlength="1000" rows="2">'+escapeHTML(field.value)+'</textarea></div>';
+      }).join("");
+      const used=new Set(editor.fields.map(function (f) { return f.index; }));
+      $("detailFieldType").innerHTML=raw.headers.map(function (label,i) { return i===COL.name || i===COL.city || used.has(i) ? "" : '<option value="'+i+'">'+escapeHTML(label)+'</option>'; }).join("")+'<option value="custom">Custom detail</option>';
+    }
+    function addEditorField() {
+      const editor=state.editor; if (!editor || editor.mode!=="doctor" || state.directoryBusy) return;
+      const value=$("detailFieldType").value, custom=value==="custom", index=custom ? null : Number(value);
+      if (custom && editor.fields.filter(function (f) { return f.index===null; }).length>=20) { showError("directoryEditorError","You can add up to 20 custom details."); return; }
+      if (!custom && (index===COL.name || index===COL.city || !raw.headers[index] || editor.fields.some(function (f) { return f.index===index; }))) return;
+      editor.fields.push(makeEditorField(index,custom ? "" : raw.headers[index],"")); renderEditorFields();
+    }
+    function buildDoctorRecord(editor) {
+      const name=$("editorDoctorName").value.trim(), city=$("editorDoctorCity").value, location=cities.find(function (c) { return c.key===city; });
+      if (!name || name.length>200) throw directoryFailure("directory-validation","Enter a doctor name of up to 200 characters.");
+      if (!location) throw directoryFailure("directory-validation","Choose an available city.");
+      const original=allDirectoryDoctors.get(editor.id), entries=[["Doctor Name",name],["City",original && original.city===city ? original.details.City : location.label]];
+      const labels=new Set(raw.headers.map(norm));
+      editor.fields.forEach(function (field) {
+        let label=field.index===null ? String(field.label).trim() : raw.headers[field.index];
+        if (!label || label.length>80 || /^__.*__$/.test(label) || ["__proto__","constructor","prototype"].includes(label)) throw directoryFailure("directory-validation","Give each detail a valid name of up to 80 characters.");
+        if (field.index===null && labels.has(norm(label))) throw directoryFailure("directory-validation","Each detail name must be unique.");
+        labels.add(norm(label));
+        const text=String(field.value), value=text===field.originalText ? field.originalValue : text.trim();
+        if (typeof value==="string" && value.length>1000) throw directoryFailure("directory-validation","Each detail must be 1,000 characters or fewer.");
+        entries.push([label,value]);
+      });
+      if (entries.length>50) throw directoryFailure("directory-validation","A doctor can have up to 50 details.");
+      const details=Object.fromEntries(entries), available=new Set(Object.keys(details));
+      const fieldOrder=(original ? original.fieldOrder : raw.headers).filter(function (key) { return available.has(key); });
+      Object.keys(details).forEach(function (key) { if (!fieldOrder.includes(key)) fieldOrder.push(key); });
+      return {name:name,cityId:city,order:original ? original.order : Date.now(),details:details,fieldOrder:fieldOrder,deleted:false};
+    }
+    async function saveDirectoryEditor(event) {
+      event.preventDefault(); const editor=state.editor; if (!editor || state.directoryBusy) return;
+      showError("directoryEditorError","");
+      if (!canManageDirectory()) { showError("directoryEditorError",directoryConnectionText()); return; }
+      let change;
+      try {
+        if (editor.mode==="city") {
+          const label=$("newCityName").value.trim(), key="city_"+encodeURIComponent(norm(label));
+          if (!label || label.length>80) throw directoryFailure("directory-validation","Enter a city name of up to 80 characters.");
+          const duplicate=Array.from(allDirectoryCities.values()).find(function (c) { return c.key===key || norm(c.label)===norm(label); });
+          if (duplicate) throw directoryFailure("directory-validation",duplicate.deleted ? "This city is in Deleted items. Restore it from Account." : "This city is already in your directory.");
+          change={kind:"city",key:key,expectedRev:0,record:{name:label,order:Date.now(),deleted:false}};
+        } else change={kind:"doctor",key:editor.id,expectedRev:editor.expectedRev,record:buildDoctorRecord(editor)};
+      } catch (error) { showError("directoryEditorError",error.message); return; }
+      const uid=state.user.uid;
+      try {
+        const request=commitDirectoryChange(change); state.directoryBusy=true; updateDirectoryUI(); await request;
+        if (!state.user || state.user.uid!==uid) return;
+        state.directoryBusy=false; closeDialog($("directoryEditorDialog")); state.editor=null;
+        toast(editor.mode==="city" ? "City added" : editor.isNew ? "Doctor added" : "Details updated");
+      } catch (error) { if (state.user && state.user.uid===uid) reportDirectoryWriteError(error,"directoryEditorError"); }
+      finally { if (state.user && state.user.uid===uid) { state.directoryBusy=false; updateDirectoryUI(); } }
+    }
+    function openDirectoryActions(kind,key) {
+      if (!requireDirectoryAccount()) return;
+      const item=kind==="city" ? allDirectoryCities.get(key) : doctorById.get(key); if (!item || item.deleted) return;
+      state.directoryAction={kind:kind,key:key,label:kind==="city" ? item.label : item.values[COL.name],expectedRev:item.rev || 0};
+      $("directoryActionsTitle").textContent=state.directoryAction.label; $("directoryActionsSubtitle").textContent=kind==="city" ? "City options" : "Doctor options";
+      $("chooseDirectoryDeleteLabel").textContent=kind==="city" ? "Delete city" : "Delete doctor"; showDialog($("directoryActionsDialog"));
+    }
+    function showDirectoryDeleteWarning() {
+      const action=state.directoryAction; if (!action) return;
+      closeDialog($("directoryActionsDialog"));
+      $("directoryDeleteTitle").textContent=action.kind==="city" ? "Delete this city?" : "Delete this doctor?";
+      const city=cities.find(function (c) { return c.key===action.key; });
+      $("directoryDeleteDescription").textContent=action.kind==="city" ? "Remove "+action.label+" and its "+(city ? city.doctors.length : 0)+" doctors from your directory? Saved visits will be kept. You can restore the city from Account → Deleted items." : "Remove "+action.label+" from your directory? Saved visits will be kept. You can restore the doctor from Account → Deleted items.";
+      showError("directoryDeleteError",""); updateDirectoryUI(); showDialog($("directoryDeleteDialog"));
+    }
+    async function deleteDirectoryItem() {
+      const action=state.directoryAction; if (!action || !canManageDirectory()) return;
+      const item=action.kind==="city" ? allDirectoryCities.get(action.key) : allDirectoryDoctors.get(action.key);
+      if (!item) return;
+      const record=action.kind==="city" ? {name:item.label,order:item.order,deleted:true} : Object.assign(recordForDoctor(item),{deleted:true});
+      const uid=state.user.uid;
+      try {
+        const request=commitDirectoryChange({kind:action.kind,key:action.key,expectedRev:action.expectedRev,record:record}); state.directoryBusy=true; updateDirectoryUI(); await request;
+        if (!state.user || state.user.uid!==uid) return;
+        state.directoryBusy=false; closeDialog($("directoryDeleteDialog")); state.directoryAction=null; toast(action.kind==="city" ? "City deleted" : "Doctor deleted");
+      } catch (error) { if (state.user && state.user.uid===uid) reportDirectoryWriteError(error,"directoryDeleteError"); }
+      finally { if (state.user && state.user.uid===uid) { state.directoryBusy=false; updateDirectoryUI(); } }
+    }
+    function renderDeletedItems() {
+      const deleted=[];
+      allDirectoryCities.forEach(function (city) { if (city.deleted) deleted.push({kind:"city",key:city.key,label:city.label,subtitle:"City"}); });
+      allDirectoryDoctors.forEach(function (doctor) { if (doctor.deleted) deleted.push({kind:"doctor",key:doctor.id,label:doctor.values[COL.name],subtitle:"Doctor · "+(allDirectoryCities.get(doctor.city)?.label || cityName(doctor.city))}); });
+      $("deletedItemsList").innerHTML=deleted.length ? deleted.map(function (item) { return '<div class="deleted-row"><span class="deleted-copy"><strong>'+escapeHTML(item.label)+'</strong><small>'+escapeHTML(item.subtitle)+'</small></span><button type="button" class="text-button press" data-restore-kind="'+item.kind+'" data-restore-key="'+escapeHTML(item.key)+'"'+(!canManageDirectory() ? " disabled" : "")+'>Restore</button></div>'; }).join("") : '<p class="history-message">No deleted cities or doctors.</p>';
+    }
+    async function restoreDirectoryItem(kind,key) {
+      if (!canManageDirectory()) return;
+      const item=kind==="city" ? allDirectoryCities.get(key) : allDirectoryDoctors.get(key); if (!item || !item.deleted) return;
+      const record=kind==="city" ? {name:item.label,order:item.order,deleted:false} : Object.assign(recordForDoctor(item),{deleted:false});
+      showError("restoreDirectoryError",""); const uid=state.user.uid;
+      try {
+        const request=commitDirectoryChange({kind:kind,key:key,expectedRev:item.rev || 0,record:record}); state.directoryBusy=true; updateDirectoryUI(); await request;
+        if (state.user && state.user.uid===uid) toast(kind==="city" ? "City restored" : "Doctor restored");
+      } catch (error) { if (state.user && state.user.uid===uid) reportDirectoryWriteError(error,"restoreDirectoryError"); }
+      finally { if (state.user && state.user.uid===uid) { state.directoryBusy=false; updateDirectoryUI(); } }
+    }
+    function installDirectoryGestures() {
+      let press=null, consumedUntil=0, heldPointer=null;
+      function clearPress() {
+        if (!press) return;
+        clearTimeout(press.timer); press.target.classList.remove("hold-selected"); press=null;
+      }
+      function targetAction(target) {
+        if (target.dataset.details) openDoctorEditor(target.dataset.details);
+        else if (target.dataset.visit) openDirectoryActions("doctor",target.dataset.visit);
+        else if (target.dataset.city) openDirectoryActions("city",target.dataset.city);
+      }
+      document.addEventListener("pointerdown",function (event) {
+        if (event.isPrimary===false || (event.button!==undefined && event.button!==0)) return;
+        const target=event.target.closest("button[data-city],button[data-visit],button[data-details]"); if (!target || target.disabled) return;
+        clearPress(); press={target:target,x:event.clientX,y:event.clientY,id:event.pointerId,timer:null};
+        press.timer=setTimeout(function () {
+          if (!press || press.target!==target || !target.isConnected) return;
+          press.fired=true; heldPointer=press.id; consumedUntil=Infinity; target.classList.add("hold-selected"); targetAction(target);
+        },900);
+      });
+      document.addEventListener("pointermove",function (event) {
+        if (press && (Math.abs(event.clientX-press.x)>10 || Math.abs(event.clientY-press.y)>10)) clearPress();
+      },{passive:true});
+      ["pointerup","pointercancel"].forEach(function (type) {
+        document.addEventListener(type,function (event) {
+          if (heldPointer===event.pointerId) { heldPointer=null; consumedUntil=Date.now()+180; }
+          clearPress();
+        },{capture:true,passive:true});
+      });
+      document.addEventListener("scroll",clearPress,{capture:true,passive:true});
+      window.addEventListener("blur",function () { clearPress(); heldPointer=null; consumedUntil=0; });
+      document.addEventListener("click",function (event) {
+        if (consumedUntil>Date.now() && event.detail!==0) { consumedUntil=0; event.preventDefault(); event.stopImmediatePropagation(); }
+      },true);
+      document.addEventListener("contextmenu",function (event) {
+        const target=event.target.closest("button[data-city],button[data-visit],button[data-details]");
+        if (!target) return; event.preventDefault(); if (press || consumedUntil>Date.now()) return;
+        clearPress(); consumedUntil=Date.now()+500; targetAction(target);
+      });
+      document.addEventListener("keydown",function (event) {
+        if (event.key!=="ContextMenu" && !(event.shiftKey && event.key==="F10")) return;
+        const target=event.target.closest("button[data-city],button[data-visit],button[data-details]");
+        if (target) { event.preventDefault(); clearPress(); targetAction(target); }
+      });
+    }
+    function bindDirectoryManagement() {
+      $("homeSignIn").addEventListener("click",openAccount);
+      $("homeRetry").addEventListener("click",function () { if (state.user) retryVisitConnection(); else { state.bootError=""; state.authReady=false; updateDirectoryUI(); connectCloud().catch(function () {}); } });
+      $("addCityButton").addEventListener("click",openCityEditor);
+      $("addDoctorButton").addEventListener("click",function () { openDoctorEditor(); });
+      $("directoryEditorForm").addEventListener("submit",saveDirectoryEditor);
+      $("addDetailField").addEventListener("click",addEditorField);
+      $("chooseDirectoryDelete").addEventListener("click",showDirectoryDeleteWarning);
+      $("confirmDirectoryDelete").addEventListener("click",deleteDirectoryItem);
+      $("cancelDirectoryDelete").addEventListener("click",function () { if (!state.directoryBusy) { state.directoryAction=null; closeDialog($("directoryDeleteDialog")); } });
+      ["editorRetry","directoryDeleteRetry"].forEach(function (id) {
+        $(id).addEventListener("click",function () {
+          if (state.user && !state.directoryBusy) {
+            showError("directoryEditorError",""); showError("directoryDeleteError",""); attachDirectoryListener(state.user);
+          }
+        });
+      });
+      $("deletedItemsButton").addEventListener("click",function () { showError("restoreDirectoryError",""); renderDeletedItems(); updateDirectoryUI(); showDialog($("deletedItemsDialog")); });
+      document.addEventListener("input",function (event) {
+        const target=event.target, editor=state.editor; if (!editor || editor.mode!=="doctor") return;
+        const token=target.dataset.fieldValue || target.dataset.fieldLabel;
+        const field=editor.fields.find(function (f) { return f.token===token; }); if (!field) return;
+        if (target.dataset.fieldValue) field.value=target.value; else field.label=target.value;
+      });
+      document.addEventListener("click",function (event) {
+        const target=event.target.closest("button"); if (!target) return;
+        if (target.dataset.removeField && state.editor && !state.directoryBusy) { state.editor.fields=state.editor.fields.filter(function (f) { return f.token!==target.dataset.removeField; }); renderEditorFields(); }
+        else if (target.dataset.restoreKind) restoreDirectoryItem(target.dataset.restoreKind,target.dataset.restoreKey);
+      });
+      installDirectoryGestures(); updateDirectoryUI();
+    }
+
+    document.addEventListener("click",function (event) {
+      const target=event.target.closest("button"); if (!target) return;
+      if (target.dataset.city) chooseCity(target.dataset.city);
+      else if (target.dataset.visit) openVisit(target.dataset.visit);
+      else if (target.dataset.details) openDetails(target.dataset.details);
+      else if (target.dataset.delete) requestDelete(target.dataset.delete);
+      else if (target.dataset.date) { if (validDate(target.dataset.date)) { setDate(target.dataset.date); renderCalendar(); } }
+      else if (target.dataset.close) closeDialog($(target.dataset.close));
+    });
+    document.querySelectorAll("dialog").forEach(function (dialog) {
+      dialog.addEventListener("close",refreshModalLock);
+      dialog.addEventListener("cancel",function (event) {
+        if (state.busy || state.deleting || state.authBusy || state.directoryBusy) event.preventDefault();
+      });
+    });
+    $("homeButton").addEventListener("click",goHome); $("backButton").addEventListener("click",goHome);
+    $("search").addEventListener("input",renderDoctors);
+    $("clearSearch").addEventListener("click",function () { $("search").value=""; renderDoctors(); $("search").focus(); });
+    $("accountButton").addEventListener("click",openAccount); $("visitSignIn").addEventListener("click",openAccount);
+    $("visitRetry").addEventListener("click",retryVisitConnection); $("accountRetry").addEventListener("click",retryVisitConnection);
+    $("visitForm").addEventListener("submit",registerVisit);
+    $("calendarButton").addEventListener("click",function () {
+      const open=$("datePicker").hidden; $("datePicker").hidden=!open; $("calendarButton").setAttribute("aria-expanded",String(open));
+      if (open) { calendarView=dateObject($("visitDate").value); renderCalendar(); }
+    });
+    $("previousMonth").addEventListener("click",function () { moveMonth(-1); });
+    $("nextMonth").addEventListener("click",function () { moveMonth(1); });
+    $("visitDate").addEventListener("change",function () {
+      if (validDate($("visitDate").value)) { calendarView=dateObject($("visitDate").value); setDate($("visitDate").value); renderCalendar(); }
+    });
+    $("dateOK").addEventListener("click",function () {
+      if (!validDate($("visitDate").value)) { showError("visitError","Choose a valid date on or before today."); return; }
+      setDate($("visitDate").value); $("datePicker").hidden=true; $("calendarButton").setAttribute("aria-expanded","false"); showError("visitError",""); $("calendarButton").focus();
+    });
+    $("detailsVisitButton").addEventListener("click",function () { const id=state.detailDoctor && state.detailDoctor.id; closeDialog($("detailsDialog")); if (id) openVisit(id); });
+    $("cancelDelete").addEventListener("click",function () { state.pendingDelete=null; closeDialog($("deleteDialog")); });
+    $("confirmDelete").addEventListener("click",deleteVisit);
+    $("signInForm").addEventListener("submit",signIn); $("signOutButton").addEventListener("click",signOut); $("resetPassword").addEventListener("click",resetPassword);
+    $("backupButton").addEventListener("click",downloadBackup);
+    $("passwordToggle").addEventListener("click",function () { const show=$("password").type==="password"; $("password").type=show ? "text" : "password"; $("passwordToggle").setAttribute("aria-label",show ? "Hide password" : "Show password"); $("passwordToggle").setAttribute("aria-pressed",String(show)); });
+    window.addEventListener("popstate",function (event) {
+      returningToCities=false;
+      const city=event.state && event.state[CITY_HISTORY_KEY];
+      if (cities.some(function (entry) { return entry.key===city; })) chooseCity(city,true);
+      else goHome(true);
+    });
+    window.addEventListener("offline",function () { clearSyncTimer(); clearTimeout(directoryTimer); directoryTimer=null; if (state.user) { state.directorySync="offline"; state.sync="offline"; updateSyncUI(); renderDoctors(); updateDirectoryUI(); } });
+    window.addEventListener("online",function () {
+      if (state.user) attachVisitListener(state.user); else connectCloud().catch(function () {});
+    });
+    window.addEventListener("beforeunload",function (event) {
+      if (state.busy || state.deleting || state.directoryBusy) { event.preventDefault(); event.returnValue=""; }
+    });
+    document.addEventListener("visibilitychange",function () {
+      if (!document.hidden) {
+        $("visitDate").max=todayISO();
+        if (state.user && navigator.onLine && state.sync==="error") attachVisitListener(state.user);
+        else if (state.user && navigator.onLine && state.directorySync==="error") attachDirectoryListener(state.user);
+      }
+    });
+    bindDirectoryManagement(); applyDirectoryData();
+    // Keep one cities entry as the base. Restore a city after a page refresh
+    // without pushing another entry; Forward can restore it in the same way.
+    const initialCity=window.history.state && window.history.state[CITY_HISTORY_KEY];
+    if (cities.some(function (entry) { return entry.key===initialCity; })) chooseCity(initialCity,true);
+    else if (typeof initialCity==="string") pendingDirectoryCity=initialCity;
+    else window.history.replaceState(Object.assign({},window.history.state,{[CITY_HISTORY_KEY]:null}),"");
+    // Display the shell immediately; private records load after authentication.
+    // The tiny loader is inline; it never waits for external SDKs or a logo download.
+    requestAnimationFrame(function () { requestAnimationFrame(function () { $("boot").classList.add("done"); $("boot").setAttribute("aria-hidden","true"); }); });
+    setTimeout(function () { connectCloud().catch(function () {}); },0);
+  })();
+  </script>
+</body>
+</html>
