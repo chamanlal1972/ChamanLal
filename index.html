@@ -43,6 +43,8 @@
       --input: rgba(255,255,255,.55); --edge: rgba(255,255,255,.88);
       --line: rgba(56,76,122,.1); --accent: #3564df; --accent-ink: #244fc5;
       --accent-soft: rgba(67,112,242,.11); --green: #21815c;
+      --green-soft: rgba(42,164,109,.11); --green-edge: rgba(61,133,96,.20);
+      --green-sheen: linear-gradient(155deg,rgba(255,255,255,.22),rgba(255,255,255,0) 65%);
       --danger: #b73550; --danger-soft: rgba(217,62,86,.10); --danger-edge: rgba(160,90,110,.19);
       --glow-blue: rgba(146,183,255,.31); --glow-violet: rgba(206,174,255,.29); --glow-mint: rgba(138,223,202,.27);
       --shadow: 0 12px 28px -17px rgba(44,66,116,.38), 0 3px 7px -3px rgba(44,66,116,.14);
@@ -64,6 +66,8 @@
         --input: rgba(24,32,51,.53); --edge: rgba(206,221,255,.19);
         --line: rgba(202,218,255,.13); --accent: #90b0ff; --accent-ink: #adc4ff;
         --accent-soft: rgba(137,169,255,.14); --green: #8ad9b7;
+        --green-soft: rgba(103,221,164,.12); --green-edge: rgba(173,242,204,.16);
+        --green-sheen: linear-gradient(155deg,rgba(206,255,228,.045),rgba(206,255,228,0) 65%);
         --danger: #ffa1b5; --danger-soft: rgba(255,115,139,.12); --danger-edge: rgba(255,188,207,.16);
         --glow-blue: rgba(32,53,88,.78); --glow-violet: rgba(42,34,71,.78); --glow-mint: rgba(22,55,56,.78);
         --shadow: 0 14px 28px -15px rgba(0,0,0,.65), 0 3px 8px -3px rgba(0,0,0,.28);
@@ -176,8 +180,7 @@
     dialog[open] { animation: sheet-in .38s var(--ease) both; }
     @keyframes sheet-in { from { opacity: 0; transform: translateY(22px) scale(.97); } to { opacity: 1; transform: none; } }
     .sheet { width: min(calc(100% - 28px),550px); max-height: min(86dvh,850px); border-radius: 31px; margin: auto; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
-    .sheet-top { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; padding: 17px 22px 12px; gap: 10px; background: var(--glass-strong); -webkit-backdrop-filter: var(--blur); backdrop-filter: var(--blur); border-radius: 31px 31px 0 0; }
-    #visitDialog .sheet-top, #detailsDialog .sheet-top { position:relative; top:auto; z-index:auto; padding-inline:25px; background:transparent; -webkit-backdrop-filter:none; backdrop-filter:none; border-radius:0; }
+    .sheet-top { position:relative; display:flex; align-items:center; justify-content:space-between; padding:17px 25px 12px; gap:10px; background:transparent; -webkit-backdrop-filter:none; backdrop-filter:none; }
     .sheet-top .eyebrow { margin: 0; font-size: 10px; letter-spacing: 1.6px; }
     .icon-button { display: grid; place-items: center; border: 1px solid var(--edge); background:var(--surface-sheen),var(--accent-soft); box-shadow:var(--control-shadow),var(--inner); color: var(--muted); min-height: 38px; min-width: 38px; border-radius:14px; padding: 8px; }
     .icon-button .icon { width: 18px; height: 18px; }
@@ -299,8 +302,7 @@
       .sheet { margin: auto; max-height: 88dvh; }
       .sheet-content { padding: 0 21px 25px; }
       .sheet h2 { font-size: 24px; }
-      .sheet-top { padding: 14px 17px 11px; }
-      #visitDialog .sheet-top, #detailsDialog .sheet-top { padding-inline:21px; }
+      .sheet-top { padding:14px 21px 11px; }
       .detail-field { padding: 12px 13px; gap: 12px; }
       .sync-badge { font-size: 10px; }
     }
@@ -319,8 +321,12 @@
     }
     .section-title-row { display:grid; grid-template-columns:minmax(0,1fr) 44px; align-items:center; gap:16px; margin-bottom:13px; }
     .section-title-row h1 { margin:0; }
-    .add-button { display:grid; place-items:center; width:44px; height:44px; border-radius:15px; color:var(--accent-ink); padding:11px; line-height:1; }
+    .add-button { display:grid; place-items:center; width:44px; height:44px; border-radius:14px; padding:11px; line-height:1; }
     .add-button .icon { width:20px; height:20px; stroke-width:2; }
+    .add-button, #addDetailField, #registerButton { color:var(--green); border-color:var(--green-edge); background:var(--green-sheen),var(--green-soft); box-shadow:var(--control-shadow),var(--inner); }
+    @media (hover:hover) {
+      .add-button:hover:not(:disabled), #addDetailField:hover:not(:disabled), #registerButton:hover:not(:disabled) { background-color:var(--green-soft); }
+    }
     .manage-hint { font-size:10px; line-height:1.6; color:var(--muted); margin:15px 3px 0; }
     .city-card, .doctor-name-button, .details-button { -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
     .hold-selected { outline:2px solid var(--accent); outline-offset:3px; }
@@ -341,7 +347,7 @@
     .edit-field-name { min-width:0; }
     .edit-field-top .input { min-height:44px; padding:9px 11px; font-size:16px; border-radius:13px; }
     .remove-field { width:44px; height:44px; border:1px solid var(--danger-edge); border-radius:14px; background:var(--danger-sheen),var(--danger-soft); box-shadow:var(--control-shadow),var(--inner); color:var(--danger); display:grid; place-items:center; padding:12px; }
-    .remove-field .icon { width:16px; height:16px; }
+    .remove-field .icon { width:18px; height:18px; }
     .remove-field:focus-visible { color:var(--danger); }
     @media (hover:hover) { .remove-field:hover:not(:disabled) { background:var(--danger-soft); color:var(--danger); } }
     .add-detail-label { margin-top:17px !important; }
@@ -1197,7 +1203,7 @@
         const labelId="detail-label-"+field.token, valueId="detail-value-"+field.token;
         const label=field.index===null ? '<div class="edit-field-name"><label class="sr-only" for="'+labelId+'">Detail name</label><input id="'+labelId+'" class="input" data-field-label="'+field.token+'" maxlength="80" placeholder="Detail name" value="'+escapeHTML(field.label)+'"></div>' : '<label class="edit-field-label" for="'+valueId+'">'+escapeHTML(field.label)+'</label>';
         const valueLabel=field.index===null ? '<label class="sr-only" for="'+valueId+'">'+escapeHTML(field.label || "Detail value")+'</label>' : "";
-        return '<div class="edit-field" role="group" aria-label="'+escapeHTML(field.label || "Custom detail")+'"><div class="edit-field-top">'+label+'<button type="button" class="remove-field press" data-remove-field="'+field.token+'" aria-label="Remove '+escapeHTML(field.label || "detail")+'" title="Remove this detail">'+icon("close")+'</button></div>'+valueLabel+'<textarea id="'+valueId+'" class="input" data-field-value="'+field.token+'" maxlength="1000" rows="2">'+escapeHTML(field.value)+'</textarea></div>';
+        return '<div class="edit-field" role="group" aria-label="'+escapeHTML(field.label || "Custom detail")+'"><div class="edit-field-top">'+label+'<button type="button" class="remove-field press" data-remove-field="'+field.token+'" aria-label="Remove '+escapeHTML(field.label || "detail")+'" title="Remove this detail">'+icon("trash")+'</button></div>'+valueLabel+'<textarea id="'+valueId+'" class="input" data-field-value="'+field.token+'" maxlength="1000" rows="2">'+escapeHTML(field.value)+'</textarea></div>';
       }).join("");
       const used=new Set(editor.fields.map(function (f) { return f.index; }));
       $("detailFieldType").innerHTML=raw.headers.map(function (label,i) { return i===COL.name || i===COL.city || used.has(i) ? "" : '<option value="'+i+'">'+escapeHTML(label)+'</option>'; }).join("")+'<option value="custom">Custom detail</option>';
