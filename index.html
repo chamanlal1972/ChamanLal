@@ -232,7 +232,7 @@
     .detail-grid { margin: 0; padding: 0; border: 1px solid var(--line); border-radius: 20px; background: var(--input); overflow: hidden; }
     .detail-field { display: grid; grid-template-columns: minmax(100px,.8fr) minmax(0,1.2fr); gap: 15px; padding: 13px 16px; border-bottom: 1px solid var(--line); }
     .detail-field:last-child { border-bottom: 0; }
-    .detail-field dt { color: var(--muted); font-size: 11px; line-height: 1.6; }
+    .detail-field dt { color: var(--muted); font-size: 11px; line-height: 1.6; overflow-wrap:anywhere; }
     .detail-field dd { margin: 0; font-size: 12px; font-weight: 550; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
     .detail-action { margin-top: 18px; }
     .confirm { width: min(calc(100% - 44px),340px); max-height: 88dvh; margin: auto; overflow-y: auto; overscroll-behavior: contain; border-radius: 29px; text-align: center; padding: 26px 23px 16px; }
@@ -337,7 +337,13 @@
     .confirm .management-notice .text-button { width:100%; }
     .management-form .field-label { margin:0 0 8px; }
     .management-form .core-fields { display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr); align-items:start; gap:14px; }
-    .management-form select { appearance:auto; -webkit-appearance:auto; padding-right:10px; }
+    .management-form .core-fields > div { min-width:0; }
+    .select-wrap { position:relative; width:100%; min-width:0; }
+    .management-form .select-wrap select { appearance:none; -webkit-appearance:none; padding:12px 48px 12px 14px; cursor:pointer; text-overflow:ellipsis; }
+    .select-chevron { position:absolute; right:16px; top:50%; width:16px; height:16px; color:var(--muted); stroke-width:2; transform:translateY(-50%) rotate(90deg); pointer-events:none; }
+    .select-wrap select:disabled + .select-chevron { opacity:.5; }
+    .select-wrap select:focus-visible + .select-chevron { color:var(--accent-ink); }
+    .management-form select option { color:var(--ink); background-color:var(--bg); }
     .management-form textarea { resize:vertical; min-height:76px; font-size:16px; line-height:1.5; border-radius:14px; }
     .editor-section-title { font-size:12px; font-weight:650; color:var(--muted); margin:23px 2px 11px; }
     .edit-fields { display:grid; gap:12px; margin:0 0 14px; }
@@ -518,12 +524,12 @@
         <div id="doctorCoreFields">
           <div class="core-fields">
             <div><label class="field-label" for="editorDoctorName">Doctor name</label><input class="input" id="editorDoctorName" maxlength="200" placeholder="Dr. Name" autocomplete="off" required></div>
-            <div><label class="field-label" for="editorDoctorCity">City</label><select class="input" id="editorDoctorCity" required></select></div>
+            <div><label class="field-label" for="editorDoctorCity">City</label><div class="select-wrap"><select class="input" id="editorDoctorCity" required></select><svg class="icon select-chevron" aria-hidden="true"><use href="#i-chevron"></use></svg></div></div>
           </div>
           <h3 class="editor-section-title">Doctor details</h3>
           <div class="edit-fields" id="editorFields"></div>
           <label class="field-label add-detail-label" for="detailFieldType">Add another detail</label>
-          <div class="add-detail-row"><select class="input" id="detailFieldType"></select><button type="button" class="small-ok press" id="addDetailField"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg><span>Add detail</span></button></div>
+          <div class="add-detail-row"><div class="select-wrap"><select class="input" id="detailFieldType"></select><svg class="icon select-chevron" aria-hidden="true"><use href="#i-chevron"></use></svg></div><button type="button" class="small-ok press" id="addDetailField"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg><span>Add detail</span></button></div>
         </div>
         <p class="inline-error" id="directoryEditorError" role="alert" hidden></p><button type="submit" class="primary press" id="saveDirectoryButton">Save</button>
       </form>
