@@ -8,6 +8,7 @@
   <meta name="theme-color" content="#101421" media="(prefers-color-scheme: dark)">
   <title>Raptakos, Brett &amp; Co. Ltd. DBMS</title>
   <meta name="description" content="Doctor directory and personal visit history for Raptakos, Brett &amp; Co. Ltd.">
+  <link rel="manifest" href="./manifest.webmanifest">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="RB DBMS">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -1460,5 +1461,18 @@
     setTimeout(function () { connectCloud().catch(function () {}); },0);
   })();
   </script>
+
+  <!-- PWA service-worker registration. Existing application logic above remains unchanged. -->
+  <script>
+    if ("serviceWorker" in navigator && window.isSecureContext) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("./sw.js", { scope: "./" })
+          .catch(function (error) {
+            console.error("DBMS PWA service-worker registration failed:", error);
+          });
+      });
+    }
+  </script>
+
 </body>
 </html>
