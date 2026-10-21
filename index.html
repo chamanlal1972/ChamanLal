@@ -14,7 +14,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <link rel="icon" type="image/png" href="https://chamanlal1972.github.io/ChamanLal/logo.png?v=20261019-2">
   <link rel="apple-touch-icon" href="https://chamanlal1972.github.io/ChamanLal/logo.png?v=20261019-2">
-  <link rel="preload" as="image" href="./logo.png">
+  <link rel="preload" as="image" href="./logo.png" fetchpriority="high">
 
   <!-- Sharing preview configured for https://chamanlal1972.github.io/ChamanLal/
        WhatsApp reads these original HTML tags without running JavaScript.
@@ -409,7 +409,7 @@
   </svg>
 
   <div class="boot" id="boot" role="status" aria-label="Loading doctor directory">
-    <div class="logo-wrap"><img src="./logo.png" alt="Raptakos, Brett &amp; Co. Ltd." width="90" height="90" onerror="this.parentElement.classList.add('missing')"></div>
+    <div class="logo-wrap"><img src="./logo.png" alt="Raptakos, Brett &amp; Co. Ltd." width="90" height="90" loading="eager" fetchpriority="high" decoding="async" onerror="this.parentElement.classList.add('missing')"></div>
     <div class="loading-track"><div class="loading-line"></div></div>
     <div class="boot-name">RB DBMS</div>
   </div>
