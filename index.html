@@ -414,7 +414,7 @@
     <div class="logo-wrap"><img src="./logo.png" alt="Raptakos, Brett &amp; Co. Ltd." width="90" height="90" loading="eager" fetchpriority="high" decoding="async" onerror="this.parentElement.classList.add('missing')"></div>
     <div class="boot-name">RB DBMS</div>
     <div class="loading-track" role="progressbar" aria-label="Starting your workspace"><div class="loading-line"></div></div>
-    <div class="boot-status">Starting your workspace…</div>
+    <div class="boot-status" id="bootStatus">Starting your workspace…</div>
   </div>
   <noscript><style>.boot{display:none}</style><p style="padding:30px">Please enable JavaScript to use the doctor directory and visit history.</p></noscript>
   <header class="app-header">
@@ -1023,6 +1023,21 @@
     }
     function updateDirectoryUI() {
       const notice=directoryConnectionText();
+      // Keep the branded splash over the app while authentication and the
+      // initial Firebase directory snapshot are being resolved. This prevents
+      // the intermediate “Connecting securely…” and “Loading your directory”
+      // notices from appearing as separate screens.
+      const boot=$("boot");
+      if (boot && !boot.classList.contains("done")) {
+        if (!state.authReady) {
+          $("bootStatus").textContent="Connecting securely…";
+        } else if (state.user && !["live","error","offline"].includes(state.directorySync)) {
+          $("bootStatus").textContent="Loading your directory…";
+        } else {
+          boot.classList.add("done");
+          boot.setAttribute("aria-hidden","true");
+        }
+      }
       refreshSyncBadge();
       $("directoryEditorForm").querySelectorAll("input,select,textarea,button").forEach(function (control) { control.disabled=state.directoryBusy; });
       $("signOutButton").disabled=state.directoryBusy || state.authBusy || state.busy || state.deleting || state.backupBusy;
@@ -1458,15 +1473,30 @@
     if (cities.some(function (entry) { return entry.key===initialCity; })) chooseCity(initialCity,true);
     else if (typeof initialCity==="string") pendingDirectoryCity=initialCity;
     else window.history.replaceState(Object.assign({},window.history.state,{[CITY_HISTORY_KEY]:null}),"");
-    // Display the shell immediately; private records load after authentication.
-    // The tiny loader is inline; it never waits for external SDKs or a logo download.
-    // Keep the splash visible long enough for the status and animation to register,
-    // while still showing the app shell immediately and never waiting for Firebase.
-    setTimeout(function () {
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () { $("boot").classList.add("done"); $("boot").setAttribute("aria-hidden","true"); });
-      });
-    }, 850);
+    // The branded loading screen remains visible while Firebase initializes and,
+    // for signed-in users, until the initial directory snapshot is ready. Errors
+    // and signed-out states release the splash so the relevant recovery/sign-in
+    // controls remain accessible. A short minimum display avoids a flash on fast loads.
+    const bootStartedAt=Date.now();
+    function releaseBootWhenReady() {
+      const ready=state.authReady && (!state.user || ["live","error","offline"].includes(state.directorySync));
+      if (!ready) return;
+      const delay=Math.max(0,650-(Date.now()-bootStartedAt));
+      setTimeout(function () {
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            const boot=$("boot");
+            if (boot && state.authReady && (!state.user || ["live","error","offline"].includes(state.directorySync))) {
+              boot.classList.add("done"); boot.setAttribute("aria-hidden","true");
+            }
+          });
+        });
+      },delay);
+    }
+    // updateDirectoryUI runs whenever auth/directory status changes; this initial
+    // call handles cases where Firebase has already resolved unusually quickly.
+    const originalUpdateDirectoryUI=updateDirectoryUI;
+    updateDirectoryUI=function () { originalUpdateDirectoryUI(); releaseBootWhenReady(); };
     setTimeout(function () { connectCloud().catch(function () {}); },0);
   })();
   </script>
