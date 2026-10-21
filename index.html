@@ -411,7 +411,7 @@
   </svg>
 
   <div class="boot" id="boot" role="status" aria-label="Loading doctor directory">
-    <div class="logo-wrap"><img src="./logo.png" alt="Raptakos, Brett &amp; Co. Ltd." width="90" height="90" loading="eager" fetchpriority="high" decoding="async" onerror="this.parentElement.classList.add('missing')"></div>
+    <div class="logo-wrap"><img id="bootLogo" src="./logo.png" alt="Raptakos, Brett &amp; Co. Ltd." width="90" height="90" loading="eager" fetchpriority="high" decoding="sync" onerror="this.parentElement.classList.add('missing')"></div>
     <div class="boot-name">RB DBMS</div>
     <div class="loading-track" role="progressbar" aria-label="Starting your workspace"><div class="loading-line"></div></div>
     <div class="boot-status" id="bootStatus">Starting your workspace…</div>
@@ -1029,11 +1029,13 @@
       // notices from appearing as separate screens.
       const boot=$("boot");
       if (boot && !boot.classList.contains("done")) {
-        if (!state.authReady) {
-          $("bootStatus").textContent="Connecting securely…";
-        } else if (state.user && !["live","error","offline"].includes(state.directorySync)) {
-          $("bootStatus").textContent="Loading your directory…";
-        } else {
+        // Keep the original “Starting your workspace…” copy unchanged.
+        // The splash is released only after the app is ready and the logo's
+        // load attempt has completed, avoiding a blank/logo-pop-in first frame.
+        const logo=$("bootLogo");
+        const logoReady=Boolean(logo && logo.complete);
+        const appReady=state.authReady && (!state.user || ["live","error","offline"].includes(state.directorySync));
+        if (appReady && logoReady) {
           boot.classList.add("done");
           boot.setAttribute("aria-hidden","true");
         }
@@ -1479,7 +1481,9 @@
     // controls remain accessible. A short minimum display avoids a flash on fast loads.
     const bootStartedAt=Date.now();
     function releaseBootWhenReady() {
-      const ready=state.authReady && (!state.user || ["live","error","offline"].includes(state.directorySync));
+      const logo=$("bootLogo");
+      const logoReady=Boolean(logo && logo.complete);
+      const ready=state.authReady && (!state.user || ["live","error","offline"].includes(state.directorySync)) && logoReady;
       if (!ready) return;
       const delay=Math.max(0,650-(Date.now()-bootStartedAt));
       setTimeout(function () {
@@ -1497,6 +1501,11 @@
     // call handles cases where Firebase has already resolved unusually quickly.
     const originalUpdateDirectoryUI=updateDirectoryUI;
     updateDirectoryUI=function () { originalUpdateDirectoryUI(); releaseBootWhenReady(); };
+    const bootLogo=$("bootLogo");
+    if (bootLogo) {
+      bootLogo.addEventListener("load", releaseBootWhenReady, { once: true });
+      bootLogo.addEventListener("error", releaseBootWhenReady, { once: true });
+    }
     setTimeout(function () { connectCloud().catch(function () {}); },0);
   })();
   </script>
