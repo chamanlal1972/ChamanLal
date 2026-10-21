@@ -432,7 +432,7 @@
       <p class="eyebrow" id="homeCloudStatus">YOUR PERSONAL CLOUD DIRECTORY</p>
       <div class="section-title-row"><h1 id="homeTitle" tabindex="-1">Choose city.</h1><button type="button" class="add-button glass press" id="addCityButton" aria-label="Add city" title="Add city"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button></div>
       <p class="intro">Select a city to find your doctors<br>and keep track of every visit.</p>
-      <div class="cloud-notice home-cloud-notice" id="homeDirectoryNotice" role="status" aria-live="polite"><svg class="icon" aria-hidden="true"><use href="#i-cloud"></use></svg><p id="homeDirectoryText">Connecting securely…</p><div class="home-cloud-actions"><button type="button" class="text-button press" id="homeSignIn" hidden>Sign in</button><button type="button" class="text-button press" id="homeRetry" hidden>Retry</button></div></div><div class="city-list" id="cityList"></div><p class="manage-hint" id="homeManageHint">Hold a city to manage it.</p>
+      <div class="cloud-notice home-cloud-notice" id="homeDirectoryNotice" role="status" aria-live="polite"><svg class="icon" aria-hidden="true"><use href="#i-cloud"></use></svg><p id="homeDirectoryText"></p><div class="home-cloud-actions"><button type="button" class="text-button press" id="homeSignIn" hidden>Sign in</button><button type="button" class="text-button press" id="homeRetry" hidden>Retry</button></div></div><div class="city-list" id="cityList"></div><p class="manage-hint" id="homeManageHint">Hold a city to manage it.</p>
     </section>
     <section id="directoryView" class="directory-view" aria-labelledby="cityTitle" hidden>
       <button type="button" class="back-button press" id="backButton"><svg class="icon" aria-hidden="true"><use href="#i-back"></use></svg>Cities</button>
@@ -1009,10 +1009,14 @@
       return errorText(error);
     }
     function directoryConnectionText() {
-      if (!state.user) return state.bootError || (!state.authReady ? "Connecting securely…" : "Sign in with the same account you used for the import.");
+      // Startup connection work is intentionally silent: the branded boot screen
+      // is the only startup UI. Keep useful account, offline and error guidance
+      // available after startup without rendering connection-progress screens.
+      if (!state.authReady) return "";
+      if (!state.user) return state.bootError || "Sign in with the same account you used for the import.";
       if (!navigator.onLine) return "You're offline. Showing the last received data, if available. Reconnect to save changes.";
       if (state.directorySync==="error") return state.directoryError;
-      return state.directorySync==="live" ? "" : "Loading your directory from Firebase…";
+      return "";
     }
     function canManageDirectory() { return Boolean(state.user && state.directorySync==="live" && navigator.onLine && !state.directoryBusy); }
     function reportDirectoryWriteError(error,target) {
@@ -1023,10 +1027,9 @@
     }
     function updateDirectoryUI() {
       const notice=directoryConnectionText();
-      // Keep the branded splash over the app while authentication and the
-      // initial Firebase directory snapshot are being resolved. This prevents
-      // the intermediate “Connecting securely…” and “Loading your directory”
-      // notices from appearing as separate screens.
+      // Keep the single branded splash over the app while authentication and
+      // the initial Firebase directory snapshot resolve. Connection progress
+      // is deliberately not rendered as a separate screen or status message.
       const boot=$("boot");
       if (boot && !boot.classList.contains("done")) {
         // Keep the original “Starting your workspace…” copy unchanged.
@@ -1475,10 +1478,10 @@
     if (cities.some(function (entry) { return entry.key===initialCity; })) chooseCity(initialCity,true);
     else if (typeof initialCity==="string") pendingDirectoryCity=initialCity;
     else window.history.replaceState(Object.assign({},window.history.state,{[CITY_HISTORY_KEY]:null}),"");
-    // The branded loading screen remains visible while Firebase initializes and,
-    // for signed-in users, until the initial directory snapshot is ready. Errors
-    // and signed-out states release the splash so the relevant recovery/sign-in
-    // controls remain accessible. A short minimum display avoids a flash on fast loads.
+    // One branded loading screen remains visible while Firebase initializes and,
+    // for signed-in users, until the initial directory snapshot is ready. Then
+    // the app opens directly; account/error recovery remains available in-app.
+    // A short minimum display avoids a flash on fast loads.
     const bootStartedAt=Date.now();
     function releaseBootWhenReady() {
       const logo=$("bootLogo");
