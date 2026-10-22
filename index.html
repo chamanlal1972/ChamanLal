@@ -2802,5 +2802,11 @@ body.is-offline .bottom-nav { filter:none; }
     }
   </style>
 
+<style id="dbms-final-navigation-theme">
+@media(max-width:650px){.bottom-nav{grid-template-columns:repeat(4,minmax(0,1fr))!important}#mobileSectionsButton,#mobileSectionsMenu{display:none!important}}
+.workspace-drawer{z-index:140!important}
+@media(prefers-color-scheme:light){html,body{background:#fff!important;color:#1c1c1e!important}body{background-image:none!important}#musicStyleSidebar,.workspace-drawer-panel{background:#fff!important}.overview-card.glass,.overview-list.glass,.search-wrap.glass,.city-card.glass,.doctor-name-button.glass,.details-button.glass{background:#fff!important;border-color:rgba(0,0,0,.09)!important;box-shadow:0 8px 24px rgba(0,0,0,.055)!important}.app-header .header-inner{background:rgba(255,255,255,.94)!important;border-color:rgba(0,0,0,.09)!important}}
+@media(prefers-color-scheme:dark){html,body{background:#000!important;color:#f5f5f7!important}body{background-image:none!important}#musicStyleSidebar,.workspace-drawer-panel{background:#000!important}.overview-card.glass,.overview-list.glass,.search-wrap.glass,.city-card.glass,.doctor-name-button.glass,.details-button.glass{background:#0b0b0d!important;border-color:rgba(255,255,255,.10)!important}.app-header .header-inner{background:rgba(10,10,12,.94)!important;border-color:rgba(255,255,255,.10)!important}}
+</style>
 </body>
 </html>
