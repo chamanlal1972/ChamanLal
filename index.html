@@ -2317,10 +2317,11 @@ body.is-offline .bottom-nav { filter:none; }
         var item=event.target.closest("[data-mobile-section]");
         if (!item) return;
         var section=item.getAttribute("data-mobile-section");
-        var target=section==="cities" ? document.getElementById("bottomCities") :
+        var target=section==="cities" ? null :
           section==="doctors" ? document.getElementById("bottomSearch") : document.getElementById("bottomAccount");
         closeMenu();
-        if (target) target.click();
+        if (section==="cities") { var cityLink=document.querySelector('[data-go-view="cities"]'); if (cityLink) cityLink.click(); }
+        else if (target) target.click();
       });
       document.addEventListener("click",function (event) {
         if (!menu.hidden && !menu.contains(event.target) && !trigger.contains(event.target)) closeMenu();
