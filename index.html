@@ -65,16 +65,16 @@
     --charcoal:#282828;    /* dark charcoal                        */
 
     /* Glass — barely-there frosted pane */
-    --glass:       rgba(255,255,255,.38);
-    --glass-card:  rgba(255,255,255,.32);
-    --glass-heavy: rgba(255,255,255,.82);
+    --glass:       rgba(255,255,255,.30);
+    --glass-card:  rgba(255,255,255,.22);
+    --glass-heavy: rgba(255,255,255,.78);
     --rim:         rgba(255,255,255,.82);
     --sep:         rgba(40,40,40,.10);
 
     /* Specular layers */
-    --spec-top:  linear-gradient(180deg, rgba(255,255,255,.38) 0%, rgba(255,255,255,0) 52%);
+    --spec-top:  linear-gradient(180deg, rgba(255,255,255,.30) 0%, rgba(255,255,255,0) 48%);
     --spec-side: linear-gradient(90deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,0) 30%, rgba(255,255,255,0) 70%, rgba(255,255,255,.09) 100%);
-    --sheen:     linear-gradient(148deg, rgba(255,255,255,.42) 0%, rgba(255,255,255,.08) 32%, rgba(255,255,255,0) 52%, rgba(255,255,255,.12) 100%);
+    --sheen:     linear-gradient(148deg, rgba(255,255,255,.32) 0%, rgba(255,255,255,.06) 30%, rgba(255,255,255,0) 50%, rgba(255,255,255,.10) 100%);
 
     /* Accent = Slate Blue */
     --accent:     #4E5E6B;
@@ -97,8 +97,8 @@
     --inner-top:  inset 0 1.5px 0 rgba(255,255,255,.80);
     --inner-rim:  inset 0 0 0 .5px rgba(255,255,255,.38);
 
-    --blur:  blur(48px) saturate(200%);
-    --blur2: blur(32px) saturate(180%);
+    --blur:  blur(56px) saturate(220%);
+    --blur2: blur(36px) saturate(200%);
     --ease:  cubic-bezier(.22,1,.36,1);
     --spring: cubic-bezier(.34,1.56,.64,1);
 
@@ -152,6 +152,33 @@
   *, *::before, *::after { box-sizing: border-box; }
   html { min-height: 100%; background: var(--bg); scroll-padding-top: 110px; }
 
+  /* Fixed gradient wallpaper — position:fixed works on ALL browsers including iOS */
+  html::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    /* Light mode gradient */
+    background:
+      radial-gradient(ellipse 80% 70% at -5%  -5%,  rgba(78,94,107,.55),   transparent),
+      radial-gradient(ellipse 72% 65% at 110% 110%, rgba(138,154,144,.50), transparent),
+      radial-gradient(ellipse 65% 55% at 110% -5%,  rgba(200,200,200,.55), transparent),
+      radial-gradient(ellipse 55% 50% at -5%  110%, rgba(138,154,144,.30), transparent),
+      radial-gradient(ellipse 60% 50% at 50%  50%,  rgba(180,180,190,.20), transparent),
+      var(--bg);
+  }
+  @media (prefers-color-scheme: dark) {
+    html::before {
+      background:
+        radial-gradient(ellipse 80% 70% at -5%  -5%,  rgba(78,94,107,.70),   transparent),
+        radial-gradient(ellipse 72% 65% at 110% 110%, rgba(138,154,144,.58), transparent),
+        radial-gradient(ellipse 60% 52% at 110% -5%,  rgba(78,94,107,.35),   transparent),
+        radial-gradient(ellipse 55% 50% at -5%  110%, rgba(138,154,144,.40), transparent),
+        radial-gradient(ellipse 55% 45% at 50%  50%,  rgba(78,94,107,.18),   transparent),
+        var(--bg);
+    }
+  }
+
   /* ══ NEURO-STYLE MESH GRADIENT BACKGROUND ════════════════════════════════
      Soft multi-colour orbs blending into each other — inspired by image 2.
      Palette: Slate Blue at corners, Sage opposite, Silver for lightness.
@@ -159,32 +186,8 @@
   body {
     margin: 0; min-width: 280px; min-height: 100svh;
     color: var(--ink); font-size: 15px; line-height: 1.5;
-    background:
-      /* Slate Blue — top-left bloom */
-      radial-gradient(ellipse 75% 65% at -8%  -5%,  rgba(78,94,107,.50),   transparent),
-      /* Sage — bottom-right bloom */
-      radial-gradient(ellipse 70% 60% at 108% 108%, rgba(138,154,144,.42), transparent),
-      /* Silver — top-right lightness */
-      radial-gradient(ellipse 60% 50% at 108% -5%,  rgba(212,212,212,.55), transparent),
-      /* Sage — bottom-left hint */
-      radial-gradient(ellipse 55% 45% at -5%  108%, rgba(138,154,144,.20), transparent),
-      /* Warm centre bloom — very soft */
-      radial-gradient(ellipse 65% 55% at 50%  50%,  rgba(212,212,212,.18), transparent),
-      var(--bg);
-    background-attachment: fixed;
-  }
-  /* Dark mode — same geometry, richer orbs on near-black */
-  @media (prefers-color-scheme: dark) {
-    body {
-      background:
-        radial-gradient(ellipse 75% 65% at -8%  -5%,  rgba(78,94,107,.55),   transparent),
-        radial-gradient(ellipse 70% 60% at 108% 108%, rgba(138,154,144,.40), transparent),
-        radial-gradient(ellipse 55% 45% at 108% -5%,  rgba(78,94,107,.22),   transparent),
-        radial-gradient(ellipse 50% 42% at -5%  108%, rgba(138,154,144,.28), transparent),
-        radial-gradient(ellipse 60% 50% at 50%  50%,  rgba(78,94,107,.10),   transparent),
-        var(--bg);
-      background-attachment: fixed;
-    }
+    /* Background is transparent — html::before provides the fixed gradient */
+    background: transparent;
   }
 
   /* ══ BASE ════════════════════════════════════════════════════════════════ */
