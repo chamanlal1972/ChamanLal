@@ -968,7 +968,7 @@ body.is-offline .bottom-nav { filter:none; }
     </section>
     <section id="allDoctorsView" class="workspace-view" aria-labelledby="allDoctorsTitle" hidden><p class="eyebrow">HEALTHCARE DIRECTORY</p><h1 id="allDoctorsTitle">Doctors</h1><p class="intro">Browse doctors across all cities. Choose a doctor to record a visit.</p><div class="search-wrap glass"><svg class="icon"><use href="#i-search"></use></svg><label class="sr-only" for="allDoctorsSearch">Search all doctors</label><input type="search" id="allDoctorsSearch" placeholder="Search doctors, cities or hospitals" autocomplete="off"><button class="clear-search press" id="clearAllDoctorsSearch" type="button" aria-label="Clear search" hidden><svg class="icon"><use href="#i-close"></use></svg></button></div><div class="list-caption"><span id="allDoctorsCount">DOCTORS</span><span>SELECT TO LOG A VISIT</span></div><ul class="doctor-list" id="allDoctorList"></ul><div class="empty glass" id="allDoctorsEmpty" hidden>No doctors match your search.</div></section>
     <section id="visitsView" class="workspace-view" aria-labelledby="visitsPageTitle" hidden><p class="eyebrow">YOUR VISIT RECORDS</p><h1 id="visitsPageTitle">Visits</h1><p class="intro">Review activity by day, month, year, or all time.</p><label class="field-label" for="visitPeriod">Show visits</label><div class="select-wrap visit-period-wrap"><select class="input" id="visitPeriod"><option value="today">Today</option><option value="month">This month</option><option value="year">This year</option><option value="total">Total visits</option></select><svg class="icon select-chevron"><use href="#i-chevron"></use></svg></div><div class="visit-summary-card glass"><span id="visitPeriodLabel">TODAY</span><strong id="visitPeriodCount">0</strong><span id="visitPeriodSub">Visits recorded today</span></div><div class="overview-list glass" id="filteredVisitsList"></div><p class="history-message" id="filteredVisitsMessage"></p></section>
-    <section id="homeView" class="home-view" aria-labelledby="homeTitle">
+    <section id="homeView" class="home-view" hidden aria-labelledby="homeTitle">
       <p class="eyebrow" id="homeCloudStatus">YOUR PERSONAL CLOUD DIRECTORY</p>
       <div class="section-title-row"><h1 id="homeTitle" tabindex="-1">Choose city.</h1><button type="button" class="add-button glass press" id="addCityButton" aria-label="Add city" title="Add city"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button></div>
       <p class="intro">Select a city to find your doctors<br>and keep track of every visit.</p>
@@ -1176,7 +1176,7 @@ body.is-offline .bottom-nav { filter:none; }
       if (fromHistory!==true && state.city!==key) {
         window.history.pushState(Object.assign({},window.history.state,{[CITY_HISTORY_KEY]:key}),"");
       }
-      state.city=key; $("homeView").hidden=true; $("directoryView").hidden=false;
+      state.city=key; $("homeDashboardView").hidden=true; $("allDoctorsView").hidden=true; $("visitsView").hidden=true; $("homeView").hidden=true; $("directoryView").hidden=false; document.querySelectorAll("#liquidNavigator button").forEach(function(b){b.removeAttribute("aria-current");}); $("bottomHome").setAttribute("aria-current","page"); $("liquidNavigator").dataset.active="cities";
       $("cityTitle").textContent=city.label;
       $("directoryMeta").textContent=city.doctors.length + " doctors"; $("search").value=""; $("clearSearch").hidden=true;
       renderDoctors(); updateSyncUI();
@@ -1190,7 +1190,7 @@ body.is-offline .bottom-nav { filter:none; }
         return;
       }
       returningToCities=false;
-      state.city=null; $("homeView").hidden=false; $("directoryView").hidden=true;
+      state.city=null; $("homeDashboardView").hidden=true; $("allDoctorsView").hidden=true; $("visitsView").hidden=true; $("homeView").hidden=false; $("directoryView").hidden=true;
       window.scrollTo({top:0,behavior:"instant"}); $("homeTitle").focus({preventScroll:true});
     }
     function visitsFor(doctorId) {
@@ -2021,7 +2021,7 @@ body.is-offline .bottom-nav { filter:none; }
     function closeWorkspaceDrawer(){$("workspaceDrawer").classList.remove("open");$("menuButton").setAttribute("aria-expanded","false");}
     function bindWorkspaceNavigation(){$("bottomHome").addEventListener("click",function(){showWorkspaceView("home");});$("bottomSearch").addEventListener("click",function(){showWorkspaceView("doctors");});$("bottomVisits").addEventListener("click",function(){showWorkspaceView("visits");});$("bottomAccount").addEventListener("click",function(){showWorkspaceView("account");openAccount();});$("viewAllVisitsButton").addEventListener("click",function(){showWorkspaceView("visits");});$("visitPeriod").addEventListener("change",renderVisitsPage);$("allDoctorsSearch").addEventListener("input",renderAllDoctors);$("clearAllDoctorsSearch").addEventListener("click",function(){$("allDoctorsSearch").value="";renderAllDoctors();});$("menuButton").addEventListener("click",function(){$("workspaceDrawer").classList.add("open");$("menuButton").setAttribute("aria-expanded","true");});$("closeWorkspaceDrawer").addEventListener("click",closeWorkspaceDrawer);$("workspaceDrawer").addEventListener("click",function(e){if(e.target===$("workspaceDrawer"))closeWorkspaceDrawer();});document.addEventListener("keydown",function(e){if(e.key==="Escape")closeWorkspaceDrawer();});document.querySelectorAll("[data-go-view]").forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-go-view");closeWorkspaceDrawer();if(v==="account"){showWorkspaceView("account");openAccount();}else showWorkspaceView(v);});});$("homeButton").addEventListener("click",function(){showWorkspaceView("home");});$("sidebarHome").addEventListener("click",function(){showWorkspaceView("home");});document.querySelectorAll("[data-shell-section]").forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-shell-section");showWorkspaceView(v==="cities"?"cities":v==="doctors"?"doctors":v==="account"?"account":"home");if(v==="account")openAccount();});});$("backButton").addEventListener("click",function(){showWorkspaceView("cities");});}
 
-    bindDirectoryManagement(); bindWorkspaceNavigation(); applyDirectoryData(); renderOverview(); renderAllDoctors(); renderVisitsPage();
+    bindDirectoryManagement(); bindWorkspaceNavigation(); applyDirectoryData(); $("homeDashboardView").hidden=false; $("homeView").hidden=true; renderOverview(); renderAllDoctors(); renderVisitsPage();
     // Keep one cities entry as the base. Restore a city after a page refresh
     // without pushing another entry; Forward can restore it in the same way.
     const initialCity=window.history.state && window.history.state[CITY_HISTORY_KEY];
