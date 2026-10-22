@@ -1,13 +1,16 @@
 /* RB DBMS PWA service worker
  * Strategy:
  * - Navigation: network-first, cached app-shell fallback only when offline.
- * - App icons: cache-first.
- * - Other requests (including Firebase/auth/database traffic): browser default network behavior.
- * No authenticated API responses or personal visit records are cached by this worker.
+ * - App shell, manifest, logo and installed-app icons: precached and cache-first where applicable.
+ * - Navigation: network-first with the last cached app shell as an offline fallback.
+ * - Firebase/auth/database traffic and private records: deliberately never cached.
+ * The visual liquid texture is CSS-generated, so it needs no remote shader/image asset.
+ * Only files that actually exist in this repository are precached; private database JSON
+ * must not be copied into a public service-worker cache.
  */
 "use strict";
 
-const CACHE_NAME = "rb-dbms-pwa-shell-v2";
+const CACHE_NAME = "rb-dbms-pwa-shell-v3";
 const APP_SHELL_URL = "./";
 const SHELL_ASSETS = [APP_SHELL_URL, "./index.html", "./manifest.webmanifest", "./logo.png"];
 const ICON_URLS = [
