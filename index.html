@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#08080c" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#08080c" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <title>Raptakos, Brett &amp; Co. Ltd. DBMS</title>
   <meta name="description" content="Doctor directory and personal visit history for Raptakos, Brett &amp; Co. Ltd.">
   <link rel="manifest" href="./manifest.webmanifest">
@@ -471,7 +471,7 @@
       h1 { font-size:clamp(34px,9vw,46px); letter-spacing:-1.5px; }
       .directory-view { padding-top:18px; }
       .directory-heading { grid-template-columns:minmax(0,1fr) 44px; }
-      .bottom-nav { position:fixed; z-index:30; left:12px; right:12px; bottom:calc(10px + env(safe-area-inset-bottom,0px)); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px; padding:7px; border:1px solid var(--line); border-radius:22px; background:var(--glass-strong); -webkit-backdrop-filter:blur(28px) saturate(1.7); backdrop-filter:blur(28px) saturate(1.7); box-shadow:0 12px 35px rgba(0,0,0,.13),var(--inner); }
+      .bottom-nav { position:fixed; z-index:30; left:12px; right:12px; bottom:calc(10px + env(safe-area-inset-bottom,0px)); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:4px; padding:7px; border:1px solid var(--line); border-radius:22px; background:var(--glass-strong); -webkit-backdrop-filter:blur(28px) saturate(1.7); backdrop-filter:blur(28px) saturate(1.7); box-shadow:0 12px 35px rgba(0,0,0,.13),var(--inner); }
       .bottom-nav button { display:flex; align-items:center; justify-content:center; flex-direction:column; gap:3px; min-height:52px; padding:6px 4px; border:0; border-radius:15px; background:transparent; color:var(--muted); font-size:10px; font-weight:650; }
       .bottom-nav button .icon { width:19px; height:19px; }
       .bottom-nav button[aria-current="page"] { color:var(--accent-ink); background:var(--accent-soft); }
@@ -485,7 +485,66 @@
       .brand-title { max-width:145px; }
       .bottom-nav { left:8px; right:8px; }
     }
-</style>
+
+    /* Chaman Lal visual direction: true near-black glass in dark appearance.
+       Keep the light palette soft and bright; all original app behavior remains intact. */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #050608;
+        --ink: #f5f6fa;
+        --muted: #b0b5c1;
+        --faint: #858b98;
+        --glass: rgba(20,22,27,.78);
+        --glass-strong: rgba(29,32,39,.94);
+        --input: rgba(14,16,20,.92);
+        --edge: rgba(255,255,255,.12);
+        --line: rgba(255,255,255,.085);
+        --accent: #a6baff;
+        --accent-ink: #c2ceff;
+        --accent-soft: rgba(139,164,255,.13);
+        --glow-blue: rgba(28,37,58,.32);
+        --glow-violet: rgba(36,28,49,.24);
+        --glow-mint: rgba(20,43,39,.18);
+        --shadow: 0 18px 38px -22px rgba(0,0,0,.88), 0 4px 12px -6px rgba(0,0,0,.55);
+        --inner: inset 0 1px 0 rgba(255,255,255,.075), inset 1px 0 0 rgba(255,255,255,.025), inset 0 -1px 0 rgba(0,0,0,.42);
+        --control-shadow: 0 6px 14px -7px rgba(0,0,0,.72);
+        --surface-sheen: linear-gradient(145deg,rgba(255,255,255,.065) 0%,rgba(255,255,255,.018) 38%,rgba(255,255,255,0) 62%,rgba(255,255,255,.025) 100%);
+        --well-sheen: linear-gradient(160deg,rgba(255,255,255,.035),rgba(255,255,255,0) 58%);
+        --sheet-shadow: 0 40px 100px rgba(0,0,0,.72), 0 8px 24px -12px rgba(0,0,0,.62);
+      }
+      .logo-wrap { background: var(--surface-sheen),rgba(22,24,29,.92); }
+      .city-symbol { color: hsl(var(--hue),78%,82%); }
+      .glass, .city-card, .doctor-name-button, .details-button {
+        border-color: rgba(255,255,255,.115);
+      }
+    }
+
+  /* Page 5-inspired dashboard and functional four-tab navigation */
+.menu-button{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border:1px solid var(--edge);border-radius:14px;background:var(--surface-sheen),var(--glass);color:var(--ink);box-shadow:var(--control-shadow),var(--inner);order:1}
+.overview-view,.workspace-view{width:min(100%,960px);margin:0 auto;padding:clamp(26px,5vh,54px) 20px 50px}
+.overview-welcome{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:26px}
+.overview-welcome h1,.workspace-view>h1{font-size:clamp(32px,5vw,48px);letter-spacing:-1.8px;margin:0 0 10px;line-height:1.1}
+.overview-welcome .intro,.workspace-view>.intro{margin:0 0 6px;max-width:560px}
+.overview-art{position:relative;width:132px;height:112px;flex:0 0 132px;border:1px solid var(--edge);border-radius:30px;background:var(--surface-sheen),var(--glass);box-shadow:var(--shadow),var(--inner);overflow:hidden}
+.art-ring{position:absolute;width:86px;height:86px;right:14px;top:12px;border:15px solid var(--accent-soft);border-radius:50%}
+.art-cross{position:absolute;right:37px;top:27px;width:42px;height:42px;display:grid;place-items:center;border-radius:15px;background:var(--accent);color:white;font-size:32px}
+.art-dot{position:absolute;left:20px;bottom:18px;width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 0 7px var(--green-soft)}
+.overview-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:30px}
+.overview-card{min-height:142px;padding:19px 20px;border-radius:23px;display:flex;flex-direction:column;align-items:flex-start;gap:5px}
+.metric-label{font-size:10px;font-weight:750;letter-spacing:1.3px;color:var(--muted)}
+.overview-card strong,.visit-summary-card strong{font-size:34px;line-height:1.2;letter-spacing:-1px;font-weight:740;color:var(--ink);font-variant-numeric:tabular-nums}
+.metric-footnote{font-size:11px;color:var(--muted)}
+.overview-section{margin:28px 0}.overview-section-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}.overview-section-heading .eyebrow{margin-bottom:4px}.overview-section-heading h2{font-size:20px;letter-spacing:-.45px;margin:0;font-weight:700}
+.overview-count{font-size:11px;color:var(--muted);border:1px solid var(--line);padding:7px 10px;border-radius:12px}.overview-list{border-radius:23px;overflow:hidden}
+.overview-visit-row{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:12px;align-items:center;padding:14px 17px;min-height:74px}.overview-visit-row+.overview-visit-row{border-top:1px solid var(--line)}
+.overview-avatar{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent-ink);font-size:13px;font-weight:750}.overview-visit-copy{min-width:0}.overview-visit-name{display:block;font-size:13px;font-weight:700;overflow-wrap:anywhere}.overview-visit-meta{display:block;font-size:11px;color:var(--muted);margin-top:3px;overflow-wrap:anywhere}.overview-visit-date{font-size:11px;color:var(--muted);white-space:nowrap;text-align:right}
+.overview-empty{padding:23px 18px;color:var(--muted);font-size:13px}.overview-empty strong{display:block;color:var(--ink);font-size:14px;margin-bottom:5px}.overview-sync{font-size:11px;color:var(--muted);margin:16px 2px}
+.visit-period-wrap{max-width:320px;margin:10px 0 18px}.visit-period-wrap .input{width:100%;appearance:none;padding-right:44px}.visit-summary-card{border-radius:22px;padding:18px 20px;margin-bottom:18px;display:flex;flex-direction:column;align-items:flex-start;gap:4px}.visit-summary-card>span:first-child{font-size:10px;letter-spacing:1.4px;font-weight:750;color:var(--muted)}.visit-summary-card>span:last-child{font-size:12px;color:var(--muted)}
+.workspace-view .search-wrap{margin-top:22px}.workspace-view[hidden],.overview-view[hidden]{display:none!important}
+@media(max-width:650px){.app-header{padding-left:12px;padding-right:12px}.header-inner{min-height:64px;padding:9px 11px;border-radius:20px}.menu-button{order:0;width:38px;height:38px;flex-basis:38px}.brand{gap:8px;flex:1}.logo-wrap{width:38px;height:38px;border-radius:12px}.brand-title{font-size:12px;max-width:145px}.brand-subtitle{font-size:9px;letter-spacing:1.4px}.account-button{padding:8px 10px;min-height:38px;font-size:11px}.account-button .icon{display:none}.overview-view,.workspace-view{padding-top:26px;padding-left:0;padding-right:0;width:100%}.overview-welcome h1,.workspace-view>h1{font-size:32px;letter-spacing:-1.1px}.overview-welcome .intro,.workspace-view>.intro{font-size:13px}.overview-art{width:78px;height:76px;flex-basis:78px;border-radius:22px}.art-ring{width:58px;height:58px;right:7px;top:8px;border-width:10px}.art-cross{width:30px;height:30px;right:20px;top:18px;border-radius:11px;font-size:24px}.art-dot{left:10px;bottom:11px;width:8px;height:8px}.overview-metrics{gap:8px}.overview-card{padding:13px 11px;min-height:115px;border-radius:17px}.metric-label{font-size:8px;letter-spacing:.7px}.overview-card strong{font-size:27px}.metric-footnote{font-size:9px;line-height:1.4}.overview-visit-row{grid-template-columns:36px minmax(0,1fr);gap:10px;padding:12px}.overview-avatar{width:34px;height:34px;border-radius:12px}.overview-visit-date{grid-column:2;text-align:left;margin-top:-6px;font-size:10px}.overview-section-heading h2{font-size:18px}.overview-list{border-radius:18px}.bottom-nav{grid-template-columns:repeat(4,minmax(0,1fr))}main{padding-bottom:112px}}
+@media(min-width:651px){.menu-button{order:1}.brand{order:0}.account-button{order:2}}
+  .workspace-drawer{position:fixed;inset:0;z-index:80;background:rgba(5,8,14,.42);backdrop-filter:blur(5px);display:none;align-items:stretch;justify-content:flex-start}.workspace-drawer.open{display:flex}.workspace-drawer-panel{width:min(340px,88vw);height:100%;padding:calc(env(safe-area-inset-top,0px) + 24px) 20px calc(env(safe-area-inset-bottom,0px) + 24px);background:var(--bg);border-right:1px solid var(--edge);box-shadow:var(--sheet-shadow);display:flex;flex-direction:column;gap:10px;overflow:auto}.drawer-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}.drawer-brand{display:flex;align-items:center;gap:11px;font-size:14px;font-weight:750}.drawer-brand img{width:42px;height:42px;object-fit:contain;border-radius:13px;background:white;padding:3px}.drawer-link{display:flex;align-items:center;gap:12px;width:100%;min-height:48px;padding:10px 13px;border:1px solid transparent;border-radius:14px;background:transparent;text-align:left;color:var(--ink);font-size:13px;font-weight:620}.drawer-link:hover,.drawer-link:focus-visible{background:var(--glass);border-color:var(--edge)}.drawer-link .icon{color:var(--accent-ink)}.drawer-note{margin-top:auto;padding:16px;border:1px solid var(--line);border-radius:16px;color:var(--muted);font-size:11px;line-height:1.6}
+  </style>
 
   <style id="liquid-glass-finish">
     :root {
@@ -629,6 +688,35 @@
 @media (prefers-reduced-motion:reduce) { .boot::before { animation:none !important; } }
 </style>
 
+
+  <!-- Approved abstract artwork redesign: exact generated Figma asset. -->
+  <style id="approved-abstract-visual-system">
+    :root{--bg:#f5f5f2;--ink:#202632;--muted:#697486;--faint:#8b95a5;--glass:rgba(255,255,255,.72);--glass-strong:rgba(255,255,255,.94);--input:rgba(255,255,255,.86);--edge:rgba(255,255,255,.96);--line:rgba(34,48,69,.10);--accent:#3e7b83;--accent-ink:#28646d;--accent-soft:rgba(105,177,179,.16)}
+    body{background:var(--bg);background-image:radial-gradient(ellipse at 12% 16%,rgba(173,222,218,.23),transparent 34%),radial-gradient(ellipse at 90% 80%,rgba(250,192,174,.19),transparent 30%)}
+    main{width:min(100% - 40px,1240px);padding-bottom:80px}.app-header{padding-inline:clamp(14px,3vw,32px)}.header-inner{width:min(100%,1180px);border:1px solid rgba(255,255,255,.84);background:rgba(255,255,255,.66);box-shadow:0 12px 36px rgba(34,48,69,.055)}
+    .home-view{position:relative;isolation:isolate;width:100%;max-width:none;min-height:min(720px,calc(100dvh - 145px));margin:0 auto;padding:clamp(28px,4vh,52px) clamp(18px,3vw,42px);display:grid;grid-template-columns:minmax(0,1.02fr) minmax(320px,.98fr);grid-template-rows:auto auto auto auto auto auto;align-content:center;column-gap:clamp(24px,4vw,62px);border-radius:34px;overflow:hidden}
+    .home-view::before{content:"";position:absolute;z-index:-1;left:0;top:50%;transform:translateY(-50%);width:49%;aspect-ratio:1;background:url('./assets/abstract-healthcare-art.png') center/contain no-repeat;opacity:.98;pointer-events:none}.home-view::after{content:"";position:absolute;z-index:-2;left:1%;top:8%;width:48%;height:84%;border-radius:44px;background:linear-gradient(145deg,rgba(222,242,238,.68),rgba(246,224,215,.50) 52%,rgba(228,234,250,.60));pointer-events:none}
+    .home-view>.eyebrow,.home-view>.section-title-row,.home-view>.intro,.home-view>.cloud-notice,.home-view>.city-list,.home-view>.manage-hint{grid-column:2}.home-view>.eyebrow{align-self:end;margin-bottom:10px;letter-spacing:1.7px;color:#527d80}.home-view .section-title-row{align-items:center;margin-bottom:0}.home-view h1{font-size:clamp(38px,4.2vw,58px);letter-spacing:-2.6px;line-height:1.04;color:#202b3b}.home-view .intro{max-width:390px;margin:14px 0 22px;font-size:15px}.home-cloud-notice{margin:0 0 14px;padding:12px 14px;border-radius:18px}.city-list{gap:10px}.city-card{min-height:74px;border-radius:21px;padding:12px 17px 12px 13px;border:1px solid rgba(255,255,255,.94);background:linear-gradient(110deg,rgba(255,255,255,.93),rgba(255,255,255,.73));box-shadow:0 8px 24px rgba(40,59,78,.045)}.city-symbol{border-radius:15px;box-shadow:none;border-color:rgba(255,255,255,.95)}.city-card:hover:not(:disabled){box-shadow:0 12px 28px rgba(40,59,78,.09)}.manage-hint{margin-top:14px}
+    .directory-view{width:min(100%,1080px);margin:0 auto}.directory-heading{margin-top:20px}.doctor-name-button,.details-button{border:1px solid rgba(255,255,255,.94);background:linear-gradient(112deg,rgba(255,255,255,.95),rgba(255,255,255,.74));box-shadow:0 8px 24px rgba(40,59,78,.045)}.doctor-name-button{border-radius:20px}.search-wrap,.back-button,.add-button{border-radius:16px}.sheet{border:1px solid rgba(255,255,255,.9);box-shadow:0 24px 90px rgba(24,37,53,.18)}.visit-entry{background:rgba(255,255,255,.78);border-color:rgba(42,65,83,.09)}.primary{background:linear-gradient(135deg,#438a8e,#34747b);box-shadow:0 8px 20px rgba(53,122,128,.2)}
+    @media(prefers-color-scheme:dark){:root{--bg:#11151b;--ink:#edf1f4;--muted:#aab4c0;--faint:#818c9b;--glass:rgba(31,39,49,.76);--glass-strong:rgba(27,34,43,.96);--input:rgba(25,32,41,.9);--edge:rgba(255,255,255,.09);--line:rgba(220,235,245,.12);--accent:#83c9c5;--accent-ink:#a6dfda;--accent-soft:rgba(102,183,180,.16)}body{background-color:#11151b;background-image:radial-gradient(ellipse at 12% 16%,rgba(48,106,105,.2),transparent 34%),radial-gradient(ellipse at 90% 80%,rgba(135,80,77,.13),transparent 30%)}.header-inner{background:rgba(24,31,40,.8);border-color:rgba(255,255,255,.09)}.home-view::after{background:linear-gradient(145deg,rgba(42,83,82,.62),rgba(82,59,61,.44) 52%,rgba(45,57,82,.58))}.home-view h1{color:#f2f4f6}.home-view>.eyebrow{color:#a1d5cf}.city-card,.doctor-name-button,.details-button{background:linear-gradient(112deg,rgba(34,43,54,.96),rgba(26,34,44,.86));border-color:rgba(255,255,255,.09)}.visit-entry{background:rgba(26,34,44,.82);border-color:rgba(255,255,255,.09)}.home-view::before{opacity:.88}}
+    @media(max-width:760px){main{width:min(100% - 24px,600px);padding-bottom:100px}.home-view{min-height:0;padding:0 2px 22px;display:flex;flex-direction:column;align-items:stretch;overflow:visible}.home-view::before{position:relative;left:auto;top:auto;transform:none;width:min(100%,330px);aspect-ratio:1;align-self:center;margin:-8px auto -14px;background-size:contain}.home-view::after{left:0;top:0;width:100%;height:330px;border-radius:28px}.home-view>.eyebrow{margin-top:4px}.home-view h1{font-size:clamp(38px,10vw,50px)}.home-view .intro{margin-top:10px}.home-cloud-notice{margin-bottom:14px}.city-card{min-height:70px}.header-inner{min-height:66px;padding:9px 11px;border-radius:22px}}
+    @media(max-width:390px){main{width:calc(100% - 20px)}.home-view::before{width:min(100%,280px)}.home-view{padding-inline:0}}
+  </style>
+
+<style id="dbms-explicit-theme-overrides">
+@media (prefers-color-scheme: light) {
+ :root {color-scheme:light;--bg:#fff;--ink:#1c1c1e;--muted:#6e6e73;--faint:#8e8e93;--glass:rgba(255,255,255,.92);--glass-strong:#fff;--input:#fff;--edge:rgba(0,0,0,.10);--line:rgba(0,0,0,.08);--accent:#3564df;--accent-ink:#244fc5;--accent-soft:rgba(53,100,223,.10);--glow-blue:transparent;--glow-violet:transparent;--glow-mint:transparent;--surface-sheen:none;--shadow:0 8px 24px rgba(0,0,0,.055);--inner:inset 0 1px 0 rgba(255,255,255,.8)}
+ html,body,body::before,body::after{background:#fff!important;color:#1c1c1e!important}
+ #musicStyleSidebar,.workspace-drawer-panel{background:#fff!important}
+ .overview-card.glass,.overview-list.glass,.search-wrap.glass,.city-card.glass,.doctor-name-button.glass,.details-button.glass{background:#fff!important;border-color:rgba(0,0,0,.09)!important;box-shadow:0 8px 24px rgba(0,0,0,.055)!important}
+}
+@media (prefers-color-scheme: dark) {
+ :root {color-scheme:dark;--bg:#000;--ink:#f5f5f7;--muted:#a1a1a6;--faint:#77777d;--glass:rgba(20,20,22,.92);--glass-strong:#151517;--input:#101012;--edge:rgba(255,255,255,.12);--line:rgba(255,255,255,.09);--accent:#a6baff;--accent-ink:#c2ceff;--accent-soft:rgba(139,164,255,.13);--glow-blue:transparent;--glow-violet:transparent;--glow-mint:transparent;--surface-sheen:none;--shadow:0 12px 30px rgba(0,0,0,.4);--inner:inset 0 1px 0 rgba(255,255,255,.06)}
+ html,body,body::before,body::after{background:#000!important;color:#f5f5f7!important}
+ #musicStyleSidebar,.workspace-drawer-panel{background:#000!important}
+ .overview-card.glass,.overview-list.glass,.search-wrap.glass,.city-card.glass,.doctor-name-button.glass,.details-button.glass{background:#0b0b0d!important;border-color:rgba(255,255,255,.10)!important}
+}
+</style>
 </head>
 <body>
   <a class="skip" href="#main">Skip to directory</a>
@@ -821,7 +909,7 @@ input::placeholder,textarea::placeholder { color:rgba(238,235,246,.48) !importan
   display:grid !important; position:fixed !important; z-index:100 !important;
   left:50% !important; right:auto !important; transform:translateX(-50%);
   bottom:calc(24px + env(safe-area-inset-bottom,0px)) !important;
-  width:min(580px,calc(100vw - 28px)) !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  width:min(580px,calc(100vw - 28px)) !important; grid-template-columns:repeat(4,minmax(0,1fr)) !important;
   gap:6px !important; padding:8px !important; border-radius:999px !important;
   background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.055)) !important;
   border:1px solid rgba(255,255,255,.24) !important;
@@ -852,14 +940,18 @@ body.is-offline .bottom-nav { filter:none; }
     </button>
     <p class="sidebar-section-label">LIBRARY</p>
     <nav class="sidebar-links" aria-label="Main sections">
-      <button type="button" class="sidebar-link is-active" data-shell-section="cities" aria-current="page">
+      <button type="button" class="sidebar-link is-active" data-shell-section="home" aria-current="page"><svg class="icon" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"></path></svg><span>Home</span></button>
+      <button type="button" class="sidebar-link" data-shell-section="cities">
         <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg><span>Cities</span>
       </button>
       <button type="button" class="sidebar-link" data-shell-section="doctors">
-        <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg><span>Doctor Registries</span>
+        <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg><span>Doctors</span>
+      </button>
+      <button type="button" class="sidebar-link" data-shell-section="visits">
+        <svg class="icon" aria-hidden="true"><use href="#i-calendar"></use></svg><span>Visits</span>
       </button>
       <button type="button" class="sidebar-link" data-shell-section="account">
-        <svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg><span>Accounts</span>
+        <svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg><span>Account</span>
       </button>
     </nav>
     <div class="sidebar-spacer"></div>
@@ -876,16 +968,24 @@ body.is-offline .bottom-nav { filter:none; }
 
   <header class="app-header">
     <div class="header-inner glass">
+      <button type="button" class="menu-button press" id="menuButton" aria-label="Open workspace menu" aria-expanded="false"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
       <button class="brand" id="homeButton" type="button" aria-label="Raptakos, Brett & Co. Ltd. DBMS, choose city">
         <span class="logo-wrap"><img src="./logo.png" alt="" width="46" height="46" onerror="this.parentElement.classList.add('missing')"></span>
-        <span><span class="brand-title">Raptakos, Brett &amp; Co. Ltd.</span><span class="brand-subtitle">DBMS</span></span>
+        <span><span class="brand-title">DBMS</span><span class="brand-subtitle">HEALTH RECORDS</span></span>
       </button>
       <button class="account-button press" id="accountButton" type="button" aria-label="Sign in to sync visit history"><svg class="icon" aria-hidden="true"><use href="#i-cloud"></use></svg><span id="accountButtonLabel">Sign in</span></button>
     </div>
   </header>
 
   <main id="main">
-    <section id="homeView" class="home-view" aria-labelledby="homeTitle">
+    <section id="homeDashboardView" class="overview-view" aria-labelledby="overviewTitle">
+      <p class="eyebrow">YOUR HEALTHCARE WORKSPACE</p><div class="overview-welcome"><div><h1 id="overviewTitle">Good morning, Chaman Lal.</h1><p class="intro">Here is your day at a glance.</p></div><div class="overview-art" aria-hidden="true"><span class="art-ring"></span><span class="art-cross">+</span><span class="art-dot"></span></div></div>
+      <div class="overview-metrics"><article class="overview-card glass metric-today"><span class="metric-icon" aria-hidden="true">↗</span><span class="metric-label">VISITS TODAY</span><strong id="todayVisitCount">0</strong><span class="metric-footnote">Visits recorded today</span></article><article class="overview-card glass metric-doctors"><span class="metric-icon" aria-hidden="true">✚</span><span class="metric-label">DOCTORS</span><strong id="overviewDoctorCount">0</strong><span class="metric-footnote">Across your directory</span></article><article class="overview-card glass metric-cities"><span class="metric-icon" aria-hidden="true">⌁</span><span class="metric-label">CITIES</span><strong id="overviewCityCount">0</strong><span class="metric-footnote">Available locations</span></article><article class="overview-card glass metric-total"><span class="metric-icon" aria-hidden="true">▤</span><span class="metric-label">TOTAL VISITS</span><strong id="totalVisitCount">0</strong><span class="metric-footnote">All recorded visits</span></article></div>
+      <div class="overview-lower-grid"><div class="overview-feed-column"><section class="overview-section today-section"><div class="overview-section-heading"><div><p class="eyebrow">TODAY</p><h2>Visits made today</h2></div><span class="overview-count" id="todayVisitsBadge">0 visits</span></div><div class="overview-list glass" id="todayVisitsList"></div></section><section class="overview-section recent-section"><div class="overview-section-heading"><div><p class="eyebrow">YOUR ACTIVITY</p><h2>Recent visits</h2></div><button type="button" class="text-button press" id="viewAllVisitsButton">View all</button></div><div class="overview-list glass" id="recentVisitsList"></div></section><p class="overview-sync" id="overviewSyncNote" role="status" aria-live="polite">Sign in to view your personal visit history.</p></div><aside class="overview-quick-panel"><p class="eyebrow">QUICK ACTIONS</p><h2>Where would you like to go?</h2><button type="button" class="quick-action" data-go-view="doctors"><span class="quick-action-art doctor-art" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="13" r="7" fill="currentColor" opacity=".25"/><path d="M11 39c0-8 5-13 13-13s13 5 13 13" fill="currentColor" opacity=".25"/><path d="M24 27v10m-5-5h10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span><strong>Browse doctors</strong><small>Find a doctor and record a visit</small></span><span class="quick-chevron">↗</span></button><button type="button" class="quick-action" data-go-view="cities"><span class="quick-action-art city-art" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M5 41V20h12v21M17 41V9h14v32M31 41V25h12v16" fill="currentColor" opacity=".2"/><path d="M10 25h3m-3 6h3m9-16h3m-3 7h3m-3 7h3m-3 7h3m12-4h3m-3 6h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M3 41h42" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></span><span><strong>Explore cities</strong><small>Open the city directory</small></span><span class="quick-chevron">↗</span></button><button type="button" class="quick-action" data-go-view="visits"><span class="quick-action-art visits-art" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="7" y="11" width="34" height="30" rx="6" fill="currentColor" opacity=".18"/><path d="M15 6v10m18-10v10M7 20h34" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="m17 30 5 5 10-10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><strong>Visit history</strong><small>Review today, monthly or yearly</small></span><span class="quick-chevron">↗</span></button><div class="quick-panel-note"><span class="quick-note-dot"></span><span>Private workspace<br><small>Your saved visits stay in your account.</small></span></div></aside></div>
+    </section>
+    <section id="allDoctorsView" class="workspace-view" aria-labelledby="allDoctorsTitle" hidden><p class="eyebrow">HEALTHCARE DIRECTORY</p><h1 id="allDoctorsTitle">Doctors</h1><p class="intro">Browse doctors across all cities. Choose a doctor to record a visit.</p><div class="search-wrap glass"><svg class="icon"><use href="#i-search"></use></svg><label class="sr-only" for="allDoctorsSearch">Search all doctors</label><input type="search" id="allDoctorsSearch" placeholder="Search doctors, cities or hospitals" autocomplete="off"><button class="clear-search press" id="clearAllDoctorsSearch" type="button" aria-label="Clear search" hidden><svg class="icon"><use href="#i-close"></use></svg></button></div><div class="list-caption"><span id="allDoctorsCount">DOCTORS</span><span>SELECT TO LOG A VISIT</span></div><ul class="doctor-list" id="allDoctorList"></ul><div class="empty glass" id="allDoctorsEmpty" hidden>No doctors match your search.</div></section>
+    <section id="visitsView" class="workspace-view" aria-labelledby="visitsPageTitle" hidden><p class="eyebrow">YOUR VISIT RECORDS</p><h1 id="visitsPageTitle">Visits</h1><p class="intro">Review activity by day, month, year, or all time.</p><label class="field-label" for="visitPeriod">Show visits</label><div class="select-wrap visit-period-wrap"><select class="input" id="visitPeriod"><option value="today">Today</option><option value="month">This month</option><option value="year">This year</option><option value="total">Total visits</option></select><svg class="icon select-chevron"><use href="#i-chevron"></use></svg></div><div class="visit-summary-card glass"><span id="visitPeriodLabel">TODAY</span><strong id="visitPeriodCount">0</strong><span id="visitPeriodSub">Visits recorded today</span></div><div class="overview-list glass" id="filteredVisitsList"></div><p class="history-message" id="filteredVisitsMessage"></p></section>
+    <section id="homeView" class="home-view" hidden aria-labelledby="homeTitle">
       <p class="eyebrow" id="homeCloudStatus">YOUR PERSONAL CLOUD DIRECTORY</p>
       <div class="section-title-row"><h1 id="homeTitle" tabindex="-1">Choose city.</h1><button type="button" class="add-button glass press" id="addCityButton" aria-label="Add city" title="Add city"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button></div>
       <p class="intro">Select a city to find your doctors<br>and keep track of every visit.</p>
@@ -1093,7 +1193,7 @@ body.is-offline .bottom-nav { filter:none; }
       if (fromHistory!==true && state.city!==key) {
         window.history.pushState(Object.assign({},window.history.state,{[CITY_HISTORY_KEY]:key}),"");
       }
-      state.city=key; $("homeView").hidden=true; $("directoryView").hidden=false;
+      state.city=key; $("homeDashboardView").hidden=true; $("allDoctorsView").hidden=true; $("visitsView").hidden=true; $("homeView").hidden=true; $("directoryView").hidden=false; document.querySelectorAll("#liquidNavigator button").forEach(function(b){b.removeAttribute("aria-current");}); $("bottomHome").setAttribute("aria-current","page"); $("liquidNavigator").dataset.active="cities"; document.querySelectorAll("[data-shell-section]").forEach(function(b){var key=b.getAttribute("data-shell-section");b.classList.toggle("is-active",key==="doctors");if(key==="doctors")b.setAttribute("aria-current","page");else b.removeAttribute("aria-current");});
       $("cityTitle").textContent=city.label;
       $("directoryMeta").textContent=city.doctors.length + " doctors"; $("search").value=""; $("clearSearch").hidden=true;
       renderDoctors(); updateSyncUI();
@@ -1107,7 +1207,7 @@ body.is-offline .bottom-nav { filter:none; }
         return;
       }
       returningToCities=false;
-      state.city=null; $("homeView").hidden=false; $("directoryView").hidden=true;
+      state.city=null; $("homeDashboardView").hidden=true; $("allDoctorsView").hidden=true; $("visitsView").hidden=true; $("homeView").hidden=false; $("directoryView").hidden=true;
       window.scrollTo({top:0,behavior:"instant"}); $("homeTitle").focus({preventScroll:true});
     }
     function visitsFor(doctorId) {
@@ -1216,7 +1316,7 @@ body.is-offline .bottom-nav { filter:none; }
       $("accountRetry").disabled=!navigator.onLine || state.busy || state.deleting || state.directoryBusy;
       $("backupButton").disabled=state.backupBusy || state.busy || state.deleting || !state.user || state.sync!=="live" || state.directorySync!=="live" || state.directoryBusy || !state.serverSeen || !navigator.onLine;
       $("backupButton").innerHTML=state.backupBusy ? icon("spinner","spinner") + "<span>Preparing backup…</span>" : icon("download") + "<span>Download data backup (" + state.visits.size + ")</span>";
-      updateVisitUI(); updateDirectoryUI();
+      updateVisitUI(); updateDirectoryUI(); renderOverview(); renderAllDoctors(); if (!$("visitsView").hidden) renderVisitsPage();
     }
     function clearSyncTimer() { clearTimeout(syncTimer); syncTimer=null; }
     function waitForVisitServer(generation) {
@@ -1928,7 +2028,17 @@ body.is-offline .bottom-nav { filter:none; }
         else if (state.user && navigator.onLine && state.directorySync==="error") attachDirectoryListener(state.user);
       }
     });
-    bindDirectoryManagement(); applyDirectoryData();
+    function dbmsSortedVisits(){return Array.from(state.visits.values()).filter(function(v){return validDate(v.visitDate);}).sort(function(a,b){return b.visitDate.localeCompare(a.visitDate);});}
+    function dbmsVisitRow(v){var d=doctorById.get(v.doctorId),name=v.doctorName||(d&&d.values[COL.name])||"Doctor",city=v.city?cityName(v.city):(d?cityName(d.city):"City not recorded"),stamp=v.visitDate===todayISO()?"Today":formatDate(v.visitDate);return '<div class="overview-visit-row"><span class="overview-avatar">'+escapeHTML(name.split(" ").slice(0,2).map(function(p){return p.charAt(0);}).join("").toUpperCase())+'</span><span class="overview-visit-copy"><span class="overview-visit-name">'+escapeHTML(name)+'</span><span class="overview-visit-meta">'+escapeHTML(city)+'</span></span><span class="overview-visit-date">'+escapeHTML(stamp)+'</span></div>';}
+    function dbmsEmpty(title,detail){return '<div class="overview-empty"><strong>'+escapeHTML(title)+'</strong>'+escapeHTML(detail)+'</div>';}
+    function renderOverview(){if(!$("todayVisitCount"))return;var all=dbmsSortedVisits(),today=all.filter(function(v){return v.visitDate===todayISO();}),doctorCount=cities.reduce(function(n,c){return n+c.doctors.length;},0);$("todayVisitCount").textContent=state.user?today.length:"—";$("overviewDoctorCount").textContent=doctorCount;$("overviewCityCount").textContent=cities.length;$("totalVisitCount").textContent=state.user?all.length:"—";$("todayVisitsBadge").textContent=(state.user?today.length:0)+(today.length===1?" visit":" visits");$("todayVisitsList").innerHTML=state.user?(today.length?today.map(dbmsVisitRow).join(""):dbmsEmpty("No visits recorded today","Visits registered for today will appear here.")):dbmsEmpty("Sign in to view today's visits","Your private visit records sync to your account.");$("recentVisitsList").innerHTML=state.user?(all.length?all.slice(0,5).map(dbmsVisitRow).join(""):dbmsEmpty("No visits yet","Your most recent visits will appear here.")):dbmsEmpty("Your recent visits","Sign in to load your saved visit history.");$("overviewSyncNote").textContent=!state.user?"Sign in to view your personal visit history.":state.sync==="live"?"Your visit history is synced.":!navigator.onLine?"You're offline. Showing the last visits received.":"Connecting to your saved visit history…";}
+    function renderAllDoctors(){if(!$("allDoctorList"))return;var q=norm($("allDoctorsSearch").value),all=[];cities.forEach(function(c){c.doctors.forEach(function(d){if(!q||norm([d.values[COL.name],d.values[COL.clinic],c.label,d.values[COL.specialization]||""].join(" ")).includes(q))all.push({d:d,c:c});});});$("clearAllDoctorsSearch").hidden=!q;$("allDoctorsCount").textContent=all.length+(all.length===1?" DOCTOR":" DOCTORS");$("allDoctorsEmpty").hidden=all.length>0;$("allDoctorList").innerHTML=all.map(function(x,i){var d=x.d,v=d.values;return '<li class="doctor-row"><button type="button" class="doctor-name-button glass press" style="--hue:'+HUES[i%HUES.length]+'" data-visit="'+escapeHTML(d.id)+'"><span class="serial">'+escapeHTML(d.citySerial)+'</span><span class="doctor-copy"><span class="doctor-name">'+escapeHTML(v[COL.name])+'</span><span class="doctor-clinic">'+escapeHTML(x.c.label)+' · '+escapeHTML(v[COL.clinic])+'</span></span></button><button type="button" class="details-button glass press" data-details="'+escapeHTML(d.id)+'">Details</button></li>';}).join("");}
+    function renderVisitsPage(){if(!$("filteredVisitsList"))return;var all=dbmsSortedVisits(),period=$("visitPeriod").value||"today",now=todayISO(),month=now.slice(0,7),year=now.slice(0,4),filtered=all.filter(function(v){return period==="today"?v.visitDate===now:period==="month"?v.visitDate.slice(0,7)===month:period==="year"?v.visitDate.slice(0,4)===year:true;}),labels={today:["TODAY","Visits recorded today"],month:["THIS MONTH","Visits recorded this month"],year:["THIS YEAR","Visits recorded this year"],total:["TOTAL VISITS","All saved visits"]};$("visitPeriodLabel").textContent=labels[period][0];$("visitPeriodCount").textContent=state.user?filtered.length:"—";$("visitPeriodSub").textContent=labels[period][1];$("filteredVisitsList").innerHTML=state.user?(filtered.length?filtered.map(dbmsVisitRow).join(""):dbmsEmpty("No visits in this period","Try another period or register a visit from a doctor profile.")):dbmsEmpty("Sign in to view visits","Your visit history is private and synced to your account.");$("filteredVisitsMessage").textContent=state.user?(state.sync==="live"?"Sorted newest first.":!navigator.onLine?"Offline — showing the last visits received.":"Visit history is connecting."):"Sign in to see your saved visit history.";}
+    function showWorkspaceView(view){$("homeDashboardView").hidden=!(view==="home"||view==="account");$("allDoctorsView").hidden=view!=="doctors";$("visitsView").hidden=view!=="visits";$("homeView").hidden=view!=="cities";$("directoryView").hidden=true;document.querySelectorAll("#liquidNavigator button").forEach(function(b){b.removeAttribute("aria-current");});var active={home:"bottomHome",doctors:"bottomSearch",visits:"bottomVisits",account:"bottomAccount",cities:"bottomHome"},button=$(active[view]||"bottomHome");if(button)button.setAttribute("aria-current","page");$("liquidNavigator").dataset.active=view;document.querySelectorAll("[data-shell-section]").forEach(function(b){var key=b.getAttribute("data-shell-section");b.classList.toggle("is-active",key===view);if(key===view)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current");});if(view==="cities"){$("homeTitle").textContent="Cities";$("homeCloudStatus").textContent="YOUR CITY DIRECTORY";}if(view==="home")renderOverview();if(view==="doctors")renderAllDoctors();if(view==="visits")renderVisitsPage();window.scrollTo({top:0,behavior:"instant"});}
+    function closeWorkspaceDrawer(){$("workspaceDrawer").classList.remove("open");$("menuButton").setAttribute("aria-expanded","false");}
+    function bindWorkspaceNavigation(){$("bottomHome").addEventListener("click",function(){showWorkspaceView("home");});$("bottomSearch").addEventListener("click",function(){showWorkspaceView("doctors");});$("bottomVisits").addEventListener("click",function(){showWorkspaceView("visits");});$("bottomAccount").addEventListener("click",function(){showWorkspaceView("account");openAccount();});$("viewAllVisitsButton").addEventListener("click",function(){showWorkspaceView("visits");});$("visitPeriod").addEventListener("change",renderVisitsPage);$("allDoctorsSearch").addEventListener("input",renderAllDoctors);$("clearAllDoctorsSearch").addEventListener("click",function(){$("allDoctorsSearch").value="";renderAllDoctors();});$("menuButton").addEventListener("click",function(){$("workspaceDrawer").classList.add("open");$("menuButton").setAttribute("aria-expanded","true");});$("closeWorkspaceDrawer").addEventListener("click",closeWorkspaceDrawer);$("workspaceDrawer").addEventListener("click",function(e){if(e.target===$("workspaceDrawer"))closeWorkspaceDrawer();});document.addEventListener("keydown",function(e){if(e.key==="Escape")closeWorkspaceDrawer();});document.querySelectorAll("[data-go-view]").forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-go-view");closeWorkspaceDrawer();if(v==="account"){showWorkspaceView("account");openAccount();}else showWorkspaceView(v);});});$("homeButton").addEventListener("click",function(){showWorkspaceView("home");});$("sidebarHome").addEventListener("click",function(){showWorkspaceView("home");});document.querySelectorAll("[data-shell-section]").forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-shell-section");showWorkspaceView(v==="cities"?"cities":v==="doctors"?"doctors":v==="visits"?"visits":v==="account"?"account":"home");if(v==="account")openAccount();});});$("backButton").addEventListener("click",function(){showWorkspaceView("cities");});}
+
+    bindDirectoryManagement(); bindWorkspaceNavigation(); applyDirectoryData(); $("homeDashboardView").hidden=false; $("homeView").hidden=true; renderOverview(); renderAllDoctors(); renderVisitsPage();
     // Keep one cities entry as the base. Restore a city after a page refresh
     // without pushing another entry; Forward can restore it in the same way.
     const initialCity=window.history.state && window.history.state[CITY_HISTORY_KEY];
@@ -1983,54 +2093,23 @@ body.is-offline .bottom-nav { filter:none; }
   </script>
 
 
+  <div class="workspace-drawer" id="workspaceDrawer" role="dialog" aria-modal="true" aria-label="Workspace menu"><div class="workspace-drawer-panel">
+    <div class="drawer-top"><div class="drawer-brand"><img src="./logo.png" alt=""><span>DBMS<br><small style="font-weight:500;color:var(--muted)">Workspace menu</small></span></div><button type="button" class="icon-button press" id="closeWorkspaceDrawer" aria-label="Close menu"><svg class="icon"><use href="#i-close"></use></svg></button></div>
+    <button class="drawer-link" type="button" data-go-view="home"><svg class="icon"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"></path></svg>Home dashboard</button>
+    <button class="drawer-link" type="button" data-go-view="cities"><svg class="icon"><use href="#i-pin"></use></svg>Cities directory</button>
+    <button class="drawer-link" type="button" data-go-view="doctors"><svg class="icon"><use href="#i-search"></use></svg>All doctors</button>
+    <button class="drawer-link" type="button" data-go-view="visits"><svg class="icon"><use href="#i-calendar"></use></svg>Visit history</button>
+    <button class="drawer-link" type="button" data-go-view="account"><svg class="icon"><use href="#i-user"></use></svg>Account and backup</button>
+    <div class="drawer-note"><strong>DBMS · Private workspace</strong><br>Directory and visit history use your existing secure cloud account.</div>
+  </div></div>
   <nav class="bottom-nav" id="liquidNavigator" data-active="cities" aria-label="Application sections">
     <span class="nav-liquid-indicator" aria-hidden="true"></span>
-    <button type="button" id="bottomCities" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg><span>Cities</span></button>
+    <button type="button" id="bottomHome" aria-current="page"><svg class="icon" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"></path></svg><span>Home</span></button>
     <button type="button" id="bottomSearch"><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg><span>Doctors</span></button>
+    <button type="button" id="bottomVisits"><svg class="icon" aria-hidden="true"><use href="#i-calendar"></use></svg><span>Visits</span></button>
     <button type="button" id="bottomAccount"><svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg><span>Account</span></button>
   </nav>
-  <script>
-    // Bottom navigation is an additional shortcut layer; original controls remain authoritative.
-    (function () {
-      const cities = document.getElementById("bottomCities");
-      const search = document.getElementById("bottomSearch");
-      const account = document.getElementById("bottomAccount");
-      const homeButton = document.getElementById("homeButton");
-      const backButton = document.getElementById("backButton");
-      const searchInput = document.getElementById("search");
-      const accountButton = document.getElementById("accountButton");
-      const homeView = document.getElementById("homeView");
-      const directoryView = document.getElementById("directoryView");
-      function setActive(view) {
-        [cities, search, account].forEach(function (button) { button.removeAttribute("aria-current"); });
-        (view === "directory" ? search : view === "account" ? account : cities).setAttribute("aria-current", "page");
-        var navigator = document.getElementById("liquidNavigator");
-        if (navigator) navigator.dataset.active = view === "directory" ? "doctors" : view === "account" ? "account" : "cities";
-      }
-      cities.addEventListener("click", function () {
-        homeButton.click();
-        setActive("cities");
-      });
-      search.addEventListener("click", function () {
-        if (directoryView.hidden) {
-          const firstCity = document.querySelector("#cityList .city-card");
-          if (firstCity) firstCity.click();
-        }
-        setActive("directory");
-        window.setTimeout(function () { if (!directoryView.hidden && searchInput) searchInput.focus(); }, 80);
-      });
-      account.addEventListener("click", function () {
-        accountButton.click();
-        setActive("account");
-      });
-      if (backButton) backButton.addEventListener("click", function () { setActive("cities"); });
-      document.addEventListener("visibilitychange", function () {
-        if (document.hidden) return;
-        if (homeView && !homeView.hidden) setActive("cities");
-        else if (directoryView && !directoryView.hidden) setActive("directory");
-      });
-    })();
-  </script>
+
 
 
   <div id="offlineLiquidNotice" role="status" aria-live="polite" hidden>Connection Fluid Disrupted — Cached App Shell Available; Data Sync Paused.</div>
@@ -2255,10 +2334,11 @@ body.is-offline .bottom-nav { filter:none; }
         var item=event.target.closest("[data-mobile-section]");
         if (!item) return;
         var section=item.getAttribute("data-mobile-section");
-        var target=section==="cities" ? document.getElementById("bottomCities") :
+        var target=section==="cities" ? null :
           section==="doctors" ? document.getElementById("bottomSearch") : document.getElementById("bottomAccount");
         closeMenu();
-        if (target) target.click();
+        if (section==="cities") { var cityLink=document.querySelector('[data-go-view="cities"]'); if (cityLink) cityLink.click(); }
+        else if (target) target.click();
       });
       document.addEventListener("click",function (event) {
         if (!menu.hidden && !menu.contains(event.target) && !trigger.contains(event.target)) closeMenu();
@@ -2721,5 +2801,26 @@ body.is-offline .bottom-nav { filter:none; }
     }
   </style>
 
+<style id="dbms-final-navigation-theme">
+@media(max-width:650px){.bottom-nav{grid-template-columns:repeat(4,minmax(0,1fr))!important}#mobileSectionsButton,#mobileSectionsMenu{display:none!important}}
+.workspace-drawer{z-index:140!important}
+@media(prefers-color-scheme:light){html,body{background:#fff!important;color:#1c1c1e!important}body{background-image:none!important}#musicStyleSidebar,.workspace-drawer-panel{background:#fff!important}.overview-card.glass,.overview-list.glass,.search-wrap.glass,.city-card.glass,.doctor-name-button.glass,.details-button.glass{background:#fff!important;border-color:rgba(0,0,0,.09)!important;box-shadow:0 8px 24px rgba(0,0,0,.055)!important}.app-header .header-inner{background:rgba(255,255,255,.94)!important;border-color:rgba(0,0,0,.09)!important}}
+@media(prefers-color-scheme:dark){html,body{background:#000!important;color:#f5f5f7!important}body{background-image:none!important}#musicStyleSidebar,.workspace-drawer-panel{background:#000!important}.overview-card.glass,.overview-list.glass,.search-wrap.glass,.city-card.glass,.doctor-name-button.glass,.details-button.glass{background:#0b0b0d!important;border-color:rgba(255,255,255,.10)!important}.app-header .header-inner{background:rgba(10,10,12,.94)!important;border-color:rgba(255,255,255,.10)!important}}
+</style>
+<style id="dbms-page5-responsive-implementation">
+:root{--bg:#fff;--ink:#1d1d1f;--muted:#707078;--faint:#92929a;--glass:#fff;--glass-strong:#f7f7f9;--input:#fff;--edge:rgba(18,24,40,.11);--line:rgba(18,24,40,.08);--accent:#526fe4;--accent-ink:#425fce;--accent-soft:rgba(82,111,228,.10);--surface-sheen:none;--shadow:0 10px 28px rgba(18,24,40,.055);--inner:none}
+html,body{min-height:100%;background:#fff!important;color:#1d1d1f!important}body{background-image:none!important}main{width:min(calc(100% - 48px),1220px)!important;margin:0 auto!important;padding:0 0 48px!important}.app-header{padding:14px 24px 0!important}.header-inner{width:min(100%,1220px)!important;min-height:70px!important;border-radius:20px!important;background:#fff!important;border:1px solid rgba(20,24,36,.09)!important;box-shadow:0 4px 18px rgba(20,24,36,.035)!important}.brand-title{font-size:15px!important;font-weight:760!important;letter-spacing:-.4px!important}.brand-subtitle{letter-spacing:1.4px!important}.logo-wrap{background:#fff!important;border-radius:13px!important}
+.overview-view,.workspace-view{width:100%!important;max-width:1220px!important;padding:34px 0 46px!important}.overview-view>.eyebrow{font-size:10px;letter-spacing:1.8px}.overview-welcome{margin:0 0 22px!important;align-items:center!important}.overview-welcome h1{font-size:clamp(30px,3.4vw,44px)!important;letter-spacing:-1.6px!important;font-weight:760!important}.overview-welcome .intro{font-size:14px!important;color:var(--muted)!important}.overview-art{width:154px!important;height:100px!important;flex-basis:154px!important;border:0!important;border-radius:24px!important;background:#f0f3ff!important;box-shadow:none!important}.art-ring{border-color:rgba(82,111,228,.22)!important}.art-cross{background:#526fe4!important}.art-dot{background:#39b98b!important;box-shadow:0 0 0 7px rgba(57,185,139,.12)!important}
+.overview-metrics{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important;margin:0 0 26px!important}.overview-card{min-height:142px!important;position:relative;padding:18px 18px 16px!important;gap:5px!important;border:1px solid rgba(18,24,40,.09)!important;border-radius:19px!important;background:#fff!important;box-shadow:0 7px 20px rgba(18,24,40,.035)!important}.metric-icon{width:31px;height:31px;display:grid;place-items:center;border-radius:10px;background:#f0f3ff;color:#526fe4;font-size:18px;font-weight:750;margin-bottom:4px}.metric-doctors .metric-icon{background:#e8f7f0;color:#16865f}.metric-cities .metric-icon{background:#fff1df;color:#a96816}.metric-total .metric-icon{background:#f2eaff;color:#8250c5}.metric-label{font-size:9px!important;letter-spacing:1.25px!important;color:#73737b!important}.overview-card strong{font-size:32px!important;font-weight:760!important;letter-spacing:-1px!important;color:#1d1d1f!important}.metric-footnote{font-size:11px!important;color:#777780!important}
+.overview-lower-grid{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(270px,.85fr);align-items:start;gap:22px}.overview-feed-column{min-width:0}.overview-section{margin:0 0 22px!important}.overview-section-heading{margin-bottom:12px!important}.overview-section-heading h2{font-size:20px!important;letter-spacing:-.45px!important}.overview-list{border:1px solid rgba(18,24,40,.08)!important;border-radius:18px!important;background:#fff!important;box-shadow:0 7px 20px rgba(18,24,40,.025)!important}.overview-visit-row{min-height:66px!important;padding:12px 15px!important;grid-template-columns:40px minmax(0,1fr) auto!important}.overview-avatar{border-radius:13px!important;background:#eef1ff!important;color:#4d64c6!important}.overview-quick-panel{padding:20px!important;border:1px solid rgba(18,24,40,.09)!important;border-radius:21px!important;background:#fff!important;box-shadow:0 7px 20px rgba(18,24,40,.035)!important}.overview-quick-panel>.eyebrow{margin-bottom:7px!important}.overview-quick-panel h2{font-size:19px;line-height:1.3;letter-spacing:-.45px;margin:0 0 15px!important}.quick-action{display:grid;grid-template-columns:43px minmax(0,1fr) 14px;align-items:center;gap:11px;width:100%;min-height:70px;padding:10px 0;text-align:left;background:transparent;border:0;border-top:1px solid #ededf0;color:#1d1d1f;cursor:pointer}.quick-action>span:nth-child(2){min-width:0}.quick-action strong,.quick-action small{display:block}.quick-action strong{font-size:12px;font-weight:720;margin-bottom:4px}.quick-action small{font-size:10px;color:#777780;line-height:1.4}.quick-action-art{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:#eef1ff;color:#526fe4}.quick-action-art svg{width:36px;height:36px}.city-art{background:#fff1df;color:#b66e20}.visits-art{background:#e8f7f0;color:#16865f}.quick-chevron{color:#888;font-size:16px}.quick-action:hover{background:#fafaff}.quick-panel-note{display:flex;gap:9px;align-items:flex-start;margin-top:13px;padding:12px;border-radius:13px;background:#f7f8fb;font-size:10px;font-weight:650;line-height:1.55}.quick-panel-note small{font-size:10px;color:#777780;font-weight:450}.quick-note-dot{width:7px;height:7px;margin-top:4px;border-radius:50%;background:#32b884;flex:0 0 auto}
+.workspace-view{padding-top:38px!important}.search-wrap.glass{background:#fff!important;border:1px solid #e7e7ec!important;border-radius:16px!important;box-shadow:none!important}.city-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px!important}.city-card{min-height:98px!important;border:1px solid rgba(18,24,40,.09)!important;border-radius:19px!important;background:#fff!important;box-shadow:0 6px 18px rgba(18,24,40,.03)!important}.city-symbol{width:58px!important;height:58px!important;border-radius:17px!important;position:relative;overflow:hidden!important;background:linear-gradient(180deg,hsla(var(--hue),75%,94%,1),#fff)!important;border:1px solid hsla(var(--hue),35%,75%,.55)!important;box-shadow:none!important;color:hsl(var(--hue),53%,40%)!important}.city-symbol svg{position:relative;z-index:1;width:23px!important;height:23px!important}.city-symbol:after{content:"";position:absolute;bottom:0;left:7px;width:42px;height:21px;opacity:.5;background:linear-gradient(to right,currentColor 0 6px,transparent 6px 10px,currentColor 10px 19px,transparent 19px 23px,currentColor 23px 32px,transparent 32px 36px,currentColor 36px 42px);clip-path:polygon(0 35%,18% 35%,18% 0,40% 0,40% 48%,58% 48%,58% 15%,80% 15%,80% 55%,100% 55%,100% 100%,0 100%)}.doctor-name-button.glass,.details-button.glass{background:#fff!important;border-color:#e8e8ed!important;box-shadow:none!important;border-radius:17px!important}.serial{border-radius:12px!important;background:#f2f4ff!important;border:0!important;box-shadow:none!important}.details-button{border:1px solid #e5e5eb!important}
+.bottom-nav{background:rgba(255,255,255,.96)!important;border:1px solid rgba(18,24,40,.1)!important;box-shadow:0 8px 30px rgba(18,24,40,.12)!important;backdrop-filter:blur(24px)!important}.bottom-nav button{color:#777780!important}.bottom-nav button[aria-current=page]{color:#425fce!important}.workspace-drawer{background:rgba(16,20,32,.32)!important;backdrop-filter:blur(5px)!important}.workspace-drawer-panel{background:#fff!important}.drawer-link{color:#1d1d1f!important}
+@media(min-width:1000px){.overview-welcome{margin-bottom:20px!important}.overview-metrics{margin-bottom:23px!important}.overview-section{margin-bottom:20px!important}.overview-sync{margin-top:7px!important}}
+@media(max-width:900px){main{width:min(calc(100% - 36px),760px)!important}.app-header{padding-left:18px!important;padding-right:18px!important}.overview-view,.workspace-view{padding-top:28px!important}.overview-metrics{grid-template-columns:repeat(2,minmax(0,1fr))!important}.overview-lower-grid{grid-template-columns:1fr!important;gap:16px!important}.overview-quick-panel{order:0}.overview-feed-column{order:1}.overview-quick-panel{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}.overview-quick-panel>.eyebrow,.overview-quick-panel>h2,.quick-panel-note{grid-column:1/-1}.quick-action{border-top:1px solid #ededf0}.city-list{grid-template-columns:1fr}.overview-welcome h1{font-size:clamp(28px,5vw,38px)!important}}
+@media(max-width:520px){main{width:calc(100% - 32px)!important;padding-bottom:108px!important}.app-header{padding:calc(env(safe-area-inset-top,0px) + 8px) 12px 0!important}.header-inner{min-height:62px!important;padding:8px 10px!important;border-radius:17px!important;gap:7px!important}.logo-wrap{width:38px!important;height:38px!important}.brand{gap:8px!important}.brand-title{font-size:13px!important}.brand-subtitle{font-size:9px!important;letter-spacing:1.15px!important}.menu-button,.account-button{min-width:38px!important;min-height:38px!important}.overview-view,.workspace-view{padding:23px 0 26px!important}.overview-view>.eyebrow{margin-bottom:8px!important}.overview-welcome{gap:9px!important;margin-bottom:17px!important}.overview-welcome h1{font-size:29px!important;letter-spacing:-1.2px!important;margin-bottom:7px!important}.overview-welcome .intro{font-size:12px!important;line-height:1.45!important}.overview-art{width:70px!important;height:70px!important;flex-basis:70px!important;border-radius:19px!important}.art-ring{width:47px;height:47px;right:7px;top:8px;border-width:9px}.art-cross{width:27px;height:27px;right:17px;top:20px;border-radius:9px;font-size:22px}.art-dot{left:9px;bottom:10px;width:8px;height:8px;box-shadow:0 0 0 5px rgba(57,185,139,.12)!important}.overview-metrics{gap:10px!important;margin-bottom:18px!important}.overview-card{min-height:117px!important;padding:12px!important;border-radius:16px!important}.metric-icon{width:27px;height:27px;border-radius:9px;font-size:15px;margin-bottom:1px}.metric-label{font-size:8px!important;letter-spacing:1px!important}.overview-card strong{font-size:28px!important}.metric-footnote{font-size:9px!important;line-height:1.3}.overview-quick-panel{padding:15px!important;border-radius:17px!important;grid-template-columns:1fr!important}.overview-quick-panel h2{font-size:17px!important}.quick-action{min-height:62px!important}.overview-section{margin-bottom:18px!important}.overview-section-heading h2{font-size:17px!important}.overview-visit-row{grid-template-columns:34px minmax(0,1fr) auto!important;gap:9px!important;padding:11px!important;min-height:62px!important}.overview-avatar{width:34px!important;height:34px!important;font-size:11px!important}.overview-visit-name{font-size:12px!important}.overview-visit-meta,.overview-visit-date{font-size:10px!important}.city-card{min-height:84px!important;padding:10px!important}.city-symbol{width:48px!important;height:48px!important;border-radius:14px!important}.city-symbol:after{transform:scale(.84);transform-origin:bottom left}.directory-heading h1{font-size:31px!important}.bottom-nav{bottom:calc(env(safe-area-inset-bottom,0px) + 8px)!important;width:calc(100% - 24px)!important;border-radius:18px!important}.bottom-nav button{font-size:10px!important}.bottom-nav .icon{width:19px!important;height:19px!important}}
+@media(prefers-color-scheme:dark){:root{color-scheme:dark;--bg:#000;--ink:#f5f5f7;--muted:#a1a1a6;--faint:#77777d;--glass:#0b0b0d;--glass-strong:#151517;--input:#0b0b0d;--edge:rgba(255,255,255,.12);--line:rgba(255,255,255,.09);--accent:#a6baff;--accent-ink:#c2ceff;--accent-soft:rgba(139,164,255,.13);--shadow:0 12px 30px rgba(0,0,0,.42);--inner:none}
+html,body{background:#000!important;color:#f5f5f7!important}body{background-image:none!important}.header-inner,.overview-card,.overview-list,.overview-quick-panel,.city-card,.search-wrap.glass,.doctor-name-button.glass,.details-button.glass,.workspace-drawer-panel{background:#08080a!important;border-color:rgba(255,255,255,.1)!important;box-shadow:0 8px 26px rgba(0,0,0,.28)!important}.overview-card strong,.quick-action{color:#f5f5f7!important}.metric-label,.metric-footnote,.quick-action small,.overview-visit-date,.overview-visit-meta{color:#a1a1a6!important}.quick-action{border-color:rgba(255,255,255,.09)!important}.quick-panel-note{background:#121214!important}.overview-art{background:#101218!important}.art-cross{background:#7189ff!important}.city-symbol{background:linear-gradient(180deg,rgba(100,120,220,.16),#08080a)!important;border-color:rgba(255,255,255,.12)!important}.city-symbol:after{opacity:.25}.overview-quick-panel h2,.overview-section-heading h2,.brand-title,.drawer-link{color:#f5f5f7!important}.bottom-nav{background:rgba(8,8,10,.96)!important;border-color:rgba(255,255,255,.13)!important}.bottom-nav button{color:#a1a1a6!important}.bottom-nav button[aria-current=page]{color:#c2ceff!important}.workspace-drawer{background:rgba(0,0,0,.58)!important}.quick-action-art{background:#171a29!important;color:#a6baff!important}.city-art{background:#21190e!important;color:#f0b76c!important}.visits-art{background:#0e211a!important;color:#65d9ac!important}.metric-doctors .metric-icon{background:#0d251c;color:#65d9ac}.metric-cities .metric-icon{background:#25190d;color:#f0b76c}.metric-total .metric-icon{background:#20142c;color:#c7a0ff}}
+@media(prefers-color-scheme:light){html,body{background:#fff!important;color:#1d1d1f!important}}
+</style>
 </body>
 </html>
