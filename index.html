@@ -845,6 +845,35 @@ body.is-offline .bottom-nav { filter:none; }
 @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important; } }
 
 </style><p style="padding:30px">Please enable JavaScript to use the doctor directory and visit history.</p></noscript>
+  <aside id="musicStyleSidebar" aria-label="Primary navigation">
+    <button class="sidebar-brand" id="sidebarHome" type="button" aria-label="Go to cities">
+      <img src="./logo.png" width="38" height="38" alt="" onerror="this.style.visibility='hidden'">
+      <span><strong>RB DBMS</strong><small>Doctor workspace</small></span>
+    </button>
+    <p class="sidebar-section-label">LIBRARY</p>
+    <nav class="sidebar-links" aria-label="Main sections">
+      <button type="button" class="sidebar-link is-active" data-shell-section="cities" aria-current="page">
+        <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg><span>Cities</span>
+      </button>
+      <button type="button" class="sidebar-link" data-shell-section="doctors">
+        <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg><span>Doctor Registries</span>
+      </button>
+      <button type="button" class="sidebar-link" data-shell-section="account">
+        <svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg><span>Accounts</span>
+      </button>
+    </nav>
+    <div class="sidebar-spacer"></div>
+    <div class="sidebar-footnote"><span class="sidebar-live-dot"></span><span>Private visit workspace</span></div>
+  </aside>
+  <div id="desktopStatusDock" role="status" aria-live="polite">
+    <span class="dock-indicator" aria-hidden="true"></span>
+    <span class="dock-primary" id="dockStatusTitle">Directory ready</span>
+    <span class="dock-divider"></span>
+    <span id="dockConnection">Checking connection…</span>
+    <span class="dock-spacer"></span>
+    <span class="dock-caption">RB DBMS</span>
+  </div>
+
   <header class="app-header">
     <div class="header-inner glass">
       <button class="brand" id="homeButton" type="button" aria-label="Raptakos, Brett & Co. Ltd. DBMS, choose city">
@@ -2235,6 +2264,264 @@ body.is-offline .bottom-nav { filter:none; }
         if (!menu.hidden && !menu.contains(event.target) && !trigger.contains(event.target)) closeMenu();
       });
       document.addEventListener("keydown",function (event) { if (event.key==="Escape") closeMenu(); });
+    })();
+  </script>
+
+  <style id="apple-music-shell-system">
+    :root {
+      color-scheme: dark;
+      --canvas:#000000; --surface:#101012; --surface-raised:#171719;
+      --text-primary:#f5f5f7; --text-secondary:#8e8e93; --separator:rgba(255,255,255,.12);
+      --music-red:#FC3C44; --whatsapp-green:#25D366; --facebook-blue:#1877F2;
+      --glass-base:linear-gradient(135deg,rgba(255,255,255,.05) 0%,rgba(255,255,255,.01) 100%);
+      --glass-rim:rgba(255,255,255,.12);
+      --shell-sidebar:240px;
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Helvetica,Arial,sans-serif;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+    html,body { min-height:100%; background:#000 !important; color:var(--text-primary) !important; }
+    body {
+      min-height:100vh; padding:0 0 calc(70px + env(safe-area-inset-bottom,0px)) !important;
+      background:#000 !important; letter-spacing:-.018em; overflow-x:clip;
+    }
+    body::before,body::after { content:none !important; display:none !important; }
+    ::selection { background:rgba(252,60,68,.34); color:#fff; }
+    #musicStyleSidebar {
+      position:fixed; inset:0 auto 64px 0; z-index:90; width:var(--shell-sidebar);
+      display:flex; flex-direction:column; gap:0; padding:22px 14px 18px;
+      background:#080809; border-right:1px solid var(--separator);
+    }
+    .sidebar-brand {
+      display:flex; align-items:center; gap:11px; width:100%; min-height:56px; padding:6px 8px 18px;
+      text-align:left; color:var(--text-primary); background:transparent; border:0; border-radius:12px;
+    }
+    .sidebar-brand img { flex:0 0 38px; width:38px; height:38px; object-fit:contain; border-radius:10px; }
+    .sidebar-brand strong { display:block; font-size:15px; font-weight:750; letter-spacing:-.035em; }
+    .sidebar-brand small { display:block; margin-top:3px; color:var(--text-secondary); font-size:11px; font-weight:500; letter-spacing:0; }
+    .sidebar-section-label { margin:24px 12px 10px; color:var(--text-secondary); font-size:10px; font-weight:750; letter-spacing:.13em; }
+    .sidebar-links { display:grid; gap:5px; }
+    .sidebar-link {
+      display:flex; align-items:center; gap:12px; width:100%; min-height:44px; padding:0 12px;
+      color:#b8b8bd; text-align:left; background:transparent; border:1px solid transparent;
+      border-radius:10px; font-size:13px; font-weight:600; letter-spacing:-.01em;
+      transition:background .24s cubic-bezier(.16,1,.3,1),color .24s cubic-bezier(.16,1,.3,1),transform .24s cubic-bezier(.16,1,.3,1);
+    }
+    .sidebar-link .icon { width:18px; height:18px; opacity:.9; }
+    .sidebar-link:hover { color:#fff; background:rgba(255,255,255,.06); }
+    .sidebar-link.is-active { color:#fff; background:rgba(252,60,68,.15); box-shadow:inset 3px 0 #FC3C44; }
+    .sidebar-link.is-active .icon { color:#FC3C44; }
+    .sidebar-spacer { flex:1; }
+    .sidebar-footnote { display:flex; align-items:center; gap:9px; padding:13px 10px; border-top:1px solid var(--separator); color:var(--text-secondary); font-size:10px; }
+    .sidebar-live-dot,.dock-indicator { width:7px; height:7px; flex:0 0 7px; border-radius:50%; background:#25D366; box-shadow:0 0 10px rgba(37,211,102,.45); }
+    .app-header {
+      position:sticky !important; top:0; z-index:80; width:auto !important; margin:0 0 0 var(--shell-sidebar) !important;
+      padding:18px clamp(28px,4vw,64px) 8px !important; background:transparent !important;
+      border:0 !important; box-shadow:none !important; -webkit-backdrop-filter:none !important; backdrop-filter:none !important;
+    }
+    .header-inner {
+      width:100%; max-width:1480px; min-height:56px; margin:0 auto; padding:0 !important;
+      display:flex; align-items:center; justify-content:space-between; gap:20px;
+      background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important;
+      -webkit-backdrop-filter:none !important; backdrop-filter:none !important;
+    }
+    .brand { display:flex; align-items:center; gap:12px; padding:0; text-align:left; background:transparent; border:0; color:inherit; }
+    .brand .logo-wrap { width:38px; height:38px; flex:0 0 38px; border-radius:11px; overflow:hidden; }
+    .brand .logo-wrap img { display:block; width:100%; height:100%; object-fit:contain; }
+    .brand-title { font-size:14px !important; font-weight:700 !important; letter-spacing:-.025em !important; }
+    .brand-subtitle { margin-top:3px; font-size:10px; letter-spacing:.04em; color:var(--text-secondary) !important; }
+    .account-button {
+      min-height:38px; padding:0 14px !important; border-radius:999px !important;
+      color:#fff !important; background:#18181a !important; border:1px solid var(--separator) !important;
+      font-size:12px; font-weight:650; box-shadow:none !important;
+    }
+    #main {
+      position:relative; z-index:1; width:auto !important; max-width:1480px !important;
+      margin:0 auto 0 var(--shell-sidebar) !important;
+      padding:26px clamp(28px,4vw,64px) 80px !important;
+    }
+    .home-view,.directory-view { color:var(--text-primary) !important; background:transparent !important; }
+    .home-view { padding-top:16px !important; }
+    .eyebrow { color:#8e8e93 !important; font-size:10px !important; letter-spacing:.14em !important; font-weight:750 !important; }
+    h1 { color:#f5f5f7 !important; font-size:clamp(40px,5vw,68px) !important; line-height:1.02 !important; font-weight:800 !important; letter-spacing:-.065em !important; }
+    h2,h3,.section-title,.city-name,.doctor-name { color:#f5f5f7 !important; letter-spacing:-.04em; }
+    .intro,.manage-hint,.doctor-meta,.section-subtitle,.fine-print,.brand-subtitle { color:#8e8e93 !important; }
+    .section-title-row { align-items:center; gap:18px; margin:12px 0 14px; }
+    .intro { font-size:15px; line-height:1.65; max-width:560px; }
+    .cloud-notice,.home-cloud-notice { border:1px solid var(--separator) !important; background:#101012 !important; border-radius:14px !important; }
+    .city-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,235px),1fr)); gap:16px !important; margin-top:28px; }
+    .city-list > *, .doctor-card,.doctor-row,.visit-card,.history-card,.list-card,.panel,.modal-card,.dialog,.form-card,.empty,.search-wrap {
+      position:relative; isolation:isolate; overflow:hidden;
+      background:var(--glass-base) !important; border:1px solid var(--glass-rim) !important;
+      border-radius:24px !important;
+      box-shadow:inset 0 20px 30px rgba(255,255,255,.03),0 30px 40px rgba(0,0,0,.4) !important;
+      -webkit-backdrop-filter:blur(40px) saturate(210%) !important; backdrop-filter:blur(40px) saturate(210%) !important;
+      color:var(--text-primary) !important;
+    }
+    .city-list > *, .doctor-card,.doctor-row,.visit-card,.history-card,.list-card,.panel,.form-card {
+      transition:transform .5s cubic-bezier(.16,1,.3,1),border-color .5s cubic-bezier(.16,1,.3,1),box-shadow .5s cubic-bezier(.16,1,.3,1) !important;
+    }
+    .city-list >::before,.doctor-card::before,.doctor-row::before,.visit-card::before,.history-card::before,.list-card::before,.panel::before,.form-card::before {
+      content:""; position:absolute; z-index:-1; inset:-25%; pointer-events:none; border-radius:inherit;
+      opacity:.34; filter:blur(24px); transform:translate3d(0,0,0);
+      background:
+        radial-gradient(ellipse at 18% 28%,rgba(252,60,68,.36),transparent 46%),
+        radial-gradient(ellipse at 82% 35%,rgba(37,211,102,.20),transparent 43%),
+        radial-gradient(ellipse at 60% 92%,rgba(24,119,242,.22),transparent 45%);
+      background-size:120% 120%; transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1),background-position .5s cubic-bezier(.16,1,.3,1);
+    }
+    .city-list >:hover,.doctor-card:hover,.doctor-row:hover,.visit-card:hover,.history-card:hover,.list-card:hover,.panel:hover,.form-card:focus-within {
+      transform:translateY(-2px); border-color:rgba(255,255,255,.25) !important;
+      box-shadow:inset 0 20px 30px rgba(255,255,255,.04),0 34px 46px rgba(0,0,0,.44),0 0 22px rgba(252,60,68,.07) !important;
+    }
+    .city-list >:hover::before,.doctor-card:hover::before,.doctor-row:hover::before,.visit-card:hover::before,.history-card:hover::before,.list-card:hover::before,.panel:hover::before,.form-card:focus-within::before {
+      opacity:.62; transform:translate3d(1.5%,-1%,0) scale(1.04); background-position:8% 8%;
+    }
+    .text-button,.back-button,.link-button,.utility-button,.chip,.tag { color:#78aaff !important; }
+    .online,.available,.verified,.status-online,.sync-live,.positive,.success-indicator { color:#25D366 !important; }
+    .online::before,.available::before,.status-online::before,.sync-live::before { background:#25D366 !important; box-shadow:0 0 10px rgba(37,211,102,.48) !important; }
+    .primary-button,button.primary,.submit-button,.save-button,.confirm-button {
+      background:#FC3C44 !important; color:#fff !important; border-color:transparent !important;
+      box-shadow:0 8px 22px rgba(252,60,68,.18) !important;
+    }
+    input,select,textarea,.search-input,.field input,.field select,.field textarea {
+      color:#f5f5f7 !important; background:#09090a !important; border:1px solid rgba(255,255,255,.15) !important; border-radius:13px !important;
+    }
+    input::placeholder,textarea::placeholder { color:#8e8e93 !important; }
+    #directoryView { background:transparent !important; border:0 !important; box-shadow:none !important; padding:16px 0 0 !important; border-radius:0 !important; }
+    #directoryView .search-wrap { background:#000 !important; border-radius:16px !important; border-color:rgba(255,255,255,.16) !important; }
+    .loading-line { background:linear-gradient(90deg,#FC3C44,#ff858a,#FC3C44) !important; box-shadow:0 0 14px rgba(252,60,68,.5) !important; }
+    .modal-backdrop,.dialog-backdrop,.overlay { background:rgba(0,0,0,.82) !important; -webkit-backdrop-filter:blur(20px); backdrop-filter:blur(20px); }
+    .modal,.modal-content,.dialog-content,[role="dialog"],dialog.sheet { background:#101012 !important; color:#f5f5f7 !important; border:1px solid var(--separator) !important; border-radius:24px !important; }
+    #liquidNavigator { display:none !important; visibility:hidden !important; pointer-events:none !important; }
+    #mobileSectionsButton,#mobileSectionsMenu { display:none; }
+    #desktopStatusDock {
+      position:fixed; z-index:85; left:var(--shell-sidebar); right:0; bottom:0; min-height:56px;
+      display:flex; align-items:center; gap:10px; padding:0 clamp(28px,4vw,64px);
+      background:rgba(13,13,14,.96); border-top:1px solid var(--separator);
+      color:#8e8e93; font-size:11px; -webkit-backdrop-filter:blur(24px); backdrop-filter:blur(24px);
+    }
+    .dock-primary { color:#f5f5f7; font-weight:650; }
+    .dock-divider { height:14px; width:1px; background:var(--separator); margin:0 3px; }
+    .dock-spacer { flex:1; }
+    .dock-caption { color:#626268; font-size:10px; font-weight:700; letter-spacing:.08em; }
+    #mobileSectionsButton {
+      position:fixed; z-index:130; right:16px; bottom:calc(16px + env(safe-area-inset-bottom,0px));
+      width:48px; height:48px; display:none; align-items:center; justify-content:center;
+      border-radius:50%; color:#fff; background:rgba(25,25,27,.92); border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 12px 34px rgba(0,0,0,.38); -webkit-backdrop-filter:blur(28px); backdrop-filter:blur(28px);
+    }
+    #mobileSectionsMenu {
+      position:fixed; z-index:129; right:16px; bottom:calc(72px + env(safe-area-inset-bottom,0px)); min-width:210px;
+      padding:8px; border-radius:20px; background:rgba(14,14,15,.98); border:1px solid var(--separator);
+      box-shadow:0 24px 60px rgba(0,0,0,.55); -webkit-backdrop-filter:blur(32px); backdrop-filter:blur(32px);
+    }
+    #mobileSectionsMenu[hidden] { display:none !important; }
+    #mobileSectionsMenu button { display:flex; width:100%; min-height:46px; align-items:center; padding:0 13px; border:0; border-radius:12px; text-align:left; background:transparent; color:#f5f5f7; font-size:13px; font-weight:600; }
+    #mobileSectionsMenu button:active { background:rgba(252,60,68,.16); }
+    @media (prefers-color-scheme:light) {
+      :root { color-scheme:light; --canvas:#fff; --surface:#f5f5f7; --surface-raised:#fff; --text-primary:#1c1c1e; --text-secondary:#8e8e93; --separator:rgba(0,0,0,.12); --glass-rim:rgba(0,0,0,.10); --glass-base:linear-gradient(135deg,rgba(255,255,255,.96),rgba(255,255,255,.76)); }
+      html,body { background:#fff !important; color:#1c1c1e !important; }
+      #musicStyleSidebar { background:#f7f7f8; border-right-color:rgba(0,0,0,.09); }
+      .sidebar-brand,.sidebar-link { color:#1c1c1e; }
+      .sidebar-link:hover { background:rgba(0,0,0,.045); }
+      .sidebar-link.is-active { color:#c91f29; background:rgba(252,60,68,.10); }
+      .app-header,.header-inner { background:transparent !important; }
+      .brand-title,h1,h2,h3,.section-title,.city-name,.doctor-name { color:#1c1c1e !important; }
+      .intro,.manage-hint,.doctor-meta,.section-subtitle,.fine-print,.brand-subtitle { color:#8e8e93 !important; }
+      .city-list > *, .doctor-card,.doctor-row,.visit-card,.history-card,.list-card,.panel,.modal-card,.dialog,.form-card,.empty {
+        box-shadow:inset 0 20px 30px rgba(255,255,255,.7),0 22px 35px rgba(0,0,0,.08) !important;
+      }
+      .city-list >::before,.doctor-card::before,.doctor-row::before,.visit-card::before,.history-card::before,.list-card::before,.panel::before,.form-card::before { opacity:.5; }
+      .account-button { color:#1c1c1e !important; background:#f5f5f7 !important; border-color:rgba(0,0,0,.12) !important; }
+      input,select,textarea,.search-input,.field input,.field select,.field textarea { color:#1c1c1e !important; background:#f5f5f7 !important; border-color:rgba(0,0,0,.15) !important; }
+      #directoryView .search-wrap { background:#fff !important; }
+      .modal,.modal-content,.dialog-content,[role="dialog"],dialog.sheet { background:#fff !important; color:#1c1c1e !important; }
+      #desktopStatusDock { background:rgba(248,248,250,.96); color:#8e8e93; }
+      .dock-primary { color:#1c1c1e; }
+      #mobileSectionsMenu { background:rgba(250,250,252,.98); }
+      #mobileSectionsMenu button { color:#1c1c1e; }
+    }
+    @media (max-width:767px) {
+      :root { --shell-sidebar:0px; }
+      body { padding-bottom:calc(20px + env(safe-area-inset-bottom,0px)) !important; }
+      #musicStyleSidebar,#desktopStatusDock { display:none !important; }
+      .app-header { position:relative !important; margin:0 !important; padding:12px 16px 6px !important; }
+      .header-inner { min-height:52px; }
+      .brand-title { font-size:12px !important; }
+      #main { margin:0 !important; padding:28px 18px 72px !important; }
+      .home-view { padding-top:10px !important; }
+      h1 { font-size:clamp(42px,12vw,58px) !important; }
+      .city-list { grid-template-columns:1fr; gap:12px !important; }
+      #mobileSectionsButton { display:flex; }
+      #directoryView { padding-top:10px !important; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      .city-list > *, .doctor-card,.doctor-row,.visit-card,.history-card,.list-card,.panel,.sidebar-link { transition:none !important; }
+      .city-list >::before,.doctor-card::before,.doctor-row::before,.visit-card::before,.history-card::before,.list-card::before,.panel::before { transition:none !important; }
+    }
+  </style>
+  <script>
+    // Sidebar navigation reuses the existing navigation actions; it does not duplicate DBMS state.
+    (function () {
+      var sidebar=document.getElementById("musicStyleSidebar");
+      if (!sidebar) return;
+      var sections=sidebar.querySelectorAll("[data-shell-section]");
+      var home=document.getElementById("homeButton");
+      var back=document.getElementById("backButton");
+      var directory=document.getElementById("directoryView");
+      var account=document.getElementById("accountButton");
+      var search=document.getElementById("search");
+      var homeView=document.getElementById("homeView");
+      function select(name) {
+        sections.forEach(function (button) {
+          var active=button.getAttribute("data-shell-section")===name;
+          button.classList.toggle("is-active",active);
+          if (active) button.setAttribute("aria-current","page"); else button.removeAttribute("aria-current");
+        });
+      }
+      function go(name) {
+        if (name==="cities") { if (home) home.click(); select("cities"); return; }
+        if (name==="doctors") {
+          if (directory && directory.hidden) {
+            var first=document.querySelector("#cityList .city-card");
+            if (first) first.click();
+          }
+          select("doctors");
+          window.setTimeout(function(){ if (directory && !directory.hidden && search) search.focus(); },90);
+          return;
+        }
+        if (name==="account") { if (account) account.click(); select("account"); }
+      }
+      sections.forEach(function (button) { button.addEventListener("click",function(){go(button.getAttribute("data-shell-section"));}); });
+      var brand=document.getElementById("sidebarHome");
+      if (brand) brand.addEventListener("click",function(){go("cities");});
+      var mobile=document.getElementById("mobileSectionsMenu");
+      if (mobile) mobile.addEventListener("click",function(event){
+        var item=event.target.closest("[data-mobile-section]");
+        if (!item) return;
+        go(item.getAttribute("data-mobile-section")==="doctors"?"doctors":item.getAttribute("data-mobile-section")==="account"?"account":"cities");
+        var trigger=document.getElementById("mobileSectionsButton");
+        mobile.hidden=true;
+        if (trigger) trigger.setAttribute("aria-expanded","false");
+      });
+      if (back) back.addEventListener("click",function(){select("cities");});
+      if (homeView && directory) {
+        var observer=new MutationObserver(function(){
+          if (!homeView.hidden) select("cities");
+          else if (!directory.hidden) select("doctors");
+        });
+        observer.observe(homeView,{attributes:true,attributeFilter:["hidden"]});
+        observer.observe(directory,{attributes:true,attributeFilter:["hidden"]});
+      }
+      var dock=document.getElementById("dockConnection");
+      var indicator=document.querySelector(".dock-indicator");
+      function updateConnection(){
+        var online=navigator.onLine;
+        if(dock) dock.textContent=online?"Connected · cloud sync when signed in":"Offline · cached app shell";
+        if(indicator){indicator.style.background=online?"#25D366":"#FC3C44";indicator.style.boxShadow=online?"0 0 10px rgba(37,211,102,.45)":"0 0 10px rgba(252,60,68,.5)";}
+      }
+      window.addEventListener("online",updateConnection); window.addEventListener("offline",updateConnection); updateConnection();
     })();
   </script>
 
