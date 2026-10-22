@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#edf1fc" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#101421" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#08080c" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#08080c" media="(prefers-color-scheme: dark)">
   <title>Raptakos, Brett &amp; Co. Ltd. DBMS</title>
   <meta name="description" content="Doctor directory and personal visit history for Raptakos, Brett &amp; Co. Ltd.">
   <link rel="manifest" href="./manifest.webmanifest">
@@ -614,6 +614,20 @@
       .nav-liquid-indicator { transition:none !important; }
     }
   </style>
+
+<style id="liquid-boot-finish">
+.boot { background:radial-gradient(ellipse at 50% 42%,rgba(125,88,193,.22),transparent 35%),#08080c !important; color:#fff !important; }
+.boot::before {
+ content:""; position:absolute; width:156px; height:156px; left:50%; top:calc(50% - 100px);
+ transform:translate(-50%,-50%); border-radius:50%; pointer-events:none;
+ background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.62),rgba(213,195,255,.18) 22%,rgba(139,107,207,.14) 52%,transparent 72%);
+ filter:blur(1px); box-shadow:0 0 65px rgba(161,122,255,.18); animation:bootOrb 2.8s ease-in-out infinite alternate;
+}
+.boot .logo-wrap { position:relative; z-index:1; border-radius:28px; overflow:hidden; box-shadow:0 18px 65px rgba(0,0,0,.3),0 0 36px rgba(196,170,255,.13); }
+.boot .boot-name,.boot .loading-track,.boot .boot-status { position:relative; z-index:1; }
+@keyframes bootOrb { from { opacity:.65; scale:.92; } to { opacity:1; scale:1.12; } }
+@media (prefers-reduced-motion:reduce) { .boot::before { animation:none !important; } }
+</style>
 
 </head>
 <body>
