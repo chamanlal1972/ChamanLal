@@ -1983,56 +1983,6 @@ body.is-offline .bottom-nav { filter:none; }
   </script>
 
 
-  <nav class="bottom-nav" id="liquidNavigator" data-active="cities" aria-label="Application sections">
-    <span class="nav-liquid-indicator" aria-hidden="true"></span>
-    <button type="button" id="bottomCities" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg><span>Cities</span></button>
-    <button type="button" id="bottomSearch"><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg><span>Doctors</span></button>
-    <button type="button" id="bottomAccount"><svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg><span>Account</span></button>
-  </nav>
-  <script>
-    // Bottom navigation is an additional shortcut layer; original controls remain authoritative.
-    (function () {
-      const cities = document.getElementById("bottomCities");
-      const search = document.getElementById("bottomSearch");
-      const account = document.getElementById("bottomAccount");
-      const homeButton = document.getElementById("homeButton");
-      const backButton = document.getElementById("backButton");
-      const searchInput = document.getElementById("search");
-      const accountButton = document.getElementById("accountButton");
-      const homeView = document.getElementById("homeView");
-      const directoryView = document.getElementById("directoryView");
-      function setActive(view) {
-        [cities, search, account].forEach(function (button) { button.removeAttribute("aria-current"); });
-        (view === "directory" ? search : view === "account" ? account : cities).setAttribute("aria-current", "page");
-        var navigator = document.getElementById("liquidNavigator");
-        if (navigator) navigator.dataset.active = view === "directory" ? "doctors" : view === "account" ? "account" : "cities";
-      }
-      cities.addEventListener("click", function () {
-        homeButton.click();
-        setActive("cities");
-      });
-      search.addEventListener("click", function () {
-        if (directoryView.hidden) {
-          const firstCity = document.querySelector("#cityList .city-card");
-          if (firstCity) firstCity.click();
-        }
-        setActive("directory");
-        window.setTimeout(function () { if (!directoryView.hidden && searchInput) searchInput.focus(); }, 80);
-      });
-      account.addEventListener("click", function () {
-        accountButton.click();
-        setActive("account");
-      });
-      if (backButton) backButton.addEventListener("click", function () { setActive("cities"); });
-      document.addEventListener("visibilitychange", function () {
-        if (document.hidden) return;
-        if (homeView && !homeView.hidden) setActive("cities");
-        else if (directoryView && !directoryView.hidden) setActive("directory");
-      });
-    })();
-  </script>
-
-
   <div id="offlineLiquidNotice" role="status" aria-live="polite" hidden>Connection Fluid Disrupted — Cached App Shell Available; Data Sync Paused.</div>
   <script>
     (function () {
@@ -2220,8 +2170,7 @@ body.is-offline .bottom-nav { filter:none; }
     #offlineLiquidNotice { background:rgba(44,32,8,.92) !important; }
     @media (max-width:767px) {
       /* Mobile keeps the viewport clear; existing city/back/account controls remain available. */
-      #liquidNavigator { display:none !important; visibility:hidden !important; pointer-events:none !important; }
-      #mobileSectionsButton { display:flex !important; }
+        #mobileSectionsButton { display:flex !important; }
       body { padding-bottom:calc(18px + env(safe-area-inset-bottom,0px)) !important; }
       #main { padding-inline:14px; }
       #directoryView { padding:20px 14px !important; border-radius:24px !important; }
@@ -2255,10 +2204,24 @@ body.is-offline .bottom-nav { filter:none; }
         var item=event.target.closest("[data-mobile-section]");
         if (!item) return;
         var section=item.getAttribute("data-mobile-section");
-        var target=section==="cities" ? document.getElementById("bottomCities") :
-          section==="doctors" ? document.getElementById("bottomSearch") : document.getElementById("bottomAccount");
         closeMenu();
-        if (target) target.click();
+        if (section==="cities") {
+          var home=document.getElementById("homeButton");
+          if (home) home.click();
+        } else if (section==="doctors") {
+          var directory=document.getElementById("directoryView");
+          if (directory && directory.hidden) {
+            var firstCity=document.querySelector("#cityList .city-card");
+            if (firstCity) firstCity.click();
+          }
+          window.setTimeout(function(){
+            var search=document.getElementById("search");
+            if (directory && !directory.hidden && search) search.focus();
+          },90);
+        } else {
+          var account=document.getElementById("accountButton");
+          if (account) account.click();
+        }
       });
       document.addEventListener("click",function (event) {
         if (!menu.hidden && !menu.contains(event.target) && !trigger.contains(event.target)) closeMenu();
