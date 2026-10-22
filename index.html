@@ -52,24 +52,24 @@
     color-scheme: light dark;
 
     /* ── Light mode ── */
-    --bg:      #F0EEEB;    /* warm canvas white — Neuro bg base    */
-    --bg2:     #E8E5E1;
-    --ink:     #282828;    /* dark charcoal                        */
-    --sub:     #5A5A5A;    /* medium charcoal                      */
-    --dim:     #8A8A8A;    /* light charcoal                       */
+    --bg:      #F4F6FB;    /* cool, clean glass canvas */
+    --bg2:     #E8EEF8;
+    --ink:     #172033;    /* crisp deep navy */
+    --sub:     #46536A;    /* readable slate */
+    --dim:     #77839A;    /* quiet secondary text */
 
     /* Palette */
-    --slate:   #4E5E6B;    /* slate blue                           */
-    --sage:    #8A9A90;    /* matte sage                           */
-    --silver:  #D4D4D4;    /* titanium silver                      */
+    --slate:   #3568E8;    /* confident cobalt blue */
+    --sage:    #F45B35;    /* warm orange contrast */
+    --silver:  #D7DFEC;    /* cool silver */
     --charcoal:#282828;    /* dark charcoal                        */
 
     /* Glass — barely-there frosted pane */
-    --glass:       rgba(255,255,255,.30);
-    --glass-card:  rgba(255,255,255,.22);
-    --glass-heavy: rgba(255,255,255,.78);
-    --rim:         rgba(255,255,255,.82);
-    --sep:         rgba(40,40,40,.10);
+    --glass:       rgba(255,255,255,.48);
+    --glass-card:  rgba(255,255,255,.40);
+    --glass-heavy: rgba(255,255,255,.86);
+    --rim:         rgba(255,255,255,.88);
+    --sep:         rgba(23,32,51,.10);
 
     /* Specular layers */
     --spec-top:  linear-gradient(180deg, rgba(255,255,255,.30) 0%, rgba(255,255,255,0) 48%);
@@ -77,28 +77,28 @@
     --sheen:     linear-gradient(148deg, rgba(255,255,255,.32) 0%, rgba(255,255,255,.06) 30%, rgba(255,255,255,0) 50%, rgba(255,255,255,.10) 100%);
 
     /* Accent = Slate Blue */
-    --accent:     #4E5E6B;
-    --accent-lt:  #637989;
-    --accent-dim: rgba(78,94,107,.11);
+    --accent:     #3568E8;
+    --accent-lt:  #5B83F0;
+    --accent-dim: rgba(53,104,232,.11);
 
     /* Semantic */
-    --green:      #5A8A72;   /* muted sage-green */
+    --green:      #16865D;   /* clear success green */
     --green-dim:  rgba(90,138,114,.12);
     --green-rim:  rgba(90,138,114,.28);
-    --red:        #8A5050;   /* muted terracotta-red */
+    --red:        #C83D4B;   /* accessible alert red */
     --red-dim:    rgba(138,80,80,.11);
     --red-rim:    rgba(138,80,80,.26);
 
     /* Shadows — warm-neutral, never blue-tinted */
-    --shadow-sm:  0 2px 10px -3px rgba(40,40,40,.12), 0 1px 3px -1px rgba(40,40,40,.07);
-    --shadow-md:  0 6px 28px -8px rgba(40,40,40,.18), 0 2px 10px -3px rgba(40,40,40,.10);
-    --shadow-lg:  0 20px 56px -12px rgba(40,40,40,.22), 0 6px 20px -6px rgba(40,40,40,.14);
+    --shadow-sm:  0 2px 8px -3px rgba(28,48,86,.10), 0 1px 3px -1px rgba(28,48,86,.05);
+    --shadow-md:  0 8px 24px -9px rgba(28,48,86,.16), 0 2px 8px -3px rgba(28,48,86,.08);
+    --shadow-lg:  0 18px 48px -14px rgba(28,48,86,.20), 0 5px 18px -6px rgba(28,48,86,.10);
     --shadow-sheet: 0 40px 100px rgba(40,40,40,.20), 0 10px 28px -8px rgba(40,40,40,.14);
     --inner-top:  inset 0 1.5px 0 rgba(255,255,255,.80);
     --inner-rim:  inset 0 0 0 .5px rgba(255,255,255,.38);
 
-    --blur:  blur(56px) saturate(220%);
-    --blur2: blur(36px) saturate(200%);
+    --blur:  blur(16px) saturate(145%);
+    --blur2: blur(10px) saturate(130%);
     --ease:  cubic-bezier(.22,1,.36,1);
     --spring: cubic-bezier(.34,1.56,.64,1);
 
@@ -110,32 +110,32 @@
   @media (prefers-color-scheme: dark) {
     :root {
       /* ── Dark mode ── */
-      --bg:      #1A1A1A;   /* near-black with warmth */
-      --bg2:     #242424;
-      --ink:     #F0EDEA;   /* warm near-white        */
-      --sub:     rgba(240,237,234,.55);
-      --dim:     rgba(240,237,234,.32);
+      --bg:      #0B1020;   /* deep navy charcoal */
+      --bg2:     #121C30;
+      --ink:     #F3F6FC;   /* clean near-white */
+      --sub:     rgba(243,246,252,.72);
+      --dim:     rgba(243,246,252,.48);
 
       /* Dark glass — thin frosted on dark */
-      --glass:       rgba(255,255,255,.07);
-      --glass-card:  rgba(255,255,255,.06);
-      --glass-heavy: rgba(255,255,255,.12);
-      --rim:         rgba(255,255,255,.14);
-      --sep:         rgba(212,212,212,.12);
+      --glass:       rgba(20,29,48,.72);
+      --glass-card:  rgba(20,29,48,.62);
+      --glass-heavy: rgba(20,29,48,.92);
+      --rim:         rgba(255,255,255,.15);
+      --sep:         rgba(255,255,255,.10);
 
       --spec-top:  linear-gradient(180deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 52%);
       --spec-side: linear-gradient(90deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,0) 30%, rgba(255,255,255,0) 70%, rgba(255,255,255,.04) 100%);
       --sheen:     linear-gradient(148deg, rgba(255,255,255,.12) 0%, rgba(255,255,255,.03) 32%, rgba(255,255,255,0) 52%, rgba(255,255,255,.05) 100%);
 
       /* Lighter slate/sage for dark contrast */
-      --accent:     #8AABB8;
-      --accent-lt:  #A4C2CC;
-      --accent-dim: rgba(138,171,184,.14);
+      --accent:     #7FA2FF;
+      --accent-lt:  #A6BCFF;
+      --accent-dim: rgba(127,162,255,.16);
 
-      --green:      #6BAA8A;
+      --green:      #4BD39A;
       --green-dim:  rgba(107,170,138,.14);
       --green-rim:  rgba(107,170,138,.28);
-      --red:        #B07070;
+      --red:        #FF7B86;
       --red-dim:    rgba(176,112,112,.14);
       --red-rim:    rgba(176,112,112,.28);
 
@@ -180,7 +180,7 @@
       /* Soft white centre veil — blends orbs smoothly */
       radial-gradient(ellipse 55% 45% at 55%  48%,  rgba(255,255,255,  .65), transparent),
       /* Canvas base */
-      #F8F6F3;
+      #F4F6FB;
   }
 
   /* Subtle grain noise — exactly like the paper texture in reference */
@@ -253,8 +253,7 @@
   /* ══ PRESS SYSTEM ════════════════════════════════════════════════════════ */
   .press {
     position: relative; overflow: hidden;
-    transition: transform .42s var(--spring), filter .22s ease, box-shadow .22s ease;
-    will-change: transform;
+    transition: background-color .16s ease, border-color .16s ease, filter .16s ease, box-shadow .16s ease;
     -webkit-tap-highlight-color: transparent;
     -webkit-user-select: none; user-select: none;
   }
@@ -264,15 +263,15 @@
     opacity: 0; pointer-events: none; transition: opacity .18s ease;
   }
   .press:active:not(:disabled) {
-    transform: scale(.93) translateY(1.5px); filter: brightness(.84);
-    transition: transform .06s ease, filter .06s ease;
+    transform: none; filter: brightness(.98);
+    transition: filter .12s ease, box-shadow .12s ease;
   }
   .press:active:not(:disabled)::after { opacity: 1; transition-duration: .04s; }
   @media (hover: hover) {
-    .press:hover:not(:disabled) { transform: translateY(-2px) scale(1.018); filter: brightness(1.04); }
+    .press:hover:not(:disabled) { filter: brightness(1.035); }
     .city-card:hover:not(:disabled),
-    .doctor-name-button:hover:not(:disabled) { transform: translateY(-2.5px) scale(1.02); }
-    .primary:hover:not(:disabled) { filter: brightness(1.10); transform: translateY(-2px); }
+    .doctor-name-button:hover:not(:disabled) { transform: none; }
+    .primary:hover:not(:disabled) { filter: brightness(1.05); transform: none; }
   }
 
   /* ══ VIEW TRANSITIONS ════════════════════════════════════════════════════ */
