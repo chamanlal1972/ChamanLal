@@ -65,16 +65,16 @@
     --charcoal:#282828;    /* dark charcoal                        */
 
     /* Glass — barely-there frosted pane */
-    --glass:       rgba(255,255,255,.55);
-    --glass-card:  rgba(255,255,255,.48);
-    --glass-heavy: rgba(255,255,255,.88);
+    --glass:       rgba(255,255,255,.38);
+    --glass-card:  rgba(255,255,255,.32);
+    --glass-heavy: rgba(255,255,255,.82);
     --rim:         rgba(255,255,255,.82);
     --sep:         rgba(40,40,40,.10);
 
     /* Specular layers */
-    --spec-top:  linear-gradient(180deg, rgba(255,255,255,.48) 0%, rgba(255,255,255,0) 52%);
+    --spec-top:  linear-gradient(180deg, rgba(255,255,255,.38) 0%, rgba(255,255,255,0) 52%);
     --spec-side: linear-gradient(90deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,0) 30%, rgba(255,255,255,0) 70%, rgba(255,255,255,.09) 100%);
-    --sheen:     linear-gradient(148deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,.10) 32%, rgba(255,255,255,0) 52%, rgba(255,255,255,.15) 100%);
+    --sheen:     linear-gradient(148deg, rgba(255,255,255,.42) 0%, rgba(255,255,255,.08) 32%, rgba(255,255,255,0) 52%, rgba(255,255,255,.12) 100%);
 
     /* Accent = Slate Blue */
     --accent:     #4E5E6B;
@@ -97,8 +97,8 @@
     --inner-top:  inset 0 1.5px 0 rgba(255,255,255,.80);
     --inner-rim:  inset 0 0 0 .5px rgba(255,255,255,.38);
 
-    --blur:  blur(44px) saturate(180%);
-    --blur2: blur(28px) saturate(160%);
+    --blur:  blur(48px) saturate(200%);
+    --blur2: blur(32px) saturate(180%);
     --ease:  cubic-bezier(.22,1,.36,1);
     --spring: cubic-bezier(.34,1.56,.64,1);
 
@@ -161,11 +161,11 @@
     color: var(--ink); font-size: 15px; line-height: 1.5;
     background:
       /* Slate Blue — top-left bloom */
-      radial-gradient(ellipse 75% 65% at -8%  -5%,  rgba(78,94,107,.38),   transparent),
+      radial-gradient(ellipse 75% 65% at -8%  -5%,  rgba(78,94,107,.50),   transparent),
       /* Sage — bottom-right bloom */
-      radial-gradient(ellipse 70% 60% at 108% 108%, rgba(138,154,144,.32), transparent),
+      radial-gradient(ellipse 70% 60% at 108% 108%, rgba(138,154,144,.42), transparent),
       /* Silver — top-right lightness */
-      radial-gradient(ellipse 60% 50% at 108% -5%,  rgba(212,212,212,.65), transparent),
+      radial-gradient(ellipse 60% 50% at 108% -5%,  rgba(212,212,212,.55), transparent),
       /* Sage — bottom-left hint */
       radial-gradient(ellipse 55% 45% at -5%  108%, rgba(138,154,144,.20), transparent),
       /* Warm centre bloom — very soft */
