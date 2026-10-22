@@ -7,7 +7,7 @@
  */
 "use strict";
 
-const CACHE_NAME = "rb-dbms-pwa-shell-v6";
+const CACHE_NAME = "rb-dbms-pwa-shell-v7";
 const APP_SHELL_URL = "./";
 const PRECACHE_URLS = [
   "./",
