@@ -394,8 +394,8 @@
       display: none;
       align-items: center;
       gap: 20px;
-      width: min(100% - 40px, 760px);
-      margin: 22px auto 0;
+      width: 100%;
+      margin: 22px 0 0;
       padding: 22px 24px;
       border-radius: 24px;
       background: var(--surface-sheen), var(--glass);
@@ -489,24 +489,6 @@
     </div>
   </header>
 
-  <!-- Offline banner – shown via CSS when body.is-offline is set by the offline event -->
-  <div class="offline-banner" id="offlineBanner" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="offline-icon-wrap" aria-hidden="true">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <line x1="1" y1="1" x2="23" y2="23"/>
-        <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
-        <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
-        <path d="M10.71 5.05A16 16 0 0 1 22.56 9"/>
-        <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
-        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
-        <circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/>
-      </svg>
-    </div>
-    <div class="offline-copy">
-      <strong>You&rsquo;re Offline</strong>
-      <p>You are not connected to the internet.<br>Please connect to the internet and try again.</p>
-    </div>
-  </div>
 
   <main id="main">
     <section id="homeView" class="home-view" aria-labelledby="homeTitle">
@@ -514,6 +496,24 @@
       <div class="section-title-row"><h1 id="homeTitle" tabindex="-1">Choose city.</h1><button type="button" class="add-button glass press" id="addCityButton" aria-label="Add city" title="Add city"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button></div>
       <p class="intro">Select a city to find your doctors<br>and keep track of every visit.</p>
       <div class="cloud-notice home-cloud-notice" id="homeDirectoryNotice" role="status" aria-live="polite"><svg class="icon" aria-hidden="true"><use href="#i-cloud"></use></svg><p id="homeDirectoryText"></p><div class="home-cloud-actions"><button type="button" class="text-button press" id="homeSignIn" hidden>Sign in</button><button type="button" class="text-button press" id="homeRetry" hidden>Retry</button></div></div><div class="city-list" id="cityList"></div><p class="manage-hint" id="homeManageHint">Hold a city to manage it.</p>
+      <!-- Offline banner – appears below city list when offline -->
+      <div class="offline-banner" id="offlineBanner" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="offline-icon-wrap" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <line x1="1" y1="1" x2="23" y2="23"/>
+            <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
+            <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
+            <path d="M10.71 5.05A16 16 0 0 1 22.56 9"/>
+            <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
+            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+            <circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <div class="offline-copy">
+          <strong>You&rsquo;re Offline</strong>
+          <p>You are not connected to the internet.<br>Please connect to the internet and try again.</p>
+        </div>
+      </div>
     </section>
     <section id="directoryView" class="directory-view" aria-labelledby="cityTitle" hidden>
       <button type="button" class="back-button press" id="backButton"><svg class="icon" aria-hidden="true"><use href="#i-back"></use></svg>Cities</button>
