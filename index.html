@@ -2525,5 +2525,77 @@ body.is-offline .bottom-nav { filter:none; }
     })();
   </script>
 
+
+  <!-- Apple Music-inspired DBMS finish: vivid green accents, no bottom slider/navigation. -->
+  <style id="apple-music-dbms-final">
+    :root {
+      --canvas:#000000;
+      --surface:#101012;
+      --surface-raised:#18181b;
+      --music-red:#FC3C44;
+      --whatsapp-green:#25D366;
+      --accent-green:#39FF88;
+    }
+    html,body { background:#000 !important; }
+    #musicStyleSidebar { background:#080809 !important; }
+    .sidebar-link.is-active {
+      background:rgba(252,60,68,.15) !important;
+      box-shadow:inset 3px 0 #FC3C44 !important;
+    }
+    .city-list > *, .doctor-card,.doctor-row,.visit-card,.history-card,.list-card,.panel,.modal-card,.dialog,.form-card,.empty,.search-wrap {
+      border-radius:24px !important;
+      background:linear-gradient(135deg,rgba(255,255,255,.055) 0%,rgba(255,255,255,.012) 100%) !important;
+      border:1px solid rgba(255,255,255,.13) !important;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.07),inset 0 20px 30px rgba(255,255,255,.025),0 28px 44px rgba(0,0,0,.42) !important;
+      -webkit-backdrop-filter:blur(40px) saturate(210%) !important;
+      backdrop-filter:blur(40px) saturate(210%) !important;
+    }
+    .city-list > *::before,.doctor-card::before,.doctor-row::before,.visit-card::before,.history-card::before,.list-card::before,.panel::before,.form-card::before {
+      background:
+        radial-gradient(ellipse at 16% 25%,rgba(252,60,68,.34),transparent 46%),
+        radial-gradient(ellipse at 83% 26%,rgba(57,255,136,.27),transparent 44%),
+        radial-gradient(ellipse at 60% 95%,rgba(24,119,242,.2),transparent 45%) !important;
+      opacity:.42 !important;
+      filter:blur(26px) !important;
+    }
+    .city-list > *:hover::before,.doctor-card:hover::before,.doctor-row:hover::before,.visit-card:hover::before,.history-card:hover::before,.list-card:hover::before,.panel:hover::before,.form-card:focus-within::before {
+      opacity:.72 !important;
+    }
+    .online,.available,.verified,.status-online,.sync-live,.positive,.success-indicator,
+    .sidebar-live-dot,.dock-indicator { color:#39FF88 !important; }
+    .online::before,.available::before,.status-online::before,.sync-live::before,
+    .sidebar-live-dot,.dock-indicator {
+      background:#39FF88 !important;
+      box-shadow:0 0 12px rgba(57,255,136,.7) !important;
+    }
+    .primary-button,button.primary,.submit-button,.save-button,.confirm-button {
+      background:#FC3C44 !important;
+      color:#fff !important;
+      border-color:transparent !important;
+    }
+    .green-button,.whatsapp-button,.sync-button,[data-action*="sync"],[aria-label*="sync" i] {
+      border-color:rgba(57,255,136,.42) !important;
+    }
+    #desktopStatusDock { background:rgba(8,8,9,.96) !important; }
+    #liquidNavigator { display:none !important; visibility:hidden !important; pointer-events:none !important; }
+    @media (max-width:767px) {
+      #desktopStatusDock,#musicStyleSidebar { display:none !important; }
+      #mobileSectionsButton { display:flex !important; }
+      body { padding-bottom:calc(12px + env(safe-area-inset-bottom,0px)) !important; }
+    }
+    @media (prefers-color-scheme:light) {
+      :root { --canvas:#fff; }
+      html,body { background:#fff !important; color:#202024 !important; }
+      .city-list > *, .doctor-card,.doctor-row,.visit-card,.history-card,.list-card,.panel,.modal-card,.dialog,.form-card,.empty,.search-wrap {
+        background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(245,245,248,.9)) !important;
+        border-color:rgba(0,0,0,.09) !important;
+        box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 20px 36px rgba(0,0,0,.07) !important;
+      }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      *,*::before,*::after { scroll-behavior:auto !important; transition-duration:.01ms !important; animation-duration:.01ms !important; }
+    }
+  </style>
+
 </body>
 </html>
