@@ -513,7 +513,98 @@
     <div class="loading-track" role="progressbar" aria-label="Starting your workspace"><div class="loading-line"></div></div>
     <div class="boot-status" id="bootStatus">Starting your workspace…</div>
   </div>
-  <noscript><style>.boot{display:none}</style><p style="padding:30px">Please enable JavaScript to use the doctor directory and visit history.</p></noscript>
+  <noscript><style>.boot{display:none}
+/* Premium Apple Music-inspired visual refresh — presentation only.
+   Existing DBMS markup, IDs, data, authentication, sync and visit logic are intentionally preserved. */
+:root {
+  color-scheme: dark;
+  --bg: #000;
+  --panel: #1c1c1e;
+  --panel-raised: #242426;
+  --accent: #fc3c44;
+  --accent-soft: rgba(252,60,68,.14);
+  --text: #f5f5f7;
+  --muted: #a1a1a6;
+  --line: rgba(255,255,255,.09);
+  --glass: rgba(28,28,30,.76);
+  --shadow: 0 24px 70px rgba(0,0,0,.34);
+}
+html { background: var(--bg); }
+body {
+  background: radial-gradient(ellipse at 50% -20%, rgba(252,60,68,.10), transparent 42%), #000 !important;
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+  letter-spacing: -.015em;
+}
+::selection { background: rgba(252,60,68,.35); color: white; }
+.app-header { background: rgba(0,0,0,.72) !important; border-bottom: 1px solid var(--line) !important; backdrop-filter: blur(28px) saturate(160%); -webkit-backdrop-filter: blur(28px) saturate(160%); }
+.header-inner, .glass {
+  background: rgba(28,28,30,.76) !important;
+  border-color: var(--line) !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,.18);
+  backdrop-filter: blur(24px) saturate(155%);
+  -webkit-backdrop-filter: blur(24px) saturate(155%);
+}
+.brand-title, h1, h2, h3, .section-title, .city-name, .doctor-name { color: var(--text) !important; letter-spacing: -.045em; }
+.brand-subtitle, .eyebrow, .intro, .manage-hint, .muted, .doctor-meta, .section-subtitle { color: var(--muted) !important; }
+.brand .logo-wrap { border-radius: 13px; overflow: hidden; }
+.account-button, .add-button, .primary-button, button.primary, .submit-button {
+  border-radius: 999px !important;
+  transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+.account-button { background: rgba(255,255,255,.08) !important; border: 1px solid var(--line) !important; color: var(--text) !important; }
+.account-button:hover, .add-button:hover { background: rgba(255,255,255,.14) !important; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent) !important; outline-offset: 3px; }
+#main { max-width: 1320px; }
+.home-view, .directory-view { color: var(--text); }
+.eyebrow { font-size: .73rem !important; font-weight: 700; letter-spacing: .14em !important; }
+h1 { font-size: clamp(2.7rem, 6vw, 5rem) !important; line-height: .98 !important; font-weight: 800 !important; }
+h2 { font-weight: 750 !important; }
+.intro { line-height: 1.65; }
+.city-list { gap: 12px !important; }
+.city-list > *, .doctor-card, .doctor-row, .visit-card, .history-card, .list-card, .panel, .modal-card, .dialog, .form-card {
+  background: linear-gradient(145deg, rgba(37,37,40,.94), rgba(24,24,26,.96)) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 12px 36px rgba(0,0,0,.16);
+  color: var(--text);
+}
+.city-list > * { transition: transform .2s ease, border-color .2s ease, background .2s ease; }
+.city-list > *:hover, .doctor-card:hover, .doctor-row:hover, .visit-card:hover { transform: translateY(-2px); border-color: rgba(252,60,68,.36) !important; }
+button, .text-button, .back-button { -webkit-tap-highlight-color: transparent; }
+.text-button, .back-button, .link-button { color: #ff6268 !important; }
+.primary-button, button.primary, .submit-button, .save-button, .confirm-button {
+  background: var(--accent) !important; color: #fff !important; border-color: transparent !important;
+  box-shadow: 0 7px 22px rgba(252,60,68,.20);
+}
+.primary-button:hover, button.primary:hover, .submit-button:hover, .save-button:hover, .confirm-button:hover { background: #ff5259 !important; transform: translateY(-1px); }
+input, select, textarea, .search-input, .field input, .field select, .field textarea {
+  color: var(--text) !important; background: rgba(255,255,255,.065) !important;
+  border: 1px solid rgba(255,255,255,.12) !important; border-radius: 12px !important;
+}
+input::placeholder, textarea::placeholder { color: #77777d !important; }
+.cloud-notice { background: rgba(255,255,255,.045) !important; border-color: var(--line) !important; border-radius: 16px !important; color: var(--muted); }
+.modal-backdrop, .dialog-backdrop, .overlay { background: rgba(0,0,0,.72) !important; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.modal, .modal-content, .dialog-content, [role="dialog"] {
+  background: #1c1c1e !important; color: var(--text) !important;
+  border: 1px solid var(--line) !important; border-radius: 24px !important; box-shadow: var(--shadow) !important;
+}
+hr, .divider { border-color: var(--line) !important; }
+svg.icon { color: inherit; }
+@media (min-width: 900px) {
+  #main { padding-left: clamp(28px, 5vw, 76px); padding-right: clamp(28px, 5vw, 76px); }
+  .home-view, .directory-view { padding-top: clamp(34px, 5vh, 64px); }
+}
+@media (max-width: 640px) {
+  .header-inner { border-radius: 0 0 18px 18px !important; }
+  h1 { font-size: clamp(2.55rem, 12vw, 3.6rem) !important; }
+  .city-list > *, .doctor-card, .doctor-row, .visit-card { border-radius: 16px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+</style><p style="padding:30px">Please enable JavaScript to use the doctor directory and visit history.</p></noscript>
   <header class="app-header">
     <div class="header-inner glass">
       <button class="brand" id="homeButton" type="button" aria-label="Raptakos, Brett & Co. Ltd. DBMS, choose city">
