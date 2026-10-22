@@ -2004,7 +2004,7 @@ body.is-offline .bottom-nav { filter:none; }
   </script>
 
 
-  <div id="offlineLiquidNotice" role="status" aria-live="polite" hidden>Connection Fluid Disrupted — Operating on Local Liquid Cache.</div>
+  <div id="offlineLiquidNotice" role="status" aria-live="polite" hidden>Connection Fluid Disrupted — Cached App Shell Available; Data Sync Paused.</div>
   <script>
     (function () {
       var notice = document.getElementById("offlineLiquidNotice");
@@ -2024,6 +2024,15 @@ body.is-offline .bottom-nav { filter:none; }
     })();
   </script>
 
+
+  <button id="mobileSectionsButton" type="button" aria-label="Open sections menu" aria-controls="mobileSectionsMenu" aria-expanded="false">
+    <svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg>
+  </button>
+  <div id="mobileSectionsMenu" hidden aria-label="Application sections">
+    <button type="button" data-mobile-section="cities">Cities</button>
+    <button type="button" data-mobile-section="doctors">Doctor Registries</button>
+    <button type="button" data-mobile-section="account">Accounts</button>
+  </div>
 
   <!-- Three-tone Liquid Glass finish: visual-only layer; app logic and data flow are preserved. -->
   <style id="liquid-glass-tritone-finish">
@@ -2152,10 +2161,38 @@ body.is-offline .bottom-nav { filter:none; }
       border:1px solid rgba(255,255,255,.14) !important; border-radius:28px !important;
     }
     .bottom-nav { bottom:calc(32px + env(safe-area-inset-bottom,0px)) !important; }
+
+    #mobileSectionsButton,#mobileSectionsMenu { display:none; }
+    #mobileSectionsButton {
+      position:fixed; z-index:130; right:18px; bottom:calc(18px + env(safe-area-inset-bottom,0px));
+      width:50px; height:50px; border-radius:50%; align-items:center; justify-content:center;
+      color:#fff; background:rgba(20,20,24,.78); border:1px solid rgba(255,255,255,.22);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 14px 36px rgba(0,0,0,.42);
+      -webkit-backdrop-filter:blur(28px) saturate(180%); backdrop-filter:blur(28px) saturate(180%);
+    }
+    #mobileSectionsButton .icon { width:21px; height:21px; }
+    #mobileSectionsMenu {
+      position:fixed; z-index:129; right:18px; bottom:calc(78px + env(safe-area-inset-bottom,0px));
+      min-width:210px; padding:8px; border-radius:22px;
+      background:rgba(8,8,10,.94); border:1px solid rgba(255,255,255,.16);
+      box-shadow:0 24px 60px rgba(0,0,0,.52),inset 0 1px 0 rgba(255,255,255,.08);
+      -webkit-backdrop-filter:blur(34px) saturate(180%); backdrop-filter:blur(34px) saturate(180%);
+      transform-origin:bottom right; animation:mobileMenuArrive .24s cubic-bezier(.16,1,.3,1) both;
+    }
+    #mobileSectionsMenu[hidden] { display:none !important; }
+    #mobileSectionsMenu button {
+      display:flex; width:100%; min-height:46px; align-items:center; text-align:left;
+      padding:0 14px; border:0; border-radius:14px; color:#fff; background:transparent;
+      font:600 14px/1.2 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+    }
+    #mobileSectionsMenu button:active { background:rgba(201,223,255,.14); }
+    @keyframes mobileMenuArrive { from { opacity:0; transform:translateY(8px) scale(.97); } to { opacity:1; transform:translateY(0) scale(1); } }
+
     #offlineLiquidNotice { background:rgba(44,32,8,.92) !important; }
     @media (max-width:767px) {
       /* Mobile keeps the viewport clear; existing city/back/account controls remain available. */
       #liquidNavigator { display:none !important; visibility:hidden !important; pointer-events:none !important; }
+      #mobileSectionsButton { display:flex !important; }
       body { padding-bottom:calc(18px + env(safe-area-inset-bottom,0px)) !important; }
       #main { padding-inline:14px; }
       #directoryView { padding:20px 14px !important; border-radius:24px !important; }
@@ -2171,6 +2208,35 @@ body.is-offline .bottom-nav { filter:none; }
       *,*::before,*::after { scroll-behavior:auto !important; transition-duration:.01ms !important; }
     }
   </style>
+
+  <script>
+    // Compact mobile section menu delegates to the existing app controls, preserving all business logic.
+    (function () {
+      var trigger=document.getElementById("mobileSectionsButton");
+      var menu=document.getElementById("mobileSectionsMenu");
+      if (!trigger || !menu) return;
+      function closeMenu() { menu.hidden=true; trigger.setAttribute("aria-expanded","false"); trigger.setAttribute("aria-label","Open sections menu"); }
+      trigger.addEventListener("click",function () {
+        var open=menu.hidden;
+        menu.hidden=!open;
+        trigger.setAttribute("aria-expanded",String(open));
+        trigger.setAttribute("aria-label",open ? "Close sections menu" : "Open sections menu");
+      });
+      menu.addEventListener("click",function (event) {
+        var item=event.target.closest("[data-mobile-section]");
+        if (!item) return;
+        var section=item.getAttribute("data-mobile-section");
+        var target=section==="cities" ? document.getElementById("bottomCities") :
+          section==="doctors" ? document.getElementById("bottomSearch") : document.getElementById("bottomAccount");
+        closeMenu();
+        if (target) target.click();
+      });
+      document.addEventListener("click",function (event) {
+        if (!menu.hidden && !menu.contains(event.target) && !trigger.contains(event.target)) closeMenu();
+      });
+      document.addEventListener("keydown",function (event) { if (event.key==="Escape") closeMenu(); });
+    })();
+  </script>
 
 </body>
 </html>
