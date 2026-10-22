@@ -703,6 +703,20 @@
     @media(max-width:390px){main{width:calc(100% - 20px)}.home-view::before{width:min(100%,280px)}.home-view{padding-inline:0}}
   </style>
 
+<style id="dbms-explicit-theme-overrides">
+@media (prefers-color-scheme: light) {
+ :root {color-scheme:light;--bg:#fff;--ink:#1c1c1e;--muted:#6e6e73;--faint:#8e8e93;--glass:rgba(255,255,255,.92);--glass-strong:#fff;--input:#fff;--edge:rgba(0,0,0,.10);--line:rgba(0,0,0,.08);--accent:#3564df;--accent-ink:#244fc5;--accent-soft:rgba(53,100,223,.10);--glow-blue:transparent;--glow-violet:transparent;--glow-mint:transparent;--surface-sheen:none;--shadow:0 8px 24px rgba(0,0,0,.055);--inner:inset 0 1px 0 rgba(255,255,255,.8)}
+ html,body,body::before,body::after{background:#fff!important;color:#1c1c1e!important}
+ #musicStyleSidebar,.workspace-drawer-panel{background:#fff!important}
+ .overview-card.glass,.overview-list.glass,.search-wrap.glass,.city-card.glass,.doctor-name-button.glass,.details-button.glass{background:#fff!important;border-color:rgba(0,0,0,.09)!important;box-shadow:0 8px 24px rgba(0,0,0,.055)!important}
+}
+@media (prefers-color-scheme: dark) {
+ :root {color-scheme:dark;--bg:#000;--ink:#f5f5f7;--muted:#a1a1a6;--faint:#77777d;--glass:rgba(20,20,22,.92);--glass-strong:#151517;--input:#101012;--edge:rgba(255,255,255,.12);--line:rgba(255,255,255,.09);--accent:#a6baff;--accent-ink:#c2ceff;--accent-soft:rgba(139,164,255,.13);--glow-blue:transparent;--glow-violet:transparent;--glow-mint:transparent;--surface-sheen:none;--shadow:0 12px 30px rgba(0,0,0,.4);--inner:inset 0 1px 0 rgba(255,255,255,.06)}
+ html,body,body::before,body::after{background:#000!important;color:#f5f5f7!important}
+ #musicStyleSidebar,.workspace-drawer-panel{background:#000!important}
+ .overview-card.glass,.overview-list.glass,.search-wrap.glass,.city-card.glass,.doctor-name-button.glass,.details-button.glass{background:#0b0b0d!important;border-color:rgba(255,255,255,.10)!important}
+}
+</style>
 </head>
 <body>
   <a class="skip" href="#main">Skip to directory</a>
@@ -950,7 +964,7 @@ body.is-offline .bottom-nav { filter:none; }
 
   <header class="app-header">
     <div class="header-inner glass">
-      <button type="button" class="menu-button press" id="menuButton" aria-label="Open workspace menu" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg></button>
+      <button type="button" class="menu-button press" id="menuButton" aria-label="Open workspace menu" aria-expanded="false"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
       <button class="brand" id="homeButton" type="button" aria-label="Raptakos, Brett & Co. Ltd. DBMS, choose city">
         <span class="logo-wrap"><img src="./logo.png" alt="" width="46" height="46" onerror="this.parentElement.classList.add('missing')"></span>
         <span><span class="brand-title">Raptakos, Brett &amp; Co. Ltd.</span><span class="brand-subtitle">DBMS</span></span>
@@ -2078,7 +2092,7 @@ body.is-offline .bottom-nav { filter:none; }
 
   <div class="workspace-drawer" id="workspaceDrawer" role="dialog" aria-modal="true" aria-label="Workspace menu"><div class="workspace-drawer-panel">
     <div class="drawer-top"><div class="drawer-brand"><img src="./logo.png" alt=""><span>DBMS<br><small style="font-weight:500;color:var(--muted)">Workspace menu</small></span></div><button type="button" class="icon-button press" id="closeWorkspaceDrawer" aria-label="Close menu"><svg class="icon"><use href="#i-close"></use></svg></button></div>
-    <button class="drawer-link" type="button" data-go-view="home"><svg class="icon"><use href="#i-home"></use></svg>Home dashboard</button>
+    <button class="drawer-link" type="button" data-go-view="home"><svg class="icon"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"></path></svg>Home dashboard</button>
     <button class="drawer-link" type="button" data-go-view="cities"><svg class="icon"><use href="#i-pin"></use></svg>Cities directory</button>
     <button class="drawer-link" type="button" data-go-view="doctors"><svg class="icon"><use href="#i-search"></use></svg>All doctors</button>
     <button class="drawer-link" type="button" data-go-view="visits"><svg class="icon"><use href="#i-calendar"></use></svg>Visit history</button>
