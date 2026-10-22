@@ -388,7 +388,104 @@
       .edit-field { padding:11px; }
     }
 
-  </style>
+  
+    /* Premium RB DBMS refresh — visual layer only; application logic and IDs stay intact. */
+    :root {
+      --bg:#f5f5f7; --ink:#1d1d1f; --muted:#6e6e73; --faint:#86868b;
+      --glass:rgba(255,255,255,.72); --glass-strong:rgba(255,255,255,.94);
+      --input:rgba(255,255,255,.78); --edge:rgba(255,255,255,.92);
+      --line:rgba(29,29,31,.09); --accent:#fc3c44; --accent-ink:#e52d3a;
+      --accent-soft:rgba(252,60,68,.09); --glow-blue:rgba(220,226,238,.42);
+      --glow-violet:rgba(239,225,229,.24); --glow-mint:rgba(226,233,235,.24);
+      --shadow:0 12px 36px -22px rgba(29,29,31,.22),0 2px 8px rgba(29,29,31,.035);
+      --inner:inset 0 1px 0 rgba(255,255,255,.9);
+      --control-shadow:0 3px 9px -5px rgba(29,29,31,.18);
+      --surface-sheen:linear-gradient(145deg,rgba(255,255,255,.76),rgba(255,255,255,.12) 58%,rgba(255,255,255,.3));
+      --well-sheen:linear-gradient(160deg,rgba(255,255,255,.42),rgba(255,255,255,0) 62%);
+      --sheet-shadow:0 32px 90px rgba(0,0,0,.18);
+      --blur:blur(28px) saturate(1.7);
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",system-ui,sans-serif;
+    }
+    @media (prefers-color-scheme:dark) {
+      :root {
+        --bg:#000; --ink:#f5f5f7; --muted:#a1a1a6; --faint:#77777d;
+        --glass:rgba(28,28,30,.78); --glass-strong:rgba(38,38,40,.96);
+        --input:rgba(28,28,30,.88); --edge:rgba(255,255,255,.105);
+        --line:rgba(255,255,255,.095); --accent:#fc3c44; --accent-ink:#ff6269;
+        --accent-soft:rgba(252,60,68,.14); --glow-blue:rgba(23,23,25,.45);
+        --glow-violet:rgba(32,20,23,.32); --glow-mint:rgba(20,20,21,.25);
+        --shadow:0 16px 42px -20px rgba(0,0,0,.8),0 2px 10px rgba(0,0,0,.28);
+        --inner:inset 0 1px 0 rgba(255,255,255,.075);
+        --control-shadow:0 4px 12px -6px rgba(0,0,0,.6);
+        --surface-sheen:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.012) 58%,rgba(255,255,255,.035));
+        --well-sheen:linear-gradient(160deg,rgba(255,255,255,.035),rgba(255,255,255,0) 62%);
+        --sheet-shadow:0 32px 90px rgba(0,0,0,.7);
+      }
+    }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); background-image:radial-gradient(ellipse at 50% -20%,var(--glow-blue),transparent 58%),radial-gradient(ellipse at 100% 45%,var(--glow-violet),transparent 42%),var(--bg); }
+    .app-header { padding-left:clamp(12px,3vw,30px); padding-right:clamp(12px,3vw,30px); }
+    .header-inner { width:min(100%,1120px); min-height:72px; border-radius:24px; background:var(--glass); border-color:var(--line); }
+    .logo-wrap { border-radius:14px; }
+    .brand-title { letter-spacing:-.45px; }
+    .account-button { border-radius:999px; background:var(--accent); color:#fff; border-color:transparent; box-shadow:0 5px 16px rgba(252,60,68,.18); }
+    .account-button .icon { stroke:currentColor; }
+    main { width:min(100% - 36px,960px); padding-bottom:calc(34px + env(safe-area-inset-bottom,0px)); }
+    .home-view { max-width:790px; padding-top:clamp(32px,6vh,66px); }
+    h1 { letter-spacing:-1.8px; }
+    .eyebrow { letter-spacing:1.7px; }
+    .city-list { grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .city-card { min-height:112px; padding:18px; border:1px solid var(--line); border-radius:23px; background:var(--surface-sheen),var(--glass); box-shadow:var(--shadow); transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease; }
+    .city-symbol { width:48px; height:48px; border-radius:16px; color:var(--accent-ink); background:var(--accent-soft); border-color:var(--line); }
+    .city-name { font-size:17px; letter-spacing:-.35px; }
+    .city-meta { font-size:12px; }
+    .directory-view { max-width:850px; margin:0 auto; padding-top:24px; }
+    .directory-heading { margin-top:18px; }
+    .search-wrap { border-radius:17px; background:var(--glass); border-color:var(--line); }
+    .search-wrap:focus-within { border-color:rgba(252,60,68,.55); box-shadow:0 0 0 4px rgba(252,60,68,.08),var(--shadow); }
+    .doctor-list { gap:10px; }
+    .doctor-row { gap:10px; }
+    .doctor-name-button { border-radius:19px; background:var(--surface-sheen),var(--glass); border-color:var(--line); }
+    .serial { border-radius:13px; color:var(--accent-ink); background:var(--accent-soft); }
+    .details-button { border-radius:999px; }
+    .add-button { color:var(--accent-ink); border-color:var(--line); background:var(--glass); border-radius:15px; }
+    .primary { background:var(--accent) !important; color:#fff !important; border-color:transparent !important; box-shadow:0 6px 18px rgba(252,60,68,.18),var(--inner) !important; }
+    .sheet { border-color:var(--line); border-radius:28px; }
+    .sheet-top { border-bottom:1px solid var(--line); }
+    .input, input, select, textarea { accent-color:var(--accent); }
+    input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible { outline-color:var(--accent); }
+    .sync-badge { border-radius:999px; }
+    .cloud-notice, .management-notice { border-color:var(--line); border-radius:18px; }
+    .city-card:focus-visible, .doctor-name-button:focus-visible { outline:3px solid var(--accent); }
+    @media (hover:hover) {
+      .city-card:hover:not(:disabled), .doctor-name-button:hover:not(:disabled) { transform:translateY(-3px); border-color:rgba(252,60,68,.28); box-shadow:0 16px 32px -22px rgba(252,60,68,.3),var(--shadow); }
+      .add-button:hover:not(:disabled) { background:var(--accent-soft); }
+    }
+    @media (max-width:650px) {
+      main { width:calc(100% - 28px); padding-bottom:calc(100px + env(safe-area-inset-bottom,0px)); }
+      .app-header { padding-top:calc(env(safe-area-inset-top,0px) + 9px); }
+      .header-inner { min-height:64px; padding:10px 12px; border-radius:20px; }
+      .city-list { grid-template-columns:minmax(0,1fr); gap:10px; }
+      .city-card { min-height:82px; border-radius:19px; padding:13px 15px; }
+      .home-view { padding-top:30px; }
+      h1 { font-size:clamp(34px,9vw,46px); letter-spacing:-1.5px; }
+      .directory-view { padding-top:18px; }
+      .directory-heading { grid-template-columns:minmax(0,1fr) 44px; }
+      .bottom-nav { position:fixed; z-index:30; left:12px; right:12px; bottom:calc(10px + env(safe-area-inset-bottom,0px)); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px; padding:7px; border:1px solid var(--line); border-radius:22px; background:var(--glass-strong); -webkit-backdrop-filter:blur(28px) saturate(1.7); backdrop-filter:blur(28px) saturate(1.7); box-shadow:0 12px 35px rgba(0,0,0,.13),var(--inner); }
+      .bottom-nav button { display:flex; align-items:center; justify-content:center; flex-direction:column; gap:3px; min-height:52px; padding:6px 4px; border:0; border-radius:15px; background:transparent; color:var(--muted); font-size:10px; font-weight:650; }
+      .bottom-nav button .icon { width:19px; height:19px; }
+      .bottom-nav button[aria-current="page"] { color:var(--accent-ink); background:var(--accent-soft); }
+      .bottom-nav button:active { transform:scale(.97); }
+    }
+    @media (min-width:651px) {
+      .bottom-nav { display:none; }
+      main { padding-bottom:50px; }
+    }
+    @media (max-width:350px) {
+      .brand-title { max-width:145px; }
+      .bottom-nav { left:8px; right:8px; }
+    }
+</style>
 </head>
 <body>
   <a class="skip" href="#main">Skip to directory</a>
@@ -1523,6 +1620,53 @@
           });
       });
     }
+  </script>
+
+
+  <nav class="bottom-nav" aria-label="Quick navigation">
+    <button type="button" id="bottomCities" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg><span>Cities</span></button>
+    <button type="button" id="bottomSearch"><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg><span>Search</span></button>
+    <button type="button" id="bottomAccount"><svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg><span>Account</span></button>
+  </nav>
+  <script>
+    // Bottom navigation is an additional shortcut layer; original controls remain authoritative.
+    (function () {
+      const cities = document.getElementById("bottomCities");
+      const search = document.getElementById("bottomSearch");
+      const account = document.getElementById("bottomAccount");
+      const homeButton = document.getElementById("homeButton");
+      const backButton = document.getElementById("backButton");
+      const searchInput = document.getElementById("search");
+      const accountButton = document.getElementById("accountButton");
+      const homeView = document.getElementById("homeView");
+      const directoryView = document.getElementById("directoryView");
+      function setActive(view) {
+        [cities, search, account].forEach(function (button) { button.removeAttribute("aria-current"); });
+        (view === "directory" ? search : view === "account" ? account : cities).setAttribute("aria-current", "page");
+      }
+      cities.addEventListener("click", function () {
+        homeButton.click();
+        setActive("cities");
+      });
+      search.addEventListener("click", function () {
+        if (directoryView.hidden) {
+          const firstCity = document.querySelector("#cityList .city-card");
+          if (firstCity) firstCity.click();
+        }
+        setActive("directory");
+        window.setTimeout(function () { if (!directoryView.hidden && searchInput) searchInput.focus(); }, 80);
+      });
+      account.addEventListener("click", function () {
+        accountButton.click();
+        setActive("account");
+      });
+      if (backButton) backButton.addEventListener("click", function () { setActive("cities"); });
+      document.addEventListener("visibilitychange", function () {
+        if (document.hidden) return;
+        if (homeView && !homeView.hidden) setActive("cities");
+        else if (directoryView && !directoryView.hidden) setActive("directory");
+      });
+    })();
   </script>
 
 </body>
