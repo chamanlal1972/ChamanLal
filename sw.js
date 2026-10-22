@@ -7,13 +7,14 @@
  */
 "use strict";
 
-const CACHE_NAME = "rb-dbms-pwa-shell-v2";
+const CACHE_NAME = "rb-dbms-pwa-shell-v3";
 const APP_SHELL_URL = "./";
 const PRECACHE_URLS = [
   "./",
   "./logo.png",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
+  "./icons/icon-maskable-192.png",
   "./icons/icon-maskable-512.png",
   "./icons/apple-touch-icon.png"
 ];
@@ -78,7 +79,7 @@ self.addEventListener("fetch", event => {
   }
 
   // Static assets (logo + icons): cache-first so they are always available offline.
-  if (/\/(logo\.png|icons\/(icon-192|icon-512|icon-maskable-512|apple-touch-icon)\.png)$/.test(url.pathname)) {
+  if (/\/(logo\.png|icons\/(icon-192|icon-512|icon-maskable-192|icon-maskable-512|apple-touch-icon)\.png)$/.test(url.pathname)) {
     event.respondWith((async () => {
       const cached = await caches.match(request);
       if (cached) return cached;
