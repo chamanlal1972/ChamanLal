@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#edf1fc" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#101421" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <title>Raptakos, Brett &amp; Co. Ltd. DBMS</title>
   <meta name="description" content="Doctor directory and personal visit history for Raptakos, Brett &amp; Co. Ltd.">
   <link rel="manifest" href="./manifest.webmanifest">
@@ -40,57 +40,117 @@
     .home-cloud-actions button { min-height:44px; }
     :root {
       color-scheme: light dark;
-      --bg: #edf1fc; --ink: #18223c; --muted: #596780; --faint: #76839a;
-      --glass: rgba(255,255,255,.50); --glass-strong: rgba(250,252,255,.87);
-      --input: rgba(255,255,255,.55); --edge: rgba(255,255,255,.88);
-      --line: rgba(56,76,122,.1); --accent: #3564df; --accent-ink: #244fc5;
-      --accent-soft: rgba(67,112,242,.11); --green: #21815c;
-      --green-soft: rgba(42,164,109,.11); --green-edge: rgba(61,133,96,.20);
+      /*
+       * Apple Liquid Glass colour system — iOS 18 / visionOS palette.
+       * Light: Apple system grouped background #F2F2F7 (distinctly not white).
+       * Dark:  True iPhone black #000000 with elevated glass surfaces.
+       * Glass: 72 % opacity frosted surfaces with 26 px blur + 180 % saturation.
+       */
+      --bg: #F2F2F7;
+      --ink: #1C1C1E;
+      --muted: #6E6E73;
+      --faint: #AEAEB2;
+
+      /* Liquid glass surfaces — Apple standard frosted glass */
+      --glass: rgba(255,255,255,.72);
+      --glass-strong: rgba(255,255,255,.92);
+      --input: rgba(255,255,255,.58);
+      --edge: rgba(255,255,255,.75);
+
+      --line: rgba(60,60,67,.18);
+
+      /* Apple blue accent */
+      --accent: #007AFF;
+      --accent-ink: #0051C3;
+      --accent-soft: rgba(0,122,255,.12);
+
+      /* iOS green */
+      --green: #34C759;
+      --green-soft: rgba(52,199,89,.13);
+      --green-edge: rgba(52,199,89,.25);
       --green-sheen: linear-gradient(155deg,rgba(255,255,255,.22),rgba(255,255,255,0) 65%);
-      --danger: #b73550; --danger-soft: rgba(217,62,86,.10); --danger-edge: rgba(160,90,110,.19);
-      --glow-blue: rgba(146,183,255,.31); --glow-violet: rgba(206,174,255,.29); --glow-mint: rgba(138,223,202,.27);
-      --shadow: 0 12px 28px -17px rgba(44,66,116,.38), 0 3px 7px -3px rgba(44,66,116,.14);
-      --inner: inset 0 1px 1px rgba(255,255,255,.98), inset 1px 0 0 rgba(255,255,255,.28), inset 0 -1px 1px rgba(56,77,121,.08);
-      --control-shadow: 0 4px 9px -5px rgba(40,62,113,.24);
-      --surface-sheen: linear-gradient(145deg,rgba(255,255,255,.66) 0%,rgba(255,255,255,.16) 37%,rgba(255,255,255,0) 59%,rgba(255,255,255,.22) 100%);
-      --well-sheen: linear-gradient(160deg,rgba(255,255,255,.24),rgba(255,255,255,0) 58%);
-      --danger-sheen: linear-gradient(155deg,rgba(255,255,255,.22),rgba(255,255,255,0) 65%);
-      --sheet-shadow: 0 40px 100px rgba(25,40,77,.22), 0 8px 24px -12px rgba(25,40,77,.24);
-      --blur: blur(24px) saturate(1.55);
+
+      /* iOS red */
+      --danger: #FF3B30;
+      --danger-soft: rgba(255,59,48,.11);
+      --danger-edge: rgba(255,59,48,.22);
+      --danger-sheen: linear-gradient(155deg,rgba(255,255,255,.18),rgba(255,255,255,0) 65%);
+
+      /* Background orbs — visionOS floating colour clouds */
+      --glow-blue:   rgba(0,122,255,.13);
+      --glow-violet: rgba(175,82,222,.10);
+      --glow-mint:   rgba(50,210,166,.11);
+
+      /* Shadows — Apple-style soft, non-dark */
+      --shadow: 0 8px 32px -6px rgba(0,0,0,.11), 0 2px 8px -2px rgba(0,0,0,.06);
+      /* Specular inner highlight — the top-light reflection Apple always uses */
+      --inner: inset 0 1px 0 rgba(255,255,255,.9), inset 0 0 0 .5px rgba(255,255,255,.45);
+      --control-shadow: 0 2px 10px -3px rgba(0,0,0,.10);
+
+      /* Glass surface sheen — strong specular at top-left */
+      --surface-sheen: linear-gradient(145deg,rgba(255,255,255,.75) 0%,rgba(255,255,255,.18) 38%,rgba(255,255,255,0) 58%,rgba(255,255,255,.28) 100%);
+      --well-sheen: linear-gradient(160deg,rgba(255,255,255,.28),rgba(255,255,255,0) 58%);
+      --sheet-shadow: 0 40px 80px rgba(0,0,0,.14), 0 8px 24px -8px rgba(0,0,0,.10);
+
+      /* Apple's standard glass blur */
+      --blur: blur(26px) saturate(180%);
       --ease: cubic-bezier(.22,1,.36,1);
+
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
       -webkit-font-smoothing: antialiased;
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #101421; --ink: #f0f3ff; --muted: #abb7d0; --faint: #95a2be;
-        --glass: rgba(35,43,65,.56); --glass-strong: rgba(28,35,54,.91);
-        --input: rgba(24,32,51,.53); --edge: rgba(206,221,255,.19);
-        --line: rgba(202,218,255,.13); --accent: #90b0ff; --accent-ink: #adc4ff;
-        --accent-soft: rgba(137,169,255,.14); --green: #8ad9b7;
-        --green-soft: rgba(103,221,164,.12); --green-edge: rgba(173,242,204,.16);
+        /* True iPhone black — not navy, not dark blue — black */
+        --bg: #000000;
+        --ink: #FFFFFF;
+        --muted: #8E8E93;
+        --faint: #636366;
+
+        /* Dark glass — elevated surfaces on true black */
+        --glass: rgba(28,28,30,.78);
+        --glass-strong: rgba(44,44,46,.94);
+        --input: rgba(28,28,30,.65);
+        --edge: rgba(255,255,255,.14);
+
+        --line: rgba(84,84,88,.55);
+
+        --accent: #0A84FF;
+        --accent-ink: #409CFF;
+        --accent-soft: rgba(10,132,255,.18);
+
+        --green: #30D158;
+        --green-soft: rgba(48,209,88,.15);
+        --green-edge: rgba(48,209,88,.24);
         --green-sheen: linear-gradient(155deg,rgba(206,255,228,.045),rgba(206,255,228,0) 65%);
-        --danger: #ffa1b5; --danger-soft: rgba(255,115,139,.12); --danger-edge: rgba(255,188,207,.16);
-        --glow-blue: rgba(32,53,88,.78); --glow-violet: rgba(42,34,71,.78); --glow-mint: rgba(22,55,56,.78);
-        --shadow: 0 14px 28px -15px rgba(0,0,0,.65), 0 3px 8px -3px rgba(0,0,0,.28);
-        --inner: inset 0 1px 1px rgba(230,239,255,.17), inset 1px 0 0 rgba(230,239,255,.045), inset 0 -1px 1px rgba(0,0,0,.24);
-        --control-shadow: 0 5px 10px -5px rgba(0,0,0,.48);
-        --surface-sheen: linear-gradient(145deg,rgba(224,235,255,.115) 0%,rgba(224,235,255,.025) 37%,rgba(224,235,255,0) 59%,rgba(224,235,255,.035) 100%);
-        --well-sheen: linear-gradient(160deg,rgba(224,235,255,.055),rgba(224,235,255,0) 58%);
-        --danger-sheen: linear-gradient(155deg,rgba(255,205,223,.045),rgba(255,205,223,0) 65%);
-        --sheet-shadow: 0 40px 100px rgba(0,0,0,.52), 0 8px 24px -12px rgba(0,0,0,.46);
+
+        --danger: #FF453A;
+        --danger-soft: rgba(255,69,58,.16);
+        --danger-edge: rgba(255,69,58,.26);
+        --danger-sheen: linear-gradient(155deg,rgba(255,105,97,.055),rgba(255,105,97,0) 65%);
+
+        /* Vivid orbs look great on black */
+        --glow-blue:   rgba(10,132,255,.18);
+        --glow-violet: rgba(191,90,242,.14);
+        --glow-mint:   rgba(48,209,88,.11);
+
+        --shadow: 0 8px 32px -4px rgba(0,0,0,.70), 0 2px 8px -2px rgba(0,0,0,.35);
+        --inner: inset 0 1px 0 rgba(255,255,255,.11), inset 0 0 0 .5px rgba(255,255,255,.05);
+        --control-shadow: 0 2px 10px -2px rgba(0,0,0,.50);
+
+        --surface-sheen: linear-gradient(145deg,rgba(255,255,255,.09) 0%,rgba(255,255,255,.025) 38%,rgba(255,255,255,0) 58%,rgba(255,255,255,.04) 100%);
+        --well-sheen: linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,0) 58%);
+        --sheet-shadow: 0 40px 80px rgba(0,0,0,.65), 0 8px 24px -8px rgba(0,0,0,.45);
       }
     }
     *, *::before, *::after { box-sizing: border-box; }
     html { min-height: 100%; background: var(--bg); scroll-padding-top: 106px; }
     body {
       margin: 0; min-width: 280px; min-height: 100svh; color: var(--ink); font-size: 15px; line-height: 1.45;
-      /* Paint one background with the document. A fixed negative-z layer can
-         flash during mobile viewport resizing and glass-surface compositing. */
       background:
-        radial-gradient(ellipse at 4% 14%, var(--glow-blue), transparent 47%),
-        radial-gradient(ellipse at 97% 34%, var(--glow-violet), transparent 45%),
-        radial-gradient(ellipse at 25% 94%, var(--glow-mint), transparent 47%),
+        radial-gradient(ellipse 90% 55% at 8% 12%, var(--glow-blue), transparent),
+        radial-gradient(ellipse 75% 50% at 95% 28%, var(--glow-violet), transparent),
+        radial-gradient(ellipse 85% 55% at 20% 92%, var(--glow-mint), transparent),
         var(--bg);
       background-repeat: no-repeat;
       background-attachment: scroll;
@@ -105,50 +165,76 @@
     [hidden] { display: none !important; }
     .icon { width: 21px; height: 21px; display: inline-block; fill: none; stroke: currentColor; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; vertical-align: middle; }
     .svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
-    .glass { background: var(--surface-sheen), var(--glass); border: 1px solid var(--edge); box-shadow: var(--shadow), var(--inner); -webkit-backdrop-filter: var(--blur); backdrop-filter: var(--blur); }
-    /* Repeated list surfaces keep their tint, transparency and highlights.
-       Reserve live backdrop blur for the header, search field and dialogs. */
+    .glass { background: var(--surface-sheen), var(--glass); border: .5px solid var(--edge); box-shadow: var(--shadow), var(--inner); -webkit-backdrop-filter: var(--blur); backdrop-filter: var(--blur); }
+    /* List surfaces skip backdrop blur for performance — header/search/dialogs keep live blur */
     .city-card.glass, .doctor-name-button.glass, .details-button.glass { -webkit-backdrop-filter: none; backdrop-filter: none; }
+
     /*
-     * ── Liquid-glass button press system ───────────────────────────────────────
-     * Physics: fast compress on press (70ms), spring-bounce release (340ms with
-     * cubic-bezier overshoot). No dark shadows — only glass brightness shifts.
-     * will-change:transform keeps the animation on the compositor thread so it
-     * never causes layout or paint work, eliminating visual glitches on long press.
+     * ── Apple Liquid Glass press system ────────────────────────────────────────
+     * Compress: 60 ms — instant, like a physical bubble being squeezed.
+     * Release:  420 ms spring cubic-bezier with overshoot → bubble bounces back.
+     * No dark tap highlight, no black dot, no layout work (will-change:transform).
+     * A ::after shimmer layer flashes the inner specular highlight on press.
      */
     .press {
-      /* Spring-back easing: slight overshoot on release → feels like a glass bubble */
+      position: relative;
+      overflow: hidden;
       transition:
-        transform     .34s cubic-bezier(.34, 1.56, .64, 1),
-        box-shadow    .22s,
-        filter        .2s,
-        background-color .2s;
+        transform  .42s cubic-bezier(.34,1.56,.64,1),
+        filter     .22s ease,
+        box-shadow .22s ease,
+        background-color .2s ease;
       will-change: transform;
       -webkit-tap-highlight-color: transparent;
+      -webkit-user-select: none;
+      user-select: none;
     }
-    /* ① Compress quickly (override transition-duration while pressed) */
+    /* Glass shimmer ripple on press */
+    .press::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at 50% 30%, rgba(255,255,255,.55) 0%, rgba(255,255,255,0) 70%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease;
+    }
+    /* Compress — FAST in, SLOW (spring) out */
     .press:active:not(:disabled) {
-      transform: translateY(1.5px) scale(.963);
-      filter: brightness(.94) saturate(.95);
-      transition-duration: .07s, .07s, .07s, .07s;
+      transform: scale(.93) translateY(1.5px);
+      filter: brightness(.88) saturate(.92);
+      transition:
+        transform  .06s ease,
+        filter     .06s ease,
+        box-shadow .06s ease,
+        background-color .06s ease;
     }
-    /* ② Desktop hover — gentle glass lift; no dark backgrounds */
+    .press:active:not(:disabled)::after { opacity: 1; transition-duration: .04s; }
+    /* Desktop hover — gentle lift */
     @media (hover: hover) {
       .press:hover:not(:disabled) {
         background-color: var(--glass-strong);
-        transform: translateY(-1px) scale(1.012);
-        filter: brightness(1.035);
+        transform: translateY(-1.5px) scale(1.018);
+        filter: brightness(1.04);
       }
-      /* City cards and doctor buttons get a slightly larger lift */
       .city-card:hover:not(:disabled),
-      .doctor-name-button:hover:not(:disabled) {
-        transform: translateY(-2px) scale(1.012);
-      }
-      .primary:hover:not(:disabled) {
-        filter: brightness(1.09);
-        transform: translateY(-1px) scale(1.012);
-      }
+      .doctor-name-button:hover:not(:disabled) { transform: translateY(-2px) scale(1.018); }
+      .primary:hover:not(:disabled) { filter: brightness(1.10); transform: translateY(-1.5px) scale(1.018); }
     }
+    /* ── View-entry animation ── */
+    /* Directory slides in from below with spring overshoot */
+    @keyframes view-slide-up {
+      from { opacity: 0; transform: translateY(14px) scale(.98); }
+      to   { opacity: 1; transform: none; }
+    }
+    /* Home slides back with a gentle fade */
+    @keyframes view-fade-in {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: none; }
+    }
+    .view-entering-dir  { animation: view-slide-up .36s cubic-bezier(.34,1.2,.64,1) both; }
+    .view-entering-home { animation: view-fade-in  .26s cubic-bezier(.22,1,.36,1) both; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
     .skip { position: fixed; top: -80px; left: 16px; z-index: 100; padding: 12px 18px; border-radius: 20px; background: var(--glass-strong); }
     .skip:focus { top: 12px; }
@@ -158,7 +244,6 @@
     .logo-wrap { width: 46px; height: 46px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 15px; background: var(--surface-sheen),rgba(255,255,255,.75); border: 1px solid var(--edge); box-shadow: var(--control-shadow),var(--inner); position: relative; overflow: hidden; }
     .logo-wrap img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
     .logo-wrap.missing img { display: none; }
-    .brand-title { font-size: 14px; font-weight: 690; letter-spacing: -.25px; line-height: 1.3; display: block; }
     .brand-subtitle { color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: 1.8px; display: block; margin-top: 3px; }
     .account-button { display: flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; padding: 9px 14px; border-radius: 16px; border: 1px solid var(--edge); color: var(--accent-ink); background: var(--surface-sheen),var(--accent-soft); box-shadow:var(--control-shadow),var(--inner); font-size: 13px; font-weight: 650; white-space: nowrap; flex: 0 0 auto; }
     .account-button .icon { width: 18px; height: 18px; }
@@ -170,7 +255,7 @@
     /* ── Uppercase text rules ───────────────────────────────── */
     /* Brand company name always uppercase */
     .brand-title { font-size: 14px; font-weight: 690; letter-spacing: .4px; line-height: 1.3; display: block; text-transform: uppercase; }
-    /* "Choose city." headline */
+    /* "CHOOSE CITY" headline — uppercase via text-transform */
     .home-view h1 { text-transform: uppercase; letter-spacing: -.5px; }
     /* City names in the card list */
     .city-name { overflow-wrap:anywhere; display: block; font-size: 15px; font-weight: 680; letter-spacing: .6px; text-transform: uppercase; }
@@ -186,7 +271,7 @@
     .back-button .icon { width: 18px; }
     .directory-heading { display: grid; grid-template-columns: minmax(0,1fr) 44px; grid-template-areas: "eyebrow eyebrow" "title add" "summary summary"; align-items: center; gap: 8px 16px; margin: 16px 0 21px; }
     .directory-heading > .eyebrow { grid-area: eyebrow; margin: 0 0 2px; }
-    .directory-heading h1 { grid-area: title; font-size: clamp(32px,6vw,42px); letter-spacing: -1.5px; margin: 0; min-width: 0; overflow-wrap: anywhere; }
+    .directory-heading h1 { grid-area: title; font-size: clamp(28px,5.5vw,40px); letter-spacing: .3px; margin: 0; min-width: 0; overflow-wrap: anywhere; text-transform: uppercase; font-weight: 730; }
     .directory-heading > .add-button { grid-area: add; }
     .directory-summary { grid-area: summary; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; margin-top: 1px; }
     .directory-meta { color: var(--muted); font-size: 13px; margin: 0; }
@@ -313,11 +398,11 @@
     .spinner { animation: spin .8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
     @media (prefers-color-scheme: dark) {
-      .city-symbol { color:hsl(var(--hue),85%,80%); background:var(--surface-sheen),hsla(var(--hue),65%,65%,.12); }
-      .doctor-name-button { background:var(--surface-sheen),linear-gradient(115deg,hsla(var(--hue),55%,50%,.15),transparent 80%),var(--glass); }
-      .city-card { background:var(--surface-sheen),linear-gradient(110deg,hsla(var(--hue),55%,50%,.11),transparent 73%),var(--glass); }
-      .primary { background:linear-gradient(165deg,rgba(255,255,255,.16),transparent 54%),linear-gradient(155deg,#5074cd,#3655a7); }
-      dialog::backdrop { background: rgba(0,0,0,.48); }
+      .city-symbol { color:hsl(var(--hue),90%,82%); background:var(--surface-sheen),hsla(var(--hue),70%,60%,.14); }
+      .doctor-name-button { background:var(--surface-sheen),linear-gradient(115deg,hsla(var(--hue),60%,55%,.16),transparent 80%),var(--glass); }
+      .city-card { background:var(--surface-sheen),linear-gradient(110deg,hsla(var(--hue),60%,55%,.13),transparent 73%),var(--glass); }
+      .primary { background:linear-gradient(165deg,rgba(255,255,255,.14),transparent 54%),linear-gradient(155deg,#1a6af5,#0a51d4); }
+      dialog::backdrop { background: rgba(0,0,0,.55); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
     }
     @media (max-width: 550px) {
       .app-header { padding-right: 14px; padding-left: 14px; padding-top: calc(env(safe-area-inset-top,0px) + 10px); }
@@ -603,7 +688,7 @@
   <main id="main">
     <section id="homeView" class="home-view" aria-labelledby="homeTitle">
       <p class="eyebrow" id="homeCloudStatus">YOUR PERSONAL CLOUD DIRECTORY</p>
-      <div class="section-title-row"><h1 id="homeTitle" tabindex="-1">Choose city.</h1><button type="button" class="add-button glass press" id="addCityButton" aria-label="Add city" title="Add city"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button></div>
+      <div class="section-title-row"><h1 id="homeTitle" tabindex="-1">Choose city</h1><button type="button" class="add-button glass press" id="addCityButton" aria-label="Add city" title="Add city"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button></div>
       <p class="intro">Select a city to find your doctors<br>and keep track of every visit.</p>
       <div class="cloud-notice home-cloud-notice" id="homeDirectoryNotice" role="status" aria-live="polite"><svg class="icon" aria-hidden="true"><use href="#i-cloud"></use></svg><p id="homeDirectoryText"></p><div class="home-cloud-actions"><button type="button" class="text-button press" id="homeSignIn" hidden>Sign in</button><button type="button" class="text-button press" id="homeRetry" hidden>Retry</button></div></div><div class="city-list" id="cityList"></div><p class="manage-hint" id="homeManageHint">Hold a city to manage it.</p>
     </section>
@@ -809,7 +894,7 @@
       if (fromHistory!==true && state.city!==key) {
         window.history.pushState(Object.assign({},window.history.state,{[CITY_HISTORY_KEY]:key}),"");
       }
-      state.city=key; $("homeView").hidden=true; $("directoryView").hidden=false;
+      state.city=key; $("homeView").hidden=true; $("directoryView").hidden=false; $("directoryView").classList.remove("view-entering-dir"); void $("directoryView").offsetWidth; $("directoryView").classList.add("view-entering-dir");
       $("cityTitle").textContent=city.label;
       $("directoryMeta").textContent=city.doctors.length + " doctors"; $("search").value=""; $("clearSearch").hidden=true;
       renderDoctors(); updateSyncUI();
@@ -823,7 +908,7 @@
         return;
       }
       returningToCities=false;
-      state.city=null; $("homeView").hidden=false; $("directoryView").hidden=true;
+      state.city=null; $("homeView").hidden=false; $("directoryView").hidden=true; $("homeView").classList.remove("view-entering-home"); void $("homeView").offsetWidth; $("homeView").classList.add("view-entering-home");
       window.scrollTo({top:0,behavior:"instant"}); $("homeTitle").focus({preventScroll:true});
     }
     function visitsFor(doctorId) {
@@ -1586,7 +1671,7 @@
 
     document.addEventListener("click",function (event) {
       const target=event.target.closest("button"); if (!target) return;
-      if (target.dataset.city) chooseCity(target.dataset.city);
+      if (target.dataset.city) { var cityKey=target.dataset.city; setTimeout(function(){chooseCity(cityKey);},130); }
       else if (target.dataset.visit) openVisit(target.dataset.visit);
       else if (target.dataset.details) openDetails(target.dataset.details);
       else if (target.dataset.delete) requestDelete(target.dataset.delete);
@@ -1599,7 +1684,7 @@
         if (state.busy || state.deleting || state.authBusy || state.directoryBusy) event.preventDefault();
       });
     });
-    $("homeButton").addEventListener("click",goHome); $("backButton").addEventListener("click",goHome);
+    function delayedGoHome(){setTimeout(goHome,130);} $("homeButton").addEventListener("click",delayedGoHome); $("backButton").addEventListener("click",delayedGoHome);
     $("search").addEventListener("input",renderDoctors);
     $("clearSearch").addEventListener("click",function () { $("search").value=""; renderDoctors(); $("search").focus(); });
     $("accountButton").addEventListener("click",openAccount); $("visitSignIn").addEventListener("click",openAccount);

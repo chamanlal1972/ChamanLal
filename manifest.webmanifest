@@ -7,8 +7,8 @@
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#edf1fc",
-  "theme_color": "#3564df",
+  "background_color": "#F2F2F7",
+  "theme_color": "#007AFF",
   "categories": [
     "business",
     "medical",
