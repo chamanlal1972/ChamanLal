@@ -2024,5 +2024,153 @@ body.is-offline .bottom-nav { filter:none; }
     })();
   </script>
 
+
+  <!-- Three-tone Liquid Glass finish: visual-only layer; app logic and data flow are preserved. -->
+  <style id="liquid-glass-tritone-finish">
+    :root {
+      --liquid-pink: #FC3C44;
+      --liquid-blue: #C9DFFF;
+      --liquid-green: #C6F5D5;
+      --liquid-obsidian: #000000;
+      --accent: var(--liquid-pink);
+      --accent-ink: #ffb5b9;
+      --accent-soft: rgba(252,60,68,.15);
+      --green: #c6f5d5;
+      --green-soft: rgba(198,245,213,.13);
+      --green-edge: rgba(198,245,213,.30);
+      --glow-blue: rgba(174,211,255,.34);
+      --glow-violet: rgba(252,60,68,.30);
+      --glow-mint: rgba(169,244,197,.25);
+      --bg: #000;
+      --ink: #fff;
+      --muted: rgba(255,255,255,.72);
+      --faint: rgba(255,255,255,.50);
+      --ease: cubic-bezier(.16,1,.3,1);
+    }
+    html, body { background:#000 !important; color:#fff; }
+    body {
+      isolation:isolate;
+      background:#000 !important;
+      padding-bottom:calc(32px + env(safe-area-inset-bottom,0px));
+    }
+    body::before {
+      content:""; position:fixed; z-index:-2; inset:-14%;
+      pointer-events:none; transform:translate3d(0,0,0);
+      background:
+        radial-gradient(ellipse 38% 42% at 17% 22%, rgba(252,60,68,.68), transparent 72%),
+        radial-gradient(ellipse 44% 38% at 80% 24%, rgba(177,211,255,.52), transparent 73%),
+        radial-gradient(ellipse 46% 48% at 52% 86%, rgba(164,239,190,.40), transparent 72%),
+        radial-gradient(ellipse 28% 35% at 54% 43%, rgba(255,255,255,.10), transparent 72%),
+        #000;
+      background-size:130% 130%,130% 130%,130% 130%,100% 100%,auto;
+      filter:saturate(1.18);
+      animation:tritoneLiquidDrift 34s cubic-bezier(.45,0,.55,1) infinite alternate;
+      will-change:transform,background-position;
+    }
+    body::after {
+      content:""; position:fixed; z-index:-1; inset:0; pointer-events:none;
+      background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.23) 55%,rgba(0,0,0,.48));
+    }
+    @keyframes tritoneLiquidDrift {
+      0% { transform:translate3d(-1.2%,-.5%,0) scale(1); background-position:0% 0%,100% 0%,50% 100%,50% 50%,0 0; }
+      50% { transform:translate3d(1.1%,.8%,0) scale(1.035); background-position:12% 16%,82% 14%,44% 84%,50% 50%,0 0; }
+      100% { transform:translate3d(-.4%,1.2%,0) scale(1.02); background-position:4% 10%,92% 22%,57% 90%,50% 50%,0 0; }
+    }
+    #main { position:relative; z-index:0; }
+    .home-view,.directory-view { color:#fff !important; }
+    .home-view { background:transparent !important; }
+    /* The doctor search/directory surface is intentionally obsidian black. */
+    #directoryView {
+      background:#000 !important; color:#fff !important;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:28px; padding:clamp(22px,4vw,42px);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 28px 64px rgba(0,0,0,.28);
+    }
+    #directoryView .search-wrap,
+    #directoryView .search-wrap.glass {
+      background:#000 !important; border:1px solid rgba(255,255,255,.15) !important;
+      border-radius:18px !important; box-shadow:inset 0 1px 0 rgba(255,255,255,.05) !important;
+      -webkit-backdrop-filter:none !important; backdrop-filter:none !important;
+    }
+    .header-inner,.glass,.city-card,.doctor-card,.doctor-row,.visit-card,.history-card,.panel,.modal-card,.dialog,.form-card,
+    dialog.sheet,.search-wrap:not(#directoryView .search-wrap) {
+      background:linear-gradient(135deg,rgba(255,255,255,.06) 0%,rgba(255,255,255,.01) 100%) !important;
+      border:1px solid rgba(255,255,255,.12) !important;
+      border-radius:28px !important;
+      box-shadow:inset 0 20px 30px rgba(255,255,255,.04),0 30px 40px rgba(0,0,0,.4) !important;
+      -webkit-backdrop-filter:blur(40px) saturate(210%);
+      backdrop-filter:blur(40px) saturate(210%);
+    }
+    .city-card,.doctor-card,.doctor-row,.visit-card,button,.primary-button,.text-button,.account-button {
+      transition:transform .5s cubic-bezier(.16,1,.3,1),border-color .5s cubic-bezier(.16,1,.3,1),box-shadow .5s cubic-bezier(.16,1,.3,1),background-color .5s cubic-bezier(.16,1,.3,1) !important;
+    }
+    .city-card:hover,.doctor-card:hover,.doctor-row:hover,.visit-card:hover,
+    .city-card:focus-visible,.doctor-card:focus-visible,.doctor-row:focus-visible {
+      border-color:rgba(255,255,255,.30) !important;
+      box-shadow:inset 0 20px 30px rgba(255,255,255,.055),0 32px 48px rgba(0,0,0,.42),0 0 24px rgba(201,223,255,.055) !important;
+    }
+    .city-card::after,.doctor-card::after,.doctor-row::after,.visit-card::after {
+      content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+      opacity:0; background:linear-gradient(112deg,transparent 25%,rgba(255,255,255,.10) 48%,transparent 67%);
+      background-size:220% 100%; transition:opacity .5s cubic-bezier(.16,1,.3,1);
+    }
+    .city-card:hover::after,.doctor-card:hover::after,.doctor-row:hover::after,.visit-card:hover::after {
+      opacity:1; animation:liquidEdgeSweep 1.1s cubic-bezier(.16,1,.3,1) both;
+    }
+    @keyframes liquidEdgeSweep { from { background-position:100% 0; } to { background-position:-120% 0; } }
+    h1,h2,h3,.brand-title,.city-name,.doctor-name { color:#fff !important; }
+    .intro,.manage-hint,.doctor-meta,.section-subtitle,.fine-print { color:rgba(255,255,255,.68) !important; }
+    .eyebrow { color:var(--liquid-blue) !important; }
+    .text-button,.back-button,.link-button,.utility-button,.chip,.tag { color:var(--liquid-blue) !important; }
+    .online,.available,.verified,.status-online,.sync-live,.positive,.success-indicator {
+      color:var(--liquid-green) !important;
+    }
+    .online::before,.available::before,.status-online::before,.sync-live::before {
+      background:var(--liquid-green) !important; box-shadow:0 0 12px rgba(198,245,213,.55) !important;
+    }
+    input,select,textarea,.search-input,.field input,.field select,.field textarea {
+      color:#fff !important; background:rgba(0,0,0,.78) !important;
+      border:1px solid rgba(255,255,255,.16) !important; border-radius:15px !important;
+    }
+    input::placeholder,textarea::placeholder { color:rgba(255,255,255,.44) !important; }
+    .primary-button,button.primary,.submit-button,.save-button,.confirm-button {
+      background:linear-gradient(135deg,#FC3C44,#ff777c) !important;
+      color:#160507 !important; border-color:rgba(255,255,255,.18) !important;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 8px 24px rgba(252,60,68,.17) !important;
+    }
+    .loading-track { background:rgba(255,255,255,.12) !important; }
+    .loading-line {
+      background:linear-gradient(90deg,#FC3C44,#ff9a9e,#FC3C44) !important;
+      background-size:200% 100% !important;
+      box-shadow:0 0 14px rgba(252,60,68,.52) !important;
+      animation:loadingLaser 1.15s linear infinite !important;
+    }
+    @keyframes loadingLaser { from { background-position:100% 0; } to { background-position:-100% 0; } }
+    .modal-backdrop,.dialog-backdrop,.overlay { background:rgba(0,0,0,.82) !important; backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); }
+    .modal,.modal-content,.dialog-content,[role="dialog"],dialog.sheet {
+      background:#08080a !important; color:#fff !important;
+      border:1px solid rgba(255,255,255,.14) !important; border-radius:28px !important;
+    }
+    .bottom-nav { bottom:calc(32px + env(safe-area-inset-bottom,0px)) !important; }
+    #offlineLiquidNotice { background:rgba(44,32,8,.92) !important; }
+    @media (max-width:767px) {
+      /* Mobile keeps the viewport clear; existing city/back/account controls remain available. */
+      #liquidNavigator { display:none !important; visibility:hidden !important; pointer-events:none !important; }
+      body { padding-bottom:calc(18px + env(safe-area-inset-bottom,0px)) !important; }
+      #main { padding-inline:14px; }
+      #directoryView { padding:20px 14px !important; border-radius:24px !important; }
+      .home-view,.directory-view { padding-top:22px !important; }
+    }
+    @media (hover:none) {
+      .city-card:active,.doctor-card:active,.doctor-row:active,.visit-card:active {
+        transform:scale(.985); border-color:rgba(201,223,255,.34) !important;
+      }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      body::before,.city-card:hover::after,.doctor-card:hover::after,.doctor-row:hover::after,.visit-card:hover::after { animation:none !important; }
+      *,*::before,*::after { scroll-behavior:auto !important; transition-duration:.01ms !important; }
+    }
+  </style>
+
 </body>
 </html>
