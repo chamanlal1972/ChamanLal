@@ -73,7 +73,7 @@ self.addEventListener("fetch", event => {
     return;
   }
 
-  if (/^\/ChamanLal\/icons\/(icon-192|icon-512|icon-maskable-512|apple-touch-icon)\.png$/.test(url.pathname)) {
+  if (url.pathname.endsWith("/logo.png") || url.pathname.endsWith("/manifest.webmanifest") || /^\/ChamanLal\/icons\/(icon-192|icon-512|icon-maskable-512|apple-touch-icon)\.png$/.test(url.pathname)) {
     event.respondWith((async () => {
       const cached = await caches.match(request);
       if (cached) return cached;
