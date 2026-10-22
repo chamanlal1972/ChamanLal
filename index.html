@@ -52,7 +52,7 @@
     color-scheme: light dark;
 
     /* ── Light mode ── */
-    --bg:      #F2F0ED;    /* warm off-white, like natural paper   */
+    --bg:      #F0EEEB;    /* warm canvas white — Neuro bg base    */
     --bg2:     #E8E5E1;
     --ink:     #282828;    /* dark charcoal                        */
     --sub:     #5A5A5A;    /* medium charcoal                      */
@@ -150,33 +150,72 @@
 
   /* ══ RESET ═══════════════════════════════════════════════════════════════ */
   *, *::before, *::after { box-sizing: border-box; }
-  html { min-height: 100%; background: var(--bg); scroll-padding-top: 110px; }
+  html { min-height: 100%; background: #F0EEEB; scroll-padding-top: 110px; }
 
-  /* Fixed gradient wallpaper — position:fixed works on ALL browsers including iOS */
+  /* ══ NEURO MESH GRADIENT WALLPAPER ════════════════════════════════════════
+     Matches reference: large vivid soft orbs on near-white base.
+     Light: warm slate top-left, blue bottom-left, white right — grain texture.
+     Dark:  deep slate top-left, teal bottom-left, near-black base.
+     position:fixed works on iOS Safari + all browsers.                      */
+
+  /* SVG grain noise filter — used by html::after */
+  html { filter: url(#grain-filter); }
+
+  /* The actual gradient layer */
   html::before {
     content: '';
     position: fixed;
     inset: 0;
-    z-index: -1;
-    /* Light mode gradient */
+    z-index: -2;
+    /* Light mode — vivid Neuro mesh like reference image */
     background:
-      radial-gradient(ellipse 80% 70% at -5%  -5%,  rgba(78,94,107,.55),   transparent),
-      radial-gradient(ellipse 72% 65% at 110% 110%, rgba(138,154,144,.50), transparent),
-      radial-gradient(ellipse 65% 55% at 110% -5%,  rgba(200,200,200,.55), transparent),
-      radial-gradient(ellipse 55% 50% at -5%  110%, rgba(138,154,144,.30), transparent),
-      radial-gradient(ellipse 60% 50% at 50%  50%,  rgba(180,180,190,.20), transparent),
-      var(--bg);
+      /* Warm slate/coral — top-left dominant bloom */
+      radial-gradient(ellipse 90% 80% at -10% -5%,  rgba(140,100,80,.82),  transparent),
+      /* Soft peach warmth — top-center pull */
+      radial-gradient(ellipse 70% 60% at 35%  0%,   rgba(180,130,100,.40), transparent),
+      /* Deep slate blue — bottom-left anchor */
+      radial-gradient(ellipse 80% 70% at -5%  108%, rgba(60,90,130,.80),   transparent),
+      /* Teal-sage center-left */
+      radial-gradient(ellipse 60% 55% at 20%  65%,  rgba(78,120,110,.35),  transparent),
+      /* White haze — right side, keeping it bright */
+      radial-gradient(ellipse 75% 90% at 105% 50%,  rgba(255,255,255,.92), transparent),
+      /* Very soft silver centre */
+      radial-gradient(ellipse 50% 40% at 55%  50%,  rgba(220,215,210,.30), transparent),
+      /* Base */
+      #F0EEEB;
   }
+
+  /* Grain noise overlay — gives the canvas/paper texture of the reference */
+  html::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: .38;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    mix-blend-mode: overlay;
+  }
+
   @media (prefers-color-scheme: dark) {
     html::before {
       background:
-        radial-gradient(ellipse 80% 70% at -5%  -5%,  rgba(78,94,107,.70),   transparent),
-        radial-gradient(ellipse 72% 65% at 110% 110%, rgba(138,154,144,.58), transparent),
-        radial-gradient(ellipse 60% 52% at 110% -5%,  rgba(78,94,107,.35),   transparent),
-        radial-gradient(ellipse 55% 50% at -5%  110%, rgba(138,154,144,.40), transparent),
-        radial-gradient(ellipse 55% 45% at 50%  50%,  rgba(78,94,107,.18),   transparent),
-        var(--bg);
+        /* Deep warm slate — top-left, rich */
+        radial-gradient(ellipse 90% 80% at -10% -5%,  rgba(78,94,107,.90),   transparent),
+        /* Teal accent — top-centre */
+        radial-gradient(ellipse 65% 55% at 40%  5%,   rgba(60,100,110,.45),  transparent),
+        /* Muted blue-sage — bottom-left */
+        radial-gradient(ellipse 80% 72% at -5%  108%, rgba(50,75,100,.88),   transparent),
+        /* Sage center glow */
+        radial-gradient(ellipse 55% 50% at 22%  62%,  rgba(90,120,110,.38),  transparent),
+        /* Dark right fade — keeps it moody */
+        radial-gradient(ellipse 60% 80% at 105% 50%,  rgba(26,26,26,.85),    transparent),
+        /* Base near-black */
+        #161616;
     }
+    html::after { opacity: .22; }
   }
 
   /* ══ NEURO-STYLE MESH GRADIENT BACKGROUND ════════════════════════════════
