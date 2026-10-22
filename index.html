@@ -12,9 +12,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="RB DBMS">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <link rel="icon" type="image/png" sizes="512x512" href="./icons/icon-512.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="https://chamanlal1972.github.io/ChamanLal/logo.png?v=20261019-2">
+  <link rel="apple-touch-icon" href="https://chamanlal1972.github.io/ChamanLal/logo.png?v=20261019-2">
   <link rel="preload" as="image" href="./logo.png" fetchpriority="high">
 
   <!-- Sharing preview configured for https://chamanlal1972.github.io/ChamanLal/
@@ -389,67 +388,6 @@
       .edit-field { padding:11px; }
     }
 
-    /* ── Offline banner ───────────────────────────────────────── */
-    .offline-banner {
-      display: none;
-      align-items: center;
-      gap: 20px;
-      width: 100%;
-      margin: 22px 0 0;
-      padding: 22px 24px;
-      border-radius: 24px;
-      background: var(--surface-sheen), var(--glass);
-      border: 1.5px solid var(--danger-edge);
-      box-shadow: var(--shadow), var(--inner), 0 0 0 4px var(--danger-soft);
-      -webkit-backdrop-filter: var(--blur);
-      backdrop-filter: var(--blur);
-      animation: banner-in .38s var(--ease) both;
-    }
-    @keyframes banner-in {
-      from { opacity: 0; transform: translateY(-10px) scale(.98); }
-      to   { opacity: 1; transform: none; }
-    }
-    body.is-offline .offline-banner { display: flex; }
-    /* Hide the small in-line cloud notice while the full offline banner is shown */
-    body.is-offline #homeDirectoryNotice { display: none !important; }
-    .offline-icon-wrap {
-      flex: 0 0 auto;
-      width: 58px; height: 58px;
-      border-radius: 19px;
-      display: grid; place-items: center;
-      background: var(--danger-sheen), var(--danger-soft);
-      border: 1.5px solid var(--danger-edge);
-      box-shadow: var(--control-shadow), var(--inner);
-      color: var(--danger);
-    }
-    .offline-icon-wrap svg {
-      width: 32px; height: 32px;
-      fill: none; stroke: currentColor;
-      stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
-    }
-    .offline-copy { flex: 1; min-width: 0; }
-    .offline-copy strong {
-      display: block;
-      font-size: clamp(16px, 4vw, 20px);
-      font-weight: 750;
-      letter-spacing: -.4px;
-      color: var(--danger);
-      margin-bottom: 5px;
-    }
-    .offline-copy p {
-      margin: 0;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-    @media (max-width: 550px) {
-      .offline-banner { gap: 15px; padding: 18px 17px; border-radius: 20px; }
-      .offline-icon-wrap { width: 50px; height: 50px; border-radius: 16px; }
-      .offline-icon-wrap svg { width: 26px; height: 26px; }
-      .offline-copy strong { font-size: 15px; }
-      .offline-copy p { font-size: 12px; }
-    }
-
   </style>
 </head>
 <body>
@@ -489,31 +427,12 @@
     </div>
   </header>
 
-
   <main id="main">
     <section id="homeView" class="home-view" aria-labelledby="homeTitle">
       <p class="eyebrow" id="homeCloudStatus">YOUR PERSONAL CLOUD DIRECTORY</p>
       <div class="section-title-row"><h1 id="homeTitle" tabindex="-1">Choose city.</h1><button type="button" class="add-button glass press" id="addCityButton" aria-label="Add city" title="Add city"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button></div>
       <p class="intro">Select a city to find your doctors<br>and keep track of every visit.</p>
       <div class="cloud-notice home-cloud-notice" id="homeDirectoryNotice" role="status" aria-live="polite"><svg class="icon" aria-hidden="true"><use href="#i-cloud"></use></svg><p id="homeDirectoryText"></p><div class="home-cloud-actions"><button type="button" class="text-button press" id="homeSignIn" hidden>Sign in</button><button type="button" class="text-button press" id="homeRetry" hidden>Retry</button></div></div><div class="city-list" id="cityList"></div><p class="manage-hint" id="homeManageHint">Hold a city to manage it.</p>
-      <!-- Offline banner – appears below city list when offline -->
-      <div class="offline-banner" id="offlineBanner" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="offline-icon-wrap" aria-hidden="true">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <line x1="1" y1="1" x2="23" y2="23"/>
-            <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
-            <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
-            <path d="M10.71 5.05A16 16 0 0 1 22.56 9"/>
-            <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
-            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
-            <circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/>
-          </svg>
-        </div>
-        <div class="offline-copy">
-          <strong>You&rsquo;re Offline</strong>
-          <p>You are not connected to the internet.<br>Please connect to the internet and try again.</p>
-        </div>
-      </div>
     </section>
     <section id="directoryView" class="directory-view" aria-labelledby="cityTitle" hidden>
       <button type="button" class="back-button press" id="backButton"><svg class="icon" aria-hidden="true"><use href="#i-back"></use></svg>Cities</button>
@@ -1538,15 +1457,10 @@
       if (cities.some(function (entry) { return entry.key===city; })) chooseCity(city,true);
       else goHome(true);
     });
-    window.addEventListener("offline",function () {
-      document.body.classList.add("is-offline");
-      clearSyncTimer(); clearTimeout(directoryTimer); directoryTimer=null;
-      if (state.user) { state.directorySync="offline"; state.sync="offline"; updateSyncUI(); renderDoctors(); updateDirectoryUI(); }
+    window.addEventListener("offline",function () { clearSyncTimer(); clearTimeout(directoryTimer); directoryTimer=null; if (state.user) { state.directorySync="offline"; state.sync="offline"; updateSyncUI(); renderDoctors(); updateDirectoryUI(); } });
+    window.addEventListener("online",function () {
+      if (state.user) attachVisitListener(state.user); else connectCloud().catch(function () {});
     });
-    // When device comes back online reload immediately — no "connecting…" screen.
-    window.addEventListener("online",function () { window.location.reload(); });
-    // Apply offline class immediately if already offline on page load.
-    if (!navigator.onLine) document.body.classList.add("is-offline");
     window.addEventListener("beforeunload",function (event) {
       if (state.busy || state.deleting || state.directoryBusy) { event.preventDefault(); event.returnValue=""; }
     });
