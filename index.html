@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#08080c" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#08080c" media="(prefers-color-scheme: dark)">
   <title>Raptakos, Brett &amp; Co. Ltd. DBMS</title>
   <meta name="description" content="Doctor directory and personal visit history for Raptakos, Brett &amp; Co. Ltd.">
   <link rel="manifest" href="./manifest.webmanifest">
@@ -1983,6 +1983,56 @@ body.is-offline .bottom-nav { filter:none; }
   </script>
 
 
+  <nav class="bottom-nav" id="liquidNavigator" data-active="cities" aria-label="Application sections">
+    <span class="nav-liquid-indicator" aria-hidden="true"></span>
+    <button type="button" id="bottomCities" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg><span>Cities</span></button>
+    <button type="button" id="bottomSearch"><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg><span>Doctors</span></button>
+    <button type="button" id="bottomAccount"><svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg><span>Account</span></button>
+  </nav>
+  <script>
+    // Bottom navigation is an additional shortcut layer; original controls remain authoritative.
+    (function () {
+      const cities = document.getElementById("bottomCities");
+      const search = document.getElementById("bottomSearch");
+      const account = document.getElementById("bottomAccount");
+      const homeButton = document.getElementById("homeButton");
+      const backButton = document.getElementById("backButton");
+      const searchInput = document.getElementById("search");
+      const accountButton = document.getElementById("accountButton");
+      const homeView = document.getElementById("homeView");
+      const directoryView = document.getElementById("directoryView");
+      function setActive(view) {
+        [cities, search, account].forEach(function (button) { button.removeAttribute("aria-current"); });
+        (view === "directory" ? search : view === "account" ? account : cities).setAttribute("aria-current", "page");
+        var navigator = document.getElementById("liquidNavigator");
+        if (navigator) navigator.dataset.active = view === "directory" ? "doctors" : view === "account" ? "account" : "cities";
+      }
+      cities.addEventListener("click", function () {
+        homeButton.click();
+        setActive("cities");
+      });
+      search.addEventListener("click", function () {
+        if (directoryView.hidden) {
+          const firstCity = document.querySelector("#cityList .city-card");
+          if (firstCity) firstCity.click();
+        }
+        setActive("directory");
+        window.setTimeout(function () { if (!directoryView.hidden && searchInput) searchInput.focus(); }, 80);
+      });
+      account.addEventListener("click", function () {
+        accountButton.click();
+        setActive("account");
+      });
+      if (backButton) backButton.addEventListener("click", function () { setActive("cities"); });
+      document.addEventListener("visibilitychange", function () {
+        if (document.hidden) return;
+        if (homeView && !homeView.hidden) setActive("cities");
+        else if (directoryView && !directoryView.hidden) setActive("directory");
+      });
+    })();
+  </script>
+
+
   <div id="offlineLiquidNotice" role="status" aria-live="polite" hidden>Connection Fluid Disrupted — Cached App Shell Available; Data Sync Paused.</div>
   <script>
     (function () {
@@ -2170,7 +2220,8 @@ body.is-offline .bottom-nav { filter:none; }
     #offlineLiquidNotice { background:rgba(44,32,8,.92) !important; }
     @media (max-width:767px) {
       /* Mobile keeps the viewport clear; existing city/back/account controls remain available. */
-        #mobileSectionsButton { display:flex !important; }
+      #liquidNavigator { display:none !important; visibility:hidden !important; pointer-events:none !important; }
+      #mobileSectionsButton { display:flex !important; }
       body { padding-bottom:calc(18px + env(safe-area-inset-bottom,0px)) !important; }
       #main { padding-inline:14px; }
       #directoryView { padding:20px 14px !important; border-radius:24px !important; }
@@ -2204,24 +2255,10 @@ body.is-offline .bottom-nav { filter:none; }
         var item=event.target.closest("[data-mobile-section]");
         if (!item) return;
         var section=item.getAttribute("data-mobile-section");
+        var target=section==="cities" ? document.getElementById("bottomCities") :
+          section==="doctors" ? document.getElementById("bottomSearch") : document.getElementById("bottomAccount");
         closeMenu();
-        if (section==="cities") {
-          var home=document.getElementById("homeButton");
-          if (home) home.click();
-        } else if (section==="doctors") {
-          var directory=document.getElementById("directoryView");
-          if (directory && directory.hidden) {
-            var firstCity=document.querySelector("#cityList .city-card");
-            if (firstCity) firstCity.click();
-          }
-          window.setTimeout(function(){
-            var search=document.getElementById("search");
-            if (directory && !directory.hidden && search) search.focus();
-          },90);
-        } else {
-          var account=document.getElementById("accountButton");
-          if (account) account.click();
-        }
+        if (target) target.click();
       });
       document.addEventListener("click",function (event) {
         if (!menu.hidden && !menu.contains(event.target) && !trigger.contains(event.target)) closeMenu();
@@ -2326,14 +2363,13 @@ body.is-offline .bottom-nav { filter:none; }
     }
     .city-list >::before,.doctor-card::before,.doctor-row::before,.visit-card::before,.history-card::before,.list-card::before,.panel::before,.form-card::before {
       content:""; position:absolute; z-index:-1; inset:-25%; pointer-events:none; border-radius:inherit;
-      opacity:.34; z-index:0; filter:blur(24px); transform:translate3d(0,0,0);
+      opacity:.34; filter:blur(24px); transform:translate3d(0,0,0);
       background:
         radial-gradient(ellipse at 18% 28%,rgba(252,60,68,.36),transparent 46%),
         radial-gradient(ellipse at 82% 35%,rgba(37,211,102,.20),transparent 43%),
         radial-gradient(ellipse at 60% 92%,rgba(24,119,242,.22),transparent 45%);
       background-size:120% 120%; transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1),background-position .5s cubic-bezier(.16,1,.3,1);
     }
-    .city-list > * > *, .doctor-card > *, .doctor-row > *, .visit-card > *, .history-card > *, .list-card > *, .panel > *, .form-card > * { position:relative; z-index:1; }
     .city-list >:hover,.doctor-card:hover,.doctor-row:hover,.visit-card:hover,.history-card:hover,.list-card:hover,.panel:hover,.form-card:focus-within {
       transform:translateY(-2px); border-color:rgba(255,255,255,.25) !important;
       box-shadow:inset 0 20px 30px rgba(255,255,255,.04),0 34px 46px rgba(0,0,0,.44),0 0 22px rgba(252,60,68,.07) !important;
@@ -2460,6 +2496,15 @@ body.is-offline .bottom-nav { filter:none; }
       sections.forEach(function (button) { button.addEventListener("click",function(){go(button.getAttribute("data-shell-section"));}); });
       var brand=document.getElementById("sidebarHome");
       if (brand) brand.addEventListener("click",function(){go("cities");});
+      var mobile=document.getElementById("mobileSectionsMenu");
+      if (mobile) mobile.addEventListener("click",function(event){
+        var item=event.target.closest("[data-mobile-section]");
+        if (!item) return;
+        go(item.getAttribute("data-mobile-section")==="doctors"?"doctors":item.getAttribute("data-mobile-section")==="account"?"account":"cities");
+        var trigger=document.getElementById("mobileSectionsButton");
+        mobile.hidden=true;
+        if (trigger) trigger.setAttribute("aria-expanded","false");
+      });
       if (back) back.addEventListener("click",function(){select("cities");});
       if (homeView && directory) {
         var observer=new MutationObserver(function(){
@@ -2479,74 +2524,6 @@ body.is-offline .bottom-nav { filter:none; }
       window.addEventListener("online",updateConnection); window.addEventListener("offline",updateConnection); updateConnection();
     })();
   </script>
-
-
-  <!-- Figma Schedule Management reference adapted to DBMS cards; visual-only, existing app behavior retained. -->
-  <style id="figma-schedule-inspired-polish">
-    /* The reference uses a clear timeline hierarchy, compact metadata, and restrained rounded cards.
-       Adapt that visual language to the existing directory instead of replacing its domain or data. */
-    .city-list { gap:14px !important; }
-    .city-card,.doctor-card,.doctor-row,.visit-card,.history-card,.list-card,.panel,.form-card {
-      border-radius:18px !important;
-      border-color:rgba(255,255,255,.13) !important;
-      background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018) 58%,rgba(255,255,255,.012)) !important;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.055),0 14px 34px rgba(0,0,0,.24) !important;
-    }
-    .city-card::before,.doctor-card::before,.doctor-row::before,.visit-card::before,.history-card::before,.list-card::before,.panel::before,.form-card::before {
-      opacity:.19 !important;
-      filter:blur(28px) !important;
-    }
-    .city-card:hover::before,.doctor-card:hover::before,.doctor-row:hover::before,.visit-card:hover::before,.history-card:hover::before,.list-card:hover::before,.panel:hover::before,.form-card:focus-within::before {
-      opacity:.34 !important;
-    }
-    .city-card:hover,.doctor-card:hover,.doctor-row:hover,.visit-card:hover,.history-card:hover,.list-card:hover,.panel:hover {
-      border-color:rgba(255,255,255,.22) !important;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 18px 38px rgba(0,0,0,.3) !important;
-    }
-    .city-name,.doctor-name { font-weight:700 !important; letter-spacing:-.035em !important; }
-    .city-meta,.doctor-meta,.directory-meta,.visit-meta,.history-meta,.manage-hint {
-      color:#92929a !important;
-      letter-spacing:-.005em;
-    }
-    .directory-heading { gap:12px; }
-    .directory-summary { display:flex; align-items:center; flex-wrap:wrap; gap:10px 14px; }
-    .sync-badge { border-radius:999px !important; padding:7px 10px !important; }
-    .search-wrap { border-radius:16px !important; }
-    .search-wrap:focus-within { border-color:rgba(252,60,68,.52) !important; box-shadow:0 0 0 3px rgba(252,60,68,.09) !important; }
-    .add-button { border-radius:13px !important; }
-    .primary-button,button.primary,.submit-button,.save-button,.confirm-button {
-      border-radius:12px !important;
-      font-weight:700 !important;
-      transition:transform .2s ease,filter .2s ease,box-shadow .2s ease !important;
-    }
-    .primary-button:hover,button.primary:hover,.submit-button:hover,.save-button:hover,.confirm-button:hover {
-      filter:brightness(1.07);
-      box-shadow:0 10px 26px rgba(252,60,68,.24) !important;
-    }
-    .sidebar-link { border-radius:11px !important; }
-    .sidebar-link.is-active { background:rgba(252,60,68,.12) !important; }
-    #desktopStatusDock { min-height:54px; }
-    @media (max-width:767px) {
-      .city-list { gap:12px !important; margin-top:22px !important; }
-      .city-card,.doctor-card,.doctor-row,.visit-card,.history-card,.list-card,.panel,.form-card {
-        border-radius:17px !important;
-      }
-      .directory-summary { align-items:flex-start; }
-      #mobileSectionsButton { box-shadow:0 10px 30px rgba(0,0,0,.38) !important; }
-    }
-    @media (prefers-color-scheme:light) {
-      .city-card,.doctor-card,.doctor-row,.visit-card,.history-card,.list-card,.panel,.form-card {
-        background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(247,247,249,.94)) !important;
-        border-color:rgba(0,0,0,.09) !important;
-        box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 12px 30px rgba(0,0,0,.06) !important;
-      }
-      .city-name,.doctor-name { color:#202024 !important; }
-      .city-meta,.doctor-meta,.directory-meta,.visit-meta,.history-meta,.manage-hint { color:#777780 !important; }
-    }
-    @media (prefers-reduced-motion:reduce) {
-      .primary-button,button.primary,.submit-button,.save-button,.confirm-button { transition:none !important; }
-    }
-  </style>
 
 </body>
 </html>
