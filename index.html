@@ -4,8 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#F7F5F2" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0C0C10" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" id="app-theme-color" content="#F4F6FB">
   <title>Raptakos, Brett &amp; Co. Ltd. DBMS</title>
   <meta name="description" content="Doctor directory and personal visit history for Raptakos, Brett &amp; Co. Ltd.">
   <link rel="manifest" href="./manifest.webmanifest">
@@ -921,6 +920,92 @@ body.is-offline .offline-screen { display: flex; }
 .offline-sub { margin:0; font-size:clamp(13px,2vw,15px); color:var(--sub); line-height:1.70; }
 @media (min-width:680px) and (min-height:460px) { .offline-card { flex-direction:row; text-align:left; gap:clamp(26px,5vw,50px); justify-content:center; } .offline-text-block { max-width:400px; } }
 @media (max-width:400px) { .offline-screen { padding:8px 14px 12px; } .offline-card { border-radius:22px; gap:16px; } }
+
+
+/* POLISHED SYSTEM THEME + RESPONSIVE GLASS LAYER */
+:root {
+  color-scheme: light dark;
+  --orange:#F45B35; --orange-lt:#FF805F;
+  --orange-dim:rgba(244,91,53,.10); --orange-glow:rgba(244,91,53,.20);
+  --blue:#3568E8; --blue-lt:#6F96FF;
+  --blue-dim:rgba(53,104,232,.10); --blue-glow:rgba(53,104,232,.20);
+  --bg:#F4F6FB; --bg2:#E9EEF7; --ink:#121A2B;
+  --sub:rgba(18,26,43,.68); --dim:rgba(18,26,43,.46);
+  --glass-bg:rgba(255,255,255,.70); --glass-heavy:rgba(255,255,255,.92);
+  --rim:rgba(255,255,255,.92); --rim2:rgba(18,26,43,.10); --sep:rgba(18,26,43,.08);
+  --shadow-sm:0 2px 7px rgba(25,38,66,.055),0 1px 2px rgba(25,38,66,.035);
+  --shadow-md:0 7px 22px -10px rgba(25,38,66,.19),0 2px 7px rgba(25,38,66,.055);
+  --shadow-lg:0 18px 44px -20px rgba(25,38,66,.24),0 4px 14px rgba(25,38,66,.06);
+  --shadow-sheet:0 24px 70px rgba(10,18,35,.20),0 4px 16px rgba(10,18,35,.10);
+  --blur:blur(14px) saturate(145%); --blur2:blur(10px) saturate(135%);
+}
+@media (prefers-color-scheme:dark) {
+  :root {
+    --bg:#0B1020; --bg2:#111A2D; --ink:#F3F6FC;
+    --sub:rgba(243,246,252,.72); --dim:rgba(243,246,252,.48);
+    --glass-bg:rgba(20,29,48,.76); --glass-heavy:rgba(19,28,46,.95);
+    --rim:rgba(255,255,255,.14); --rim2:rgba(255,255,255,.11); --sep:rgba(255,255,255,.09);
+    --orange-dim:rgba(255,128,95,.14); --orange-glow:rgba(255,128,95,.23);
+    --blue-dim:rgba(111,150,255,.15); --blue-glow:rgba(111,150,255,.24);
+    --green:#39D98A; --green-dim:rgba(57,217,138,.14); --green-rim:rgba(57,217,138,.28);
+    --red:#FF7777; --red-dim:rgba(255,119,119,.14); --red-rim:rgba(255,119,119,.28);
+    --shadow-sm:0 2px 8px rgba(0,0,0,.18);
+    --shadow-md:0 8px 24px -10px rgba(0,0,0,.48),0 2px 8px rgba(0,0,0,.20);
+    --shadow-lg:0 18px 48px -18px rgba(0,0,0,.62),0 4px 16px rgba(0,0,0,.24);
+    --shadow-sheet:0 24px 72px rgba(0,0,0,.64),0 4px 16px rgba(0,0,0,.28);
+  }
+}
+html {background-color:var(--bg)}
+html::before {
+  background:
+    radial-gradient(ellipse 74% 64% at 0% 0%,rgba(244,91,53,.21),transparent 70%),
+    radial-gradient(ellipse 70% 62% at 0% 100%,rgba(53,104,232,.19),transparent 72%),
+    radial-gradient(ellipse 66% 90% at 100% 45%,rgba(255,255,255,.72),transparent 72%),
+    var(--bg);
+}
+html::after {opacity:.10}
+@media (prefers-color-scheme:dark) {
+  html::before {
+    background:
+      radial-gradient(ellipse 76% 62% at 0% 0%,rgba(244,91,53,.23),transparent 72%),
+      radial-gradient(ellipse 72% 66% at 0% 100%,rgba(53,104,232,.24),transparent 74%),
+      radial-gradient(ellipse 68% 90% at 100% 45%,rgba(6,10,20,.86),transparent 75%),
+      var(--bg);
+  }
+  html::after {opacity:.08}
+}
+.glass,.header-inner,.city-card,.doctor-name-button,.search-wrap,.sheet,.offline-card,.cloud-notice,.empty {
+  -webkit-backdrop-filter:var(--blur); backdrop-filter:var(--blur);
+}
+.city-card,.doctor-name-button {
+  border-color:var(--rim);
+  box-shadow:var(--shadow-md),inset 0 1px 0 rgba(255,255,255,.22);
+  transition:background-color .16s ease,border-color .16s ease,box-shadow .16s ease;
+}
+.city-symbol,.serial {background:var(--blue-dim);border-color:var(--blue-glow);color:var(--blue)}
+@media (prefers-color-scheme:dark) {.city-symbol,.serial {color:var(--blue-lt)}}
+.account-button,.back-button,.details-button,.icon-button,.calendar-button,.primary,.btn-primary,.btn-blue,.btn-ghost,.add-button,.small-ok,.text-button,.danger-button,.confirm-actions button,.password-toggle {
+  transition:color .16s ease,background-color .16s ease,border-color .16s ease,box-shadow .16s ease,opacity .16s ease;
+  transform:none;
+}
+.press:active:not(:disabled) {filter:brightness(.98);box-shadow:var(--shadow-sm)}
+@media (hover:hover) {
+  .press:hover:not(:disabled),.city-card:hover:not(:disabled),.doctor-name-button:hover:not(:disabled) {
+    box-shadow:var(--shadow-md),inset 0 1px 0 rgba(255,255,255,.22);
+  }
+  .btn-primary:hover:not(:disabled),.primary:hover:not(:disabled),.btn-blue:hover:not(:disabled) {filter:brightness(1.04);transform:none}
+}
+button,input,select,textarea {touch-action:manipulation}
+button {-webkit-tap-highlight-color:transparent}
+dialog.sheet,.sheet-content {overscroll-behavior:contain}
+.sheet-content {-webkit-overflow-scrolling:touch}
+@media (max-width:700px) {
+  :root {--blur:blur(10px) saturate(132%);--blur2:blur(8px) saturate(125%)}
+  .city-card,.doctor-name-button {box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,.16)}
+}
+@media (prefers-reduced-motion:reduce) {
+  *,*::before,*::after {animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
 
 </style>
 </head>
@@ -1972,7 +2057,7 @@ body.is-offline .offline-screen { display: flex; }
 
     document.addEventListener("click",function (event) {
       const target=event.target.closest("button"); if (!target) return;
-      if (target.dataset.city) { var cityKey=target.dataset.city; setTimeout(function(){chooseCity(cityKey);},130); }
+      if (target.dataset.city) { chooseCity(target.dataset.city); }
       else if (target.dataset.visit) openVisit(target.dataset.visit);
       else if (target.dataset.details) openDetails(target.dataset.details);
       else if (target.dataset.delete) requestDelete(target.dataset.delete);
@@ -1985,7 +2070,7 @@ body.is-offline .offline-screen { display: flex; }
         if (state.busy || state.deleting || state.authBusy || state.directoryBusy) event.preventDefault();
       });
     });
-    function delayedGoHome(){setTimeout(goHome,130);} $("homeButton").addEventListener("click",delayedGoHome); $("backButton").addEventListener("click",delayedGoHome);
+    function delayedGoHome(){goHome();} $("homeButton").addEventListener("click",delayedGoHome); $("backButton").addEventListener("click",delayedGoHome);
     $("search").addEventListener("input",renderDoctors);
     $("clearSearch").addEventListener("click",function () { $("search").value=""; renderDoctors(); $("search").focus(); });
     $("accountButton").addEventListener("click",openAccount); $("visitSignIn").addEventListener("click",openAccount);
@@ -2022,7 +2107,15 @@ body.is-offline .offline-screen { display: flex; }
       if (state.user) { state.directorySync="offline"; state.sync="offline"; updateSyncUI(); renderDoctors(); updateDirectoryUI(); }
     });
     // When device comes back online reload immediately — no "connecting…" screen.
-    window.addEventListener("online",function () { window.location.reload(); });
+    window.addEventListener("online",function () {
+      document.body.classList.remove("is-offline");
+      if (state.user) {
+        if (state.sync !== "live") attachVisitListener(state.user);
+        if (state.directorySync !== "live") attachDirectoryListener(state.user);
+      }
+      updateSyncUI();
+      updateDirectoryUI();
+    });
     // Apply offline class immediately if already offline on page load.
     if (!navigator.onLine) document.body.classList.add("is-offline");
     window.addEventListener("beforeunload",function (event) {
@@ -2075,6 +2168,22 @@ body.is-offline .offline-screen { display: flex; }
     }
     setTimeout(function () { connectCloud().catch(function () {}); },0);
   })();
+  </script>
+
+  <!-- Keep browser and installed-PWA chrome aligned with the live system theme. -->
+  <script>
+    (function () {
+      const media=window.matchMedia("(prefers-color-scheme: dark)");
+      const meta=document.getElementById("app-theme-color");
+      function syncSystemTheme() {
+        const dark=media.matches;
+        document.documentElement.style.colorScheme=dark ? "dark" : "light";
+        if (meta) meta.setAttribute("content",dark ? "#0B1020" : "#F4F6FB");
+      }
+      syncSystemTheme();
+      if (typeof media.addEventListener==="function") media.addEventListener("change",syncSystemTheme);
+      else if (typeof media.addListener==="function") media.addListener(syncSystemTheme);
+    })();
   </script>
 
   <!-- PWA service-worker registration. Existing application logic above remains unchanged. -->
