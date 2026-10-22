@@ -485,7 +485,41 @@
       .brand-title { max-width:145px; }
       .bottom-nav { left:8px; right:8px; }
     }
-</style>
+
+    /* Chaman Lal visual direction: true near-black glass in dark appearance.
+       Keep the light palette soft and bright; all original app behavior remains intact. */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #050608;
+        --ink: #f5f6fa;
+        --muted: #b0b5c1;
+        --faint: #858b98;
+        --glass: rgba(20,22,27,.78);
+        --glass-strong: rgba(29,32,39,.94);
+        --input: rgba(14,16,20,.92);
+        --edge: rgba(255,255,255,.12);
+        --line: rgba(255,255,255,.085);
+        --accent: #a6baff;
+        --accent-ink: #c2ceff;
+        --accent-soft: rgba(139,164,255,.13);
+        --glow-blue: rgba(28,37,58,.32);
+        --glow-violet: rgba(36,28,49,.24);
+        --glow-mint: rgba(20,43,39,.18);
+        --shadow: 0 18px 38px -22px rgba(0,0,0,.88), 0 4px 12px -6px rgba(0,0,0,.55);
+        --inner: inset 0 1px 0 rgba(255,255,255,.075), inset 1px 0 0 rgba(255,255,255,.025), inset 0 -1px 0 rgba(0,0,0,.42);
+        --control-shadow: 0 6px 14px -7px rgba(0,0,0,.72);
+        --surface-sheen: linear-gradient(145deg,rgba(255,255,255,.065) 0%,rgba(255,255,255,.018) 38%,rgba(255,255,255,0) 62%,rgba(255,255,255,.025) 100%);
+        --well-sheen: linear-gradient(160deg,rgba(255,255,255,.035),rgba(255,255,255,0) 58%);
+        --sheet-shadow: 0 40px 100px rgba(0,0,0,.72), 0 8px 24px -12px rgba(0,0,0,.62);
+      }
+      .logo-wrap { background: var(--surface-sheen),rgba(22,24,29,.92); }
+      .city-symbol { color: hsl(var(--hue),78%,82%); }
+      .glass, .city-card, .doctor-name-button, .details-button {
+        border-color: rgba(255,255,255,.115);
+      }
+    }
+
+  </style>
 
   <style id="liquid-glass-finish">
     :root {
