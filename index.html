@@ -12,9 +12,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="RB DBMS">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <link rel="icon" type="image/png" sizes="512x512" href="./icons/icon-512.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="https://chamanlal1972.github.io/ChamanLal/logo.png?v=20261019-2">
+  <link rel="apple-touch-icon" href="https://chamanlal1972.github.io/ChamanLal/logo.png?v=20261019-2">
   <link rel="preload" as="image" href="./logo.png" fetchpriority="high">
 
   <!-- Sharing preview configured for https://chamanlal1972.github.io/ChamanLal/
@@ -389,136 +388,6 @@
       .edit-field { padding:11px; }
     }
 
-    /* ── Offline full-screen overlay ──────────────────────────── */
-    /*
-     * When offline: hide the entire city/directory section, replace it with a
-     * full-height liquid-glass card that spans the remaining viewport below the
-     * sticky header. No transient "you went offline" animation — just a clean,
-     * persistent state screen that matches the app's liquid-glass aesthetic.
-     */
-    body.is-offline #main { display: none !important; }
-    body.is-offline #homeDirectoryNotice { display: none !important; }
-
-    .offline-screen {
-      display: none;
-      /* Stretch from just below the header to the bottom of the viewport.
-         The sticky header is: safe-area-top + 14px padding-top + ~76px inner height.
-         We use a generous top offset that clears the header on all devices.      */
-      position: fixed;
-      top: calc(env(safe-area-inset-top, 0px) + 108px);
-      left: 0; right: 0; bottom: 0;
-      padding: clamp(12px, 2vw, 24px) clamp(16px, 3vw, 32px) clamp(16px, max(env(safe-area-inset-bottom, 0px) + 12px, 20px), 40px);
-      z-index: 5;
-      align-items: stretch;
-    }
-    body.is-offline .offline-screen { display: flex; }
-
-    .offline-card {
-      /* Liquid-glass card filling the full area */
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: clamp(18px, 4vh, 36px);
-      padding: clamp(28px, 6vw, 60px) clamp(20px, 5vw, 60px);
-      border-radius: 32px;
-      background: var(--surface-sheen), var(--glass);
-      border: 1.5px solid var(--edge);
-      box-shadow: var(--shadow), var(--inner);
-      -webkit-backdrop-filter: var(--blur);
-      backdrop-filter: var(--blur);
-      text-align: center;
-      animation: offline-card-in .42s var(--ease) both;
-      overflow: hidden;
-      position: relative;
-    }
-    /* Liquid-glass accent glow behind the icon */
-    .offline-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse at 50% 38%, rgba(183,53,80,.11) 0%, transparent 68%),
-        var(--surface-sheen);
-      pointer-events: none;
-      border-radius: inherit;
-    }
-    @media (prefers-color-scheme: dark) {
-      .offline-card::before {
-        background:
-          radial-gradient(ellipse at 50% 38%, rgba(255,161,181,.08) 0%, transparent 65%),
-          var(--surface-sheen);
-      }
-    }
-
-    @keyframes offline-card-in {
-      from { opacity: 0; transform: translateY(18px) scale(.97); }
-      to   { opacity: 1; transform: none; }
-    }
-
-    .offline-icon-ring {
-      position: relative;
-      z-index: 1;
-      width: clamp(72px, 16vw, 120px);
-      height: clamp(72px, 16vw, 120px);
-      border-radius: clamp(22px, 5vw, 36px);
-      display: grid;
-      place-items: center;
-      background: var(--danger-sheen), var(--danger-soft);
-      border: 1.5px solid var(--danger-edge);
-      box-shadow: var(--control-shadow), var(--inner),
-                  0 0 0 8px var(--danger-soft),
-                  0 0 32px -8px rgba(183,53,80,.22);
-      color: var(--danger);
-      flex-shrink: 0;
-    }
-    .offline-icon-ring svg {
-      width: clamp(38px, 9vw, 64px);
-      height: clamp(38px, 9vw, 64px);
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.9;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .offline-text-block { position: relative; z-index: 1; max-width: 500px; }
-    .offline-eyebrow {
-      display: block;
-      font-size: clamp(9px, 1.8vw, 11px);
-      font-weight: 700;
-      letter-spacing: 2.2px;
-      color: var(--danger);
-      margin-bottom: clamp(8px, 2vh, 14px);
-      opacity: .75;
-    }
-    .offline-headline {
-      display: block;
-      font-size: clamp(26px, 7vw, 48px);
-      font-weight: 780;
-      letter-spacing: clamp(-1.5px, -0.3vw, -2.5px);
-      line-height: 1.1;
-      color: var(--ink);
-      margin-bottom: clamp(10px, 2.5vh, 18px);
-    }
-    .offline-sub {
-      margin: 0;
-      font-size: clamp(13px, 2.5vw, 16px);
-      color: var(--muted);
-      line-height: 1.65;
-    }
-
-    /* Wide-screen: arrange icon + text side by side */
-    @media (min-width: 700px) and (min-height: 500px) {
-      .offline-card { flex-direction: row; text-align: left; gap: clamp(28px, 5vw, 56px); justify-content: center; }
-      .offline-text-block { max-width: 440px; }
-    }
-    @media (max-width: 380px) {
-      .offline-screen { padding: 12px; }
-      .offline-card { border-radius: 26px; padding: 24px 18px; }
-    }
-
   </style>
 </head>
 <body>
@@ -557,31 +426,6 @@
       <button class="account-button press" id="accountButton" type="button" aria-label="Sign in to sync visit history"><svg class="icon" aria-hidden="true"><use href="#i-cloud"></use></svg><span id="accountButtonLabel">Sign in</span></button>
     </div>
   </header>
-
-  <!-- Offline full-screen card – replaces the city/directory section when offline.
-       The header stays fully visible so the app identity and brand are always shown.
-       Shown via CSS (body.is-offline) set by the offline/online events in JS.     -->
-  <div class="offline-screen" id="offlineBanner" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="offline-card">
-      <div class="offline-icon-ring" aria-hidden="true">
-        <!-- No-wifi / disconnected SVG -->
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <line x1="1" y1="1" x2="23" y2="23"/>
-          <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
-          <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
-          <path d="M10.71 5.05A16 16 0 0 1 22.56 9"/>
-          <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
-          <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
-          <circle cx="12" cy="20" r="1.25" fill="currentColor" stroke="none"/>
-        </svg>
-      </div>
-      <div class="offline-text-block">
-        <span class="offline-eyebrow">NO INTERNET CONNECTION</span>
-        <span class="offline-headline">You&rsquo;re&nbsp;Offline.</span>
-        <p class="offline-sub">Connect to the internet to open your doctor directory and sync visit records. The app will resume automatically once you&rsquo;re back online.</p>
-      </div>
-    </div>
-  </div>
 
   <main id="main">
     <section id="homeView" class="home-view" aria-labelledby="homeTitle">
@@ -1613,15 +1457,10 @@
       if (cities.some(function (entry) { return entry.key===city; })) chooseCity(city,true);
       else goHome(true);
     });
-    window.addEventListener("offline",function () {
-      document.body.classList.add("is-offline");
-      clearSyncTimer(); clearTimeout(directoryTimer); directoryTimer=null;
-      if (state.user) { state.directorySync="offline"; state.sync="offline"; updateSyncUI(); renderDoctors(); updateDirectoryUI(); }
+    window.addEventListener("offline",function () { clearSyncTimer(); clearTimeout(directoryTimer); directoryTimer=null; if (state.user) { state.directorySync="offline"; state.sync="offline"; updateSyncUI(); renderDoctors(); updateDirectoryUI(); } });
+    window.addEventListener("online",function () {
+      if (state.user) attachVisitListener(state.user); else connectCloud().catch(function () {});
     });
-    // When device comes back online reload immediately — no "connecting…" screen.
-    window.addEventListener("online",function () { window.location.reload(); });
-    // Apply offline class immediately if already offline on page load.
-    if (!navigator.onLine) document.body.classList.add("is-offline");
     window.addEventListener("beforeunload",function (event) {
       if (state.busy || state.deleting || state.directoryBusy) { event.preventDefault(); event.returnValue=""; }
     });
