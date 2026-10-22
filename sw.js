@@ -7,8 +7,9 @@
  */
 "use strict";
 
-const CACHE_NAME = "rb-dbms-pwa-shell-v1";
+const CACHE_NAME = "rb-dbms-pwa-shell-v2";
 const APP_SHELL_URL = "./";
+const SHELL_ASSETS = [APP_SHELL_URL, "./index.html", "./manifest.webmanifest", "./logo.png"];
 const ICON_URLS = [
   "./icons/icon-192.png",
   "./icons/icon-512.png",
@@ -21,7 +22,7 @@ self.addEventListener("install", event => {
     const cache = await caches.open(CACHE_NAME);
     // Install should not fail solely because a secondary icon is temporarily unavailable.
     await Promise.all(
-      [APP_SHELL_URL, ...ICON_URLS].map(async url => {
+      [...new Set([...SHELL_ASSETS, ...ICON_URLS])].map(async url => {
         try {
           const response = await fetch(url, { cache: "reload" });
           if (response.ok) await cache.put(url, response);
