@@ -471,7 +471,7 @@
       h1 { font-size:clamp(34px,9vw,46px); letter-spacing:-1.5px; }
       .directory-view { padding-top:18px; }
       .directory-heading { grid-template-columns:minmax(0,1fr) 44px; }
-      .bottom-nav { position:fixed; z-index:30; left:12px; right:12px; bottom:calc(10px + env(safe-area-inset-bottom,0px)); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px; padding:7px; border:1px solid var(--line); border-radius:22px; background:var(--glass-strong); -webkit-backdrop-filter:blur(28px) saturate(1.7); backdrop-filter:blur(28px) saturate(1.7); box-shadow:0 12px 35px rgba(0,0,0,.13),var(--inner); }
+      .bottom-nav { position:fixed; z-index:30; left:12px; right:12px; bottom:calc(10px + env(safe-area-inset-bottom,0px)); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:4px; padding:7px; border:1px solid var(--line); border-radius:22px; background:var(--glass-strong); -webkit-backdrop-filter:blur(28px) saturate(1.7); backdrop-filter:blur(28px) saturate(1.7); box-shadow:0 12px 35px rgba(0,0,0,.13),var(--inner); }
       .bottom-nav button { display:flex; align-items:center; justify-content:center; flex-direction:column; gap:3px; min-height:52px; padding:6px 4px; border:0; border-radius:15px; background:transparent; color:var(--muted); font-size:10px; font-weight:650; }
       .bottom-nav button .icon { width:19px; height:19px; }
       .bottom-nav button[aria-current="page"] { color:var(--accent-ink); background:var(--accent-soft); }
@@ -519,6 +519,30 @@
       }
     }
 
+  /* Page 5-inspired dashboard and functional four-tab navigation */
+.menu-button{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border:1px solid var(--edge);border-radius:14px;background:var(--surface-sheen),var(--glass);color:var(--ink);box-shadow:var(--control-shadow),var(--inner);order:3}
+.overview-view,.workspace-view{width:min(100%,960px);margin:0 auto;padding:clamp(26px,5vh,54px) 20px 50px}
+.overview-welcome{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:26px}
+.overview-welcome h1,.workspace-view>h1{font-size:clamp(32px,5vw,48px);letter-spacing:-1.8px;margin:0 0 10px;line-height:1.1}
+.overview-welcome .intro,.workspace-view>.intro{margin:0 0 6px;max-width:560px}
+.overview-art{position:relative;width:132px;height:112px;flex:0 0 132px;border:1px solid var(--edge);border-radius:30px;background:var(--surface-sheen),var(--glass);box-shadow:var(--shadow),var(--inner);overflow:hidden}
+.art-ring{position:absolute;width:86px;height:86px;right:14px;top:12px;border:15px solid var(--accent-soft);border-radius:50%}
+.art-cross{position:absolute;right:37px;top:27px;width:42px;height:42px;display:grid;place-items:center;border-radius:15px;background:var(--accent);color:white;font-size:32px}
+.art-dot{position:absolute;left:20px;bottom:18px;width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 0 7px var(--green-soft)}
+.overview-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:30px}
+.overview-card{min-height:142px;padding:19px 20px;border-radius:23px;display:flex;flex-direction:column;align-items:flex-start;gap:5px}
+.metric-label{font-size:10px;font-weight:750;letter-spacing:1.3px;color:var(--muted)}
+.overview-card strong,.visit-summary-card strong{font-size:34px;line-height:1.2;letter-spacing:-1px;font-weight:740;color:var(--ink);font-variant-numeric:tabular-nums}
+.metric-footnote{font-size:11px;color:var(--muted)}
+.overview-section{margin:28px 0}.overview-section-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}.overview-section-heading .eyebrow{margin-bottom:4px}.overview-section-heading h2{font-size:20px;letter-spacing:-.45px;margin:0;font-weight:700}
+.overview-count{font-size:11px;color:var(--muted);border:1px solid var(--line);padding:7px 10px;border-radius:12px}.overview-list{border-radius:23px;overflow:hidden}
+.overview-visit-row{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:12px;align-items:center;padding:14px 17px;min-height:74px}.overview-visit-row+.overview-visit-row{border-top:1px solid var(--line)}
+.overview-avatar{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent-ink);font-size:13px;font-weight:750}.overview-visit-copy{min-width:0}.overview-visit-name{display:block;font-size:13px;font-weight:700;overflow-wrap:anywhere}.overview-visit-meta{display:block;font-size:11px;color:var(--muted);margin-top:3px;overflow-wrap:anywhere}.overview-visit-date{font-size:11px;color:var(--muted);white-space:nowrap;text-align:right}
+.overview-empty{padding:23px 18px;color:var(--muted);font-size:13px}.overview-empty strong{display:block;color:var(--ink);font-size:14px;margin-bottom:5px}.overview-sync{font-size:11px;color:var(--muted);margin:16px 2px}
+.visit-period-wrap{max-width:320px;margin:10px 0 18px}.visit-period-wrap .input{width:100%;appearance:none;padding-right:44px}.visit-summary-card{border-radius:22px;padding:18px 20px;margin-bottom:18px;display:flex;flex-direction:column;align-items:flex-start;gap:4px}.visit-summary-card>span:first-child{font-size:10px;letter-spacing:1.4px;font-weight:750;color:var(--muted)}.visit-summary-card>span:last-child{font-size:12px;color:var(--muted)}
+.workspace-view .search-wrap{margin-top:22px}.workspace-view[hidden],.overview-view[hidden]{display:none!important}
+@media(max-width:650px){.app-header{padding-left:12px;padding-right:12px}.header-inner{min-height:64px;padding:9px 11px;border-radius:20px}.menu-button{order:0;width:38px;height:38px;flex-basis:38px}.brand{gap:8px;flex:1}.logo-wrap{width:38px;height:38px;border-radius:12px}.brand-title{font-size:12px;max-width:145px}.brand-subtitle{font-size:9px;letter-spacing:1.4px}.account-button{padding:8px 10px;min-height:38px;font-size:11px}.account-button .icon{display:none}.overview-view,.workspace-view{padding-top:26px;padding-left:0;padding-right:0;width:100%}.overview-welcome h1,.workspace-view>h1{font-size:32px;letter-spacing:-1.1px}.overview-welcome .intro,.workspace-view>.intro{font-size:13px}.overview-art{width:78px;height:76px;flex-basis:78px;border-radius:22px}.art-ring{width:58px;height:58px;right:7px;top:8px;border-width:10px}.art-cross{width:30px;height:30px;right:20px;top:18px;border-radius:11px;font-size:24px}.art-dot{left:10px;bottom:11px;width:8px;height:8px}.overview-metrics{gap:8px}.overview-card{padding:13px 11px;min-height:115px;border-radius:17px}.metric-label{font-size:8px;letter-spacing:.7px}.overview-card strong{font-size:27px}.metric-footnote{font-size:9px;line-height:1.4}.overview-visit-row{grid-template-columns:36px minmax(0,1fr);gap:10px;padding:12px}.overview-avatar{width:34px;height:34px;border-radius:12px}.overview-visit-date{grid-column:2;text-align:left;margin-top:-6px;font-size:10px}.overview-section-heading h2{font-size:18px}.overview-list{border-radius:18px}.bottom-nav{grid-template-columns:repeat(4,minmax(0,1fr))}main{padding-bottom:112px}}
+@media(min-width:651px){.menu-button{order:3}}
   </style>
 
   <style id="liquid-glass-finish">
@@ -925,6 +949,7 @@ body.is-offline .bottom-nav { filter:none; }
 
   <header class="app-header">
     <div class="header-inner glass">
+      <button type="button" class="menu-button press" id="menuButton" aria-label="Open workspace menu" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg></button>
       <button class="brand" id="homeButton" type="button" aria-label="Raptakos, Brett & Co. Ltd. DBMS, choose city">
         <span class="logo-wrap"><img src="./logo.png" alt="" width="46" height="46" onerror="this.parentElement.classList.add('missing')"></span>
         <span><span class="brand-title">Raptakos, Brett &amp; Co. Ltd.</span><span class="brand-subtitle">DBMS</span></span>
@@ -934,6 +959,14 @@ body.is-offline .bottom-nav { filter:none; }
   </header>
 
   <main id="main">
+    <section id="homeDashboardView" class="overview-view" aria-labelledby="overviewTitle">
+      <p class="eyebrow">YOUR HEALTHCARE WORKSPACE</p><div class="overview-welcome"><div><h1 id="overviewTitle">Good morning, Jamanlal.</h1><p class="intro">Here is your day at a glance.</p></div><div class="overview-art" aria-hidden="true"><span class="art-ring"></span><span class="art-cross">+</span><span class="art-dot"></span></div></div>
+      <div class="overview-metrics"><article class="overview-card glass"><span class="metric-label">VISITS TODAY</span><strong id="todayVisitCount">0</strong><span class="metric-footnote">Visits recorded today</span></article><article class="overview-card glass"><span class="metric-label">DOCTORS</span><strong id="overviewDoctorCount">0</strong><span class="metric-footnote">Across your directory</span></article><article class="overview-card glass"><span class="metric-label">CITIES</span><strong id="overviewCityCount">0</strong><span class="metric-footnote">Available locations</span></article></div>
+      <section class="overview-section"><div class="overview-section-heading"><div><p class="eyebrow">TODAY</p><h2>Visits made today</h2></div><span class="overview-count" id="todayVisitsBadge">0 visits</span></div><div class="overview-list glass" id="todayVisitsList"></div></section>
+      <section class="overview-section"><div class="overview-section-heading"><div><p class="eyebrow">YOUR ACTIVITY</p><h2>Recent visits</h2></div><button type="button" class="text-button press" id="viewAllVisitsButton">View all</button></div><div class="overview-list glass" id="recentVisitsList"></div></section><p class="overview-sync" id="overviewSyncNote" role="status" aria-live="polite">Sign in to view your personal visit history.</p>
+    </section>
+    <section id="allDoctorsView" class="workspace-view" aria-labelledby="allDoctorsTitle" hidden><p class="eyebrow">HEALTHCARE DIRECTORY</p><h1 id="allDoctorsTitle">Doctors</h1><p class="intro">Browse doctors across all cities. Choose a doctor to record a visit.</p><div class="search-wrap glass"><svg class="icon"><use href="#i-search"></use></svg><label class="sr-only" for="allDoctorsSearch">Search all doctors</label><input type="search" id="allDoctorsSearch" placeholder="Search doctors, cities or hospitals" autocomplete="off"><button class="clear-search press" id="clearAllDoctorsSearch" type="button" aria-label="Clear search" hidden><svg class="icon"><use href="#i-close"></use></svg></button></div><div class="list-caption"><span id="allDoctorsCount">DOCTORS</span><span>SELECT TO LOG A VISIT</span></div><ul class="doctor-list" id="allDoctorList"></ul><div class="empty glass" id="allDoctorsEmpty" hidden>No doctors match your search.</div></section>
+    <section id="visitsView" class="workspace-view" aria-labelledby="visitsPageTitle" hidden><p class="eyebrow">YOUR VISIT RECORDS</p><h1 id="visitsPageTitle">Visits</h1><p class="intro">Review activity by day, month, year, or all time.</p><label class="field-label" for="visitPeriod">Show visits</label><div class="select-wrap visit-period-wrap"><select class="input" id="visitPeriod"><option value="today">Today</option><option value="month">This month</option><option value="year">This year</option><option value="total">Total visits</option></select><svg class="icon select-chevron"><use href="#i-chevron"></use></svg></div><div class="visit-summary-card glass"><span id="visitPeriodLabel">TODAY</span><strong id="visitPeriodCount">0</strong><span id="visitPeriodSub">Visits recorded today</span></div><div class="overview-list glass" id="filteredVisitsList"></div><p class="history-message" id="filteredVisitsMessage"></p></section>
     <section id="homeView" class="home-view" aria-labelledby="homeTitle">
       <p class="eyebrow" id="homeCloudStatus">YOUR PERSONAL CLOUD DIRECTORY</p>
       <div class="section-title-row"><h1 id="homeTitle" tabindex="-1">Choose city.</h1><button type="button" class="add-button glass press" id="addCityButton" aria-label="Add city" title="Add city"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button></div>
@@ -2034,8 +2067,9 @@ body.is-offline .bottom-nav { filter:none; }
 
   <nav class="bottom-nav" id="liquidNavigator" data-active="cities" aria-label="Application sections">
     <span class="nav-liquid-indicator" aria-hidden="true"></span>
-    <button type="button" id="bottomCities" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg><span>Cities</span></button>
+    <button type="button" id="bottomHome" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-home"></use></svg><span>Home</span></button>
     <button type="button" id="bottomSearch"><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg><span>Doctors</span></button>
+    <button type="button" id="bottomVisits"><svg class="icon" aria-hidden="true"><use href="#i-calendar"></use></svg><span>Visits</span></button>
     <button type="button" id="bottomAccount"><svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg><span>Account</span></button>
   </nav>
   <script>
