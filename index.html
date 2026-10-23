@@ -519,6 +519,19 @@
     <div class="loading-track" role="progressbar" aria-label="Starting your workspace"><div class="loading-line"></div></div>
     <div class="boot-status" id="bootStatus">Starting your workspace…</div>
   </div>
+  <script>
+    // Fail-safe: a slow Firebase module or auth callback must never trap the user on the splash screen.
+    (function () {
+      window.setTimeout(function () {
+        var boot = document.getElementById("boot");
+        if (!boot || boot.classList.contains("done")) return;
+        var status = document.getElementById("bootStatus");
+        if (status) status.textContent = "Connection is taking longer than expected. You can continue while it reconnects.";
+        boot.classList.add("done");
+        boot.setAttribute("aria-hidden", "true");
+      }, 10000);
+    })();
+  </script>
   <noscript><style>.boot{display:none}</style><p style="padding:30px">Please enable JavaScript to use the doctor directory and visit history.</p></noscript>
   <header class="app-header">
     <div class="header-inner glass">
