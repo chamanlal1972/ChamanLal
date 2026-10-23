@@ -10,7 +10,7 @@
  */
 "use strict";
 
-const CACHE_NAME = "rb-dbms-pwa-shell-v4";
+const CACHE_NAME = "rb-dbms-pwa-shell-v5";
 const APP_SHELL_URL = "./";
 const SHELL_ASSETS = [APP_SHELL_URL, "./index.html", "./manifest.webmanifest", "./logo.png"];
 const ICON_URLS = [
