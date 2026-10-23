@@ -1,18 +1,14 @@
 /* RB DBMS PWA service worker
  * Strategy:
  * - Navigation: network-first, cached app-shell fallback only when offline.
- * - App shell, manifest, logo and installed-app icons: precached and cache-first where applicable.
- * - Navigation: network-first with the last cached app shell as an offline fallback.
- * - Firebase/auth/database traffic and private records: deliberately never cached.
- * The visual liquid texture is CSS-generated, so it needs no remote shader/image asset.
- * Only files that actually exist in this repository are precached; private database JSON
- * must not be copied into a public service-worker cache.
+ * - App icons: cache-first.
+ * - Other requests (including Firebase/auth/database traffic): browser default network behavior.
+ * No authenticated API responses or personal visit records are cached by this worker.
  */
 "use strict";
 
-const CACHE_NAME = "rb-dbms-pwa-shell-v5";
+const CACHE_NAME = "rb-dbms-pwa-shell-v1";
 const APP_SHELL_URL = "./";
-const SHELL_ASSETS = [APP_SHELL_URL, "./index.html", "./manifest.webmanifest", "./logo.png"];
 const ICON_URLS = [
   "./icons/icon-192.png",
   "./icons/icon-512.png",
@@ -25,7 +21,7 @@ self.addEventListener("install", event => {
     const cache = await caches.open(CACHE_NAME);
     // Install should not fail solely because a secondary icon is temporarily unavailable.
     await Promise.all(
-      [...new Set([...SHELL_ASSETS, ...ICON_URLS])].map(async url => {
+      [APP_SHELL_URL, ...ICON_URLS].map(async url => {
         try {
           const response = await fetch(url, { cache: "reload" });
           if (response.ok) await cache.put(url, response);
@@ -76,7 +72,7 @@ self.addEventListener("fetch", event => {
     return;
   }
 
-  if (url.pathname.endsWith("/logo.png") || url.pathname.endsWith("/manifest.webmanifest") || /^\/ChamanLal\/icons\/(icon-192|icon-512|icon-maskable-512|apple-touch-icon)\.png$/.test(url.pathname)) {
+  if (/^\/ChamanLal\/icons\/(icon-192|icon-512|icon-maskable-512|apple-touch-icon)\.png$/.test(url.pathname)) {
     event.respondWith((async () => {
       const cached = await caches.match(request);
       if (cached) return cached;
