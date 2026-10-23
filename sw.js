@@ -1,7 +1,7 @@
 /* RB DBMS PWA service worker.
- * Caches the static app shell, logo, manifest, and local icons only.
- * Firebase authentication, Firestore/database records, and other API requests
- * are not intercepted or stored by this worker.
+ * Caches only the static app shell and explicitly listed local assets.
+ * Firebase authentication, Firestore/database records, and all other API
+ * requests are never intercepted or stored by this worker.
  */
 "use strict";
 
@@ -21,6 +21,8 @@ const STATIC_ASSETS = [
 self.addEventListener("install", event => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE_NAME);
+    // Install all required static files together, so missing assets are visible
+    // as an installation failure instead of silently producing a partial cache.
     await cache.addAll(STATIC_ASSETS);
     await self.skipWaiting();
   })());
@@ -41,13 +43,21 @@ self.addEventListener("fetch", event => {
   if (request.method !== "GET") return;
 
   const url = new URL(request.url);
-  // Do not intercept cross-origin traffic, including Firebase SDK/API endpoints.
+  // Never handle cross-origin requests (including Firebase SDK/API endpoints).
   if (url.origin !== self.location.origin) return;
 
   if (request.mode === "navigate") {
     event.respondWith((async () => {
       try {
-        return await fetch(request);
+        const response = await fetch(request);
+        if (response && response.ok) {
+          const cache = await caches.open(CACHE_NAME);
+          // Cache only same-origin navigations within this app's scope.
+          if (url.pathname.startsWith(new URL("./", self.registration.scope).pathname)) {
+            await cache.put(APP_SHELL, response.clone());
+          }
+        }
+        return response;
       } catch (_) {
         const cached = await caches.match(APP_SHELL);
         if (cached) return cached;
@@ -60,7 +70,8 @@ self.addEventListener("fetch", event => {
     return;
   }
 
-  // Only explicitly listed static paths are cache-first; no generic API caching.
+  // Cache-first only for explicitly approved static assets. No generic
+  // same-origin caching: Firebase/auth/database and personal records bypass us.
   const staticPaths = new Set(STATIC_ASSETS.map(path =>
     new URL(path, self.registration.scope).pathname
   ));

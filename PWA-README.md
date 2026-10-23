@@ -6,11 +6,11 @@ Package target: https://chamanlal1972.github.io/ChamanLal/
 Upload/replace the files and the `icons/` folder at the repository's `ChamanLal/` site root, at the same level as `index.html`. Keep the four supplied PNG files inside `icons/` with their exact filenames.
 
 Included:
-- `index.html` — existing application preserved; only favicon and Apple touch-icon paths point to `./icons/`.
+- `index.html` — existing application logic preserved; the visible heading is `Choose City` (no full stop), and icon references point to `./icons/`.
 - `manifest.webmanifest` — all icon URLs point to `./icons/`.
-- `sw.js` — caches the app shell, logo, manifest, and four static icons; Firebase authentication and database requests are not cached.
+- `sw.js` — caches the app shell, logo, manifest, and four static icons using the correct paths; Firebase authentication and database requests are not cached. Cache version: `rb-dbms-pwa-shell-v3`.
 - `logo.png` — original logo, unchanged.
-- `icons/icon-192.png`, `icons/icon-512.png`, `icons/icon-maskable-512.png`, `icons/apple-touch-icon.png` — exact icon files supplied by the user.
+- `icons/icon-192.png`, `icons/icon-512.png`, `icons/icon-maskable-512.png`, `icons/apple-touch-icon.png` — supplied icon files, unchanged.
 
 ## Offline behavior
 The app shell and listed static assets are available after the service worker installs successfully while online. Firebase sign-in, live database syncing, and cloud records still require a network connection; their requests and responses are not cached by this service worker.
@@ -22,4 +22,4 @@ The app shell and listed static assets are available after the service worker in
 4. In browser developer tools, verify the active service worker and `rb-dbms-pwa-shell-v3` cache.
 5. Test sign-in, directory/listing, visit logging, account actions, and syncing while online; then test that the app shell opens offline. Cloud data is not available offline.
 
-Local consistency and syntax checks are performed on this package, but it has not been deployed to or tested against the live GitHub Pages site.
+The package has been checked locally, but it has not been deployed to or tested against the live GitHub Pages site.
