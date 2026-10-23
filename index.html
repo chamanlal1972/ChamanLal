@@ -744,6 +744,27 @@
     <div class="loading-track" role="progressbar" aria-label="Starting your workspace"><div class="loading-line"></div></div>
     <div class="boot-status" id="bootStatus">Starting your workspace…</div>
   </div>
+  <script>
+    // Safety net: never let a stalled network/auth startup permanently cover the app.
+    // The normal readiness handler dismisses this sooner; this only handles hangs.
+    (function () {
+      var released = false;
+      function releaseBoot() {
+        if (released) return;
+        released = true;
+        var boot = document.getElementById("boot");
+        if (!boot || boot.classList.contains("done")) return;
+        var status = document.getElementById("bootStatus");
+        if (status) status.textContent = "Connection is taking longer than expected. You can continue while it reconnects.";
+        boot.classList.add("done");
+        boot.setAttribute("aria-hidden", "true");
+      }
+      window.setTimeout(releaseBoot, 10000);
+      window.addEventListener("error", function () {
+        window.setTimeout(releaseBoot, 0);
+      }, { once: true });
+    })();
+  </script>
   <noscript><style>.boot{display:none}
 /* Premium Apple Music-inspired visual refresh — presentation only.
    Existing DBMS markup, IDs, data, authentication, sync and visit logic are intentionally preserved. */
