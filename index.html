@@ -12,8 +12,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="RB DBMS">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <link rel="icon" type="image/png" href="./logo.png">
-  <link rel="apple-touch-icon" href="./logo.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
   <link rel="preload" as="image" href="./logo.png" fetchpriority="high">
 
   <!-- Sharing preview configured for https://chamanlal1972.github.io/ChamanLal/
@@ -327,9 +327,6 @@
     .add-button { display:grid; place-items:center; width:44px; height:44px; border-radius:14px; padding:11px; line-height:1; }
     .add-button .icon { width:20px; height:20px; stroke-width:2; }
     .add-button, #addDetailField, #registerButton { color:var(--green); border-color:var(--green-edge); background:var(--green-sheen),var(--green-soft); box-shadow:var(--control-shadow),var(--inner); }
-    /* Keep the city add control visible but unmistakably inactive offline. */
-    #addCityButton:disabled { color:var(--green); opacity:.42; filter:saturate(.62); cursor:not-allowed; box-shadow:var(--inner); }
-    .city-card:disabled { cursor:not-allowed; opacity:.82; }
     @media (hover:hover) {
       .add-button:hover:not(:disabled), #addDetailField:hover:not(:disabled), #registerButton:hover:not(:disabled) { background-color:var(--green-soft); }
     }
@@ -422,7 +419,7 @@
   <noscript><style>.boot{display:none}</style><p style="padding:30px">Please enable JavaScript to use the doctor directory and visit history.</p></noscript>
   <header class="app-header">
     <div class="header-inner glass">
-      <button class="brand" id="homeButton" type="button" aria-label="Raptakos, Brett & Co. Ltd. DBMS, Choose City">
+      <button class="brand" id="homeButton" type="button" aria-label="Raptakos, Brett & Co. Ltd. DBMS, choose city">
         <span class="logo-wrap"><img src="./logo.png" alt="" width="46" height="46" onerror="this.parentElement.classList.add('missing')"></span>
         <span><span class="brand-title">Raptakos, Brett &amp; Co. Ltd.</span><span class="brand-subtitle">DBMS</span></span>
       </button>
@@ -433,7 +430,7 @@
   <main id="main">
     <section id="homeView" class="home-view" aria-labelledby="homeTitle">
       <p class="eyebrow" id="homeCloudStatus">YOUR PERSONAL CLOUD DIRECTORY</p>
-      <div class="section-title-row"><h1 id="homeTitle" tabindex="-1">Choose City</h1><button type="button" class="add-button glass press" id="addCityButton" aria-label="Add city" title="Add city"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button></div>
+      <div class="section-title-row"><h1 id="homeTitle" tabindex="-1">Choose city.</h1><button type="button" class="add-button glass press" id="addCityButton" aria-label="Add city" title="Add city"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button></div>
       <p class="intro">Select a city to find your doctors<br>and keep track of every visit.</p>
       <div class="cloud-notice home-cloud-notice" id="homeDirectoryNotice" role="status" aria-live="polite"><svg class="icon" aria-hidden="true"><use href="#i-cloud"></use></svg><p id="homeDirectoryText"></p><div class="home-cloud-actions"><button type="button" class="text-button press" id="homeSignIn" hidden>Sign in</button><button type="button" class="text-button press" id="homeRetry" hidden>Retry</button></div></div><div class="city-list" id="cityList"></div><p class="manage-hint" id="homeManageHint">Hold a city to manage it.</p>
     </section>
@@ -627,16 +624,10 @@
     }
     function buildCities() {
       $("cityList").innerHTML = cities.map(function (c) {
-        const count = !navigator.onLine && Number.isInteger(c.cachedDoctorCount) ? c.cachedDoctorCount : c.doctors.length;
-        const countLabel = !navigator.onLine ? count + ' doctors · offline' : count + ' doctors';
-        const offlineDisabled = !navigator.onLine ? ' disabled aria-disabled="true" title="Reconnect to open this city"' : '';
-        return '<button type="button" class="city-card glass press" data-city="' + escapeHTML(c.key) + '" style="--hue:' + c.hue + '"' + offlineDisabled + '><span class="city-symbol">' + icon("pin") + '</span><span><span class="city-name">' + escapeHTML(c.label) + '</span><span class="city-meta">' + countLabel + '</span></span>' + icon("chevron","city-arrow") + '</button>';
+        return '<button type="button" class="city-card glass press" data-city="' + escapeHTML(c.key) + '" style="--hue:' + c.hue + '"><span class="city-symbol">' + icon("pin") + '</span><span><span class="city-name">' + escapeHTML(c.label) + '</span><span class="city-meta">' + c.doctors.length + ' doctors</span></span>' + icon("chevron","city-arrow") + '</button>';
       }).join("");
     }
     function chooseCity(key, fromHistory) {
-      // Cached city tabs remain visible offline, but must never open an empty
-      // doctor list while the live directory is unavailable.
-      if (!navigator.onLine) return;
       const city=cities.find(function (c) { return c.key === key; }); if (!city) return;
       if (fromHistory!==true) pendingDirectoryCity=null;
       if (returningToCities && fromHistory!==true) return;
@@ -1071,15 +1062,12 @@
       $("directoryAccountStatus").hidden=!state.user;
       $("accountRetry").hidden=!state.user || ![state.sync,state.directorySync].some(function (s) { return s==="error" || s==="offline"; });
       $("accountRetry").disabled=!navigator.onLine || state.busy || state.deleting || state.directoryBusy;
-      const offlineWithoutCityCache = !navigator.onLine && cities.length === 0;
       $("homeDirectoryNotice").hidden=!notice && cities.length>0;
-      $("homeDirectoryText").textContent=!navigator.onLine ? "Offline · reconnecting automatically…" : notice || "No cities yet. Tap + to add your first city.";
-      $("homeSignIn").hidden=Boolean(state.user) || !state.authReady || !navigator.onLine;
-      $("homeRetry").hidden=!navigator.onLine || (!state.bootError && (!state.user || !["error","offline"].includes(state.directorySync)));
+      $("homeDirectoryText").textContent=notice || "No cities yet. Tap + to add your first city.";
+      $("homeSignIn").hidden=Boolean(state.user) || !state.authReady;
+      $("homeRetry").hidden=!state.bootError && (!state.user || !["error","offline"].includes(state.directorySync));
       $("homeRetry").disabled=!navigator.onLine || state.directoryBusy;
-      // Keep the plus beside Choose City when signed in, but render it dull green
-      // and disabled offline or until Firebase confirms the directory is live.
-      $("addCityButton").hidden=!state.user; $("addCityButton").disabled=!canManageDirectory() || !navigator.onLine;
+      $("addCityButton").hidden=!state.user; $("addCityButton").disabled=!canManageDirectory();
       $("addDoctorButton").disabled=!canManageDirectory();
       $("homeManageHint").hidden=!cities.length;
       $("homeCloudStatus").textContent=state.user && state.directorySync==="live" ? cities.length+" cities · "+doctors.length+" doctors · Synced" : "YOUR PERSONAL CLOUD DIRECTORY";
@@ -1091,43 +1079,11 @@
     function recordForDoctor(doctor) {
       return {name:doctor.values[COL.name],cityId:doctor.city,order:doctor.order,details:{...doctor.details},fieldOrder:doctor.fieldOrder.slice(),deleted:Boolean(doctor.deleted)};
     }
-    // Keep only the last server-confirmed city list locally. This allows the
-    // home screen to retain its city tabs offline without copying doctor records
-    // or visit history into localStorage.
-    function cityCacheKey(uid) { return "rb-dbms-city-tabs-v1:" + uid; }
-    function saveCityTabsCache(uid, cityMap, doctorMap) {
-      try {
-        const counts = new Map();
-        (doctorMap || new Map()).forEach(function (doctor) {
-          if (!doctor.deleted && typeof doctor.cityId === "string") counts.set(doctor.cityId, (counts.get(doctor.cityId) || 0) + 1);
-        });
-        const records = Array.from(cityMap.entries()).map(function (entry) {
-          const record = Object.assign({}, entry[1], { cachedDoctorCount: counts.get(entry[0]) || 0 });
-          return [entry[0], record];
-        });
-        localStorage.setItem(cityCacheKey(uid), JSON.stringify({ savedAt: Date.now(), records: records }));
-      } catch (_) { /* Storage may be disabled or full; online mode still works. */ }
-    }
-    function restoreCityTabsCache(uid) {
-      try {
-        const saved = JSON.parse(localStorage.getItem(cityCacheKey(uid)) || "null");
-        if (!saved || !Array.isArray(saved.records)) return false;
-        const restored = new Map();
-        saved.records.forEach(function (entry) {
-          if (Array.isArray(entry) && typeof entry[0] === "string" && entry[1] &&
-              typeof entry[1].name === "string" && Number.isInteger(entry[1].order) &&
-              typeof entry[1].deleted === "boolean") restored.set(entry[0], entry[1]);
-        });
-        if (!restored.size) return false;
-        directoryParts.cities = restored;
-        return true;
-      } catch (_) { return false; }
-    }
     function applyDirectoryData() {
       allDirectoryCities.clear(); allDirectoryDoctors.clear();
       const sorted=function (a,b) { return a[1].order-b[1].order || a[0].localeCompare(b[0]); };
       Array.from(directoryParts.cities).sort(sorted).forEach(function ([key,c]) {
-        allDirectoryCities.set(key,{key:key,label:c.name,order:c.order,deleted:c.deleted,rev:c.rev,cachedDoctorCount:c.cachedDoctorCount});
+        allDirectoryCities.set(key,{key:key,label:c.name,order:c.order,deleted:c.deleted,rev:c.rev});
       });
       Array.from(directoryParts.doctors).sort(sorted).forEach(function ([id,d]) {
         const values=raw.headers.map(function (h) { return Object.prototype.hasOwnProperty.call(d.details,h) ? d.details[h] : ""; });
@@ -1140,7 +1096,7 @@
       doctors.forEach(function (d) { d.search=norm(directoryFields(d).map(function (f) { return f.label+" "+String(f.value ?? ""); }).join(" ")); doctorById.set(d.id,d); });
       cities.splice(0,cities.length,...Array.from(allDirectoryCities.values()).filter(function (c) { return !c.deleted; }).map(function (city,index) {
         const list=doctors.filter(function (d) { return d.city===city.key; }); list.forEach(function (d,i) { d.citySerial=i+1; });
-        return {key:city.key,label:city.label,hue:HUES[index%HUES.length],doctors:list,rev:city.rev,cachedDoctorCount:city.cachedDoctorCount};
+        return {key:city.key,label:city.label,hue:HUES[index%HUES.length],doctors:list,rev:city.rev};
       }));
       buildCities();
       if (state.city && !cities.some(function (c) { return c.key===state.city; })) {
@@ -1179,10 +1135,7 @@
       state.directoryError=""; state.directoryErrorCode="";
       if (!user) { state.directorySync="signedout"; updateDirectoryUI(); return; }
       const uid=user.uid, seen=new Set(), stops=[]; let terminated=false;
-      const restoredCityTabs = directoryParts.cities.size === 0 && restoreCityTabsCache(uid);
-      state.directorySync=navigator.onLine ? "connecting" : "offline";
-      if (restoredCityTabs) applyDirectoryData();
-      updateDirectoryUI();
+      state.directorySync=navigator.onLine ? "connecting" : "offline"; updateDirectoryUI();
       function current() { return generation===directoryGeneration && state.user && state.user.uid===uid; }
       function failed(error) {
         if (!current()) return;
@@ -1216,7 +1169,6 @@
           }
           seen.add(part);
           if (seen.size===3) {
-            saveCityTabsCache(uid, directoryParts.cities, directoryParts.doctors);
             clearTimeout(directoryTimer); directoryTimer=null; directoryServerSeen=true;
             state.directorySync=navigator.onLine ? "live" : "offline"; state.directoryError=""; state.directoryErrorCode=""; applyDirectoryData();
           } else updateDirectoryUI();
@@ -1505,15 +1457,9 @@
       if (cities.some(function (entry) { return entry.key===city; })) chooseCity(city,true);
       else goHome(true);
     });
-    window.addEventListener("offline",function () {
-      clearSyncTimer(); clearTimeout(directoryTimer); directoryTimer=null;
-      buildCities(); // disable cached city tabs immediately while retaining their appearance
-      if (state.user) { state.directorySync="offline"; state.sync="offline"; updateSyncUI(); renderDoctors(); updateDirectoryUI(); }
-    });
+    window.addEventListener("offline",function () { clearSyncTimer(); clearTimeout(directoryTimer); directoryTimer=null; if (state.user) { state.directorySync="offline"; state.sync="offline"; updateSyncUI(); renderDoctors(); updateDirectoryUI(); } });
     window.addEventListener("online",function () {
-      buildCities();
-      if (state.user) { attachDirectoryListener(state.user); attachVisitListener(state.user); }
-      else connectCloud().catch(function () {});
+      if (state.user) attachVisitListener(state.user); else connectCloud().catch(function () {});
     });
     window.addEventListener("beforeunload",function (event) {
       if (state.busy || state.deleting || state.directoryBusy) { event.preventDefault(); event.returnValue=""; }
