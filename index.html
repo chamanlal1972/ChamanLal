@@ -327,6 +327,9 @@
     .add-button { display:grid; place-items:center; width:44px; height:44px; border-radius:14px; padding:11px; line-height:1; }
     .add-button .icon { width:20px; height:20px; stroke-width:2; }
     .add-button, #addDetailField, #registerButton { color:var(--green); border-color:var(--green-edge); background:var(--green-sheen),var(--green-soft); box-shadow:var(--control-shadow),var(--inner); }
+    /* Keep the city add control visible but unmistakably inactive offline. */
+    #addCityButton:disabled { color:var(--green); opacity:.42; filter:saturate(.62); cursor:not-allowed; box-shadow:var(--inner); }
+    .city-card:disabled { cursor:not-allowed; opacity:.82; }
     @media (hover:hover) {
       .add-button:hover:not(:disabled), #addDetailField:hover:not(:disabled), #registerButton:hover:not(:disabled) { background-color:var(--green-soft); }
     }
@@ -419,7 +422,7 @@
   <noscript><style>.boot{display:none}</style><p style="padding:30px">Please enable JavaScript to use the doctor directory and visit history.</p></noscript>
   <header class="app-header">
     <div class="header-inner glass">
-      <button class="brand" id="homeButton" type="button" aria-label="Raptakos, Brett & Co. Ltd. DBMS, choose city">
+      <button class="brand" id="homeButton" type="button" aria-label="Raptakos, Brett & Co. Ltd. DBMS, Choose City">
         <span class="logo-wrap"><img src="./logo.png" alt="" width="46" height="46" onerror="this.parentElement.classList.add('missing')"></span>
         <span><span class="brand-title">Raptakos, Brett &amp; Co. Ltd.</span><span class="brand-subtitle">DBMS</span></span>
       </button>
@@ -430,7 +433,7 @@
   <main id="main">
     <section id="homeView" class="home-view" aria-labelledby="homeTitle">
       <p class="eyebrow" id="homeCloudStatus">YOUR PERSONAL CLOUD DIRECTORY</p>
-      <div class="section-title-row"><h1 id="homeTitle" tabindex="-1">Choose city.</h1><button type="button" class="add-button glass press" id="addCityButton" aria-label="Add city" title="Add city"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button></div>
+      <div class="section-title-row"><h1 id="homeTitle" tabindex="-1">Choose City</h1><button type="button" class="add-button glass press" id="addCityButton" aria-label="Add city" title="Add city"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button></div>
       <p class="intro">Select a city to find your doctors<br>and keep track of every visit.</p>
       <div class="cloud-notice home-cloud-notice" id="homeDirectoryNotice" role="status" aria-live="polite"><svg class="icon" aria-hidden="true"><use href="#i-cloud"></use></svg><p id="homeDirectoryText"></p><div class="home-cloud-actions"><button type="button" class="text-button press" id="homeSignIn" hidden>Sign in</button><button type="button" class="text-button press" id="homeRetry" hidden>Retry</button></div></div><div class="city-list" id="cityList"></div><p class="manage-hint" id="homeManageHint">Hold a city to manage it.</p>
     </section>
@@ -626,10 +629,14 @@
       $("cityList").innerHTML = cities.map(function (c) {
         const count = !navigator.onLine && Number.isInteger(c.cachedDoctorCount) ? c.cachedDoctorCount : c.doctors.length;
         const countLabel = !navigator.onLine ? count + ' doctors · offline' : count + ' doctors';
-        return '<button type="button" class="city-card glass press" data-city="' + escapeHTML(c.key) + '" style="--hue:' + c.hue + '"><span class="city-symbol">' + icon("pin") + '</span><span><span class="city-name">' + escapeHTML(c.label) + '</span><span class="city-meta">' + countLabel + '</span></span>' + icon("chevron","city-arrow") + '</button>';
+        const offlineDisabled = !navigator.onLine ? ' disabled aria-disabled="true" title="Reconnect to open this city"' : '';
+        return '<button type="button" class="city-card glass press" data-city="' + escapeHTML(c.key) + '" style="--hue:' + c.hue + '"' + offlineDisabled + '><span class="city-symbol">' + icon("pin") + '</span><span><span class="city-name">' + escapeHTML(c.label) + '</span><span class="city-meta">' + countLabel + '</span></span>' + icon("chevron","city-arrow") + '</button>';
       }).join("");
     }
     function chooseCity(key, fromHistory) {
+      // Cached city tabs remain visible offline, but must never open an empty
+      // doctor list while the live directory is unavailable.
+      if (!navigator.onLine) return;
       const city=cities.find(function (c) { return c.key === key; }); if (!city) return;
       if (fromHistory!==true) pendingDirectoryCity=null;
       if (returningToCities && fromHistory!==true) return;
@@ -1066,11 +1073,13 @@
       $("accountRetry").disabled=!navigator.onLine || state.busy || state.deleting || state.directoryBusy;
       const offlineWithoutCityCache = !navigator.onLine && cities.length === 0;
       $("homeDirectoryNotice").hidden=!notice && cities.length>0;
-      $("homeDirectoryText").textContent=offlineWithoutCityCache ? "Offline · reconnecting automatically…" : notice || "No cities yet. Tap + to add your first city.";
+      $("homeDirectoryText").textContent=!navigator.onLine ? "Offline · reconnecting automatically…" : notice || "No cities yet. Tap + to add your first city.";
       $("homeSignIn").hidden=Boolean(state.user) || !state.authReady || !navigator.onLine;
       $("homeRetry").hidden=!navigator.onLine || (!state.bootError && (!state.user || !["error","offline"].includes(state.directorySync)));
       $("homeRetry").disabled=!navigator.onLine || state.directoryBusy;
-      $("addCityButton").hidden=!state.user || !navigator.onLine; $("addCityButton").disabled=!canManageDirectory();
+      // Keep the plus beside Choose City when signed in, but render it dull green
+      // and disabled offline or until Firebase confirms the directory is live.
+      $("addCityButton").hidden=!state.user; $("addCityButton").disabled=!canManageDirectory() || !navigator.onLine;
       $("addDoctorButton").disabled=!canManageDirectory();
       $("homeManageHint").hidden=!cities.length;
       $("homeCloudStatus").textContent=state.user && state.directorySync==="live" ? cities.length+" cities · "+doctors.length+" doctors · Synced" : "YOUR PERSONAL CLOUD DIRECTORY";
@@ -1496,9 +1505,15 @@
       if (cities.some(function (entry) { return entry.key===city; })) chooseCity(city,true);
       else goHome(true);
     });
-    window.addEventListener("offline",function () { clearSyncTimer(); clearTimeout(directoryTimer); directoryTimer=null; if (state.user) { state.directorySync="offline"; state.sync="offline"; updateSyncUI(); renderDoctors(); updateDirectoryUI(); } });
+    window.addEventListener("offline",function () {
+      clearSyncTimer(); clearTimeout(directoryTimer); directoryTimer=null;
+      buildCities(); // disable cached city tabs immediately while retaining their appearance
+      if (state.user) { state.directorySync="offline"; state.sync="offline"; updateSyncUI(); renderDoctors(); updateDirectoryUI(); }
+    });
     window.addEventListener("online",function () {
-      if (state.user) attachVisitListener(state.user); else connectCloud().catch(function () {});
+      buildCities();
+      if (state.user) { attachDirectoryListener(state.user); attachVisitListener(state.user); }
+      else connectCloud().catch(function () {});
     });
     window.addEventListener("beforeunload",function (event) {
       if (state.busy || state.deleting || state.directoryBusy) { event.preventDefault(); event.returnValue=""; }
