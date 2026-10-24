@@ -449,8 +449,9 @@
         <button class="clear-search press" id="clearSearch" type="button" aria-label="Clear search" hidden><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button>
       </div>
       <div class="list-caption"><span id="resultCount"></span><span>TAP A NAME TO LOG A VISIT</span></div>
-      <ul class="doctor-list" id="doctorList"></ul><p class="manage-hint">Hold a name to manage the doctor. Hold Details to edit.</p>
+      <ul class="doctor-list" id="doctorList"></ul>
       <div id="noResults" class="empty glass" hidden><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg><strong>No matching doctors</strong>Try another name, hospital or registration number.</div>
+      <p class="manage-hint" id="manageHint" hidden>Hold a name to manage the doctor. Hold Details to edit.</p>
       <span id="searchAnnouncement" class="sr-only" aria-live="polite" aria-atomic="true"></span>
     </section>
   </main>
@@ -660,6 +661,7 @@
       const city=cities.find(function (c) { return c.key === state.city; }); if (!city) return;
       const search=norm($("search").value), matches=city.doctors.filter(function (d) { return !search || d.search.includes(search); });
       $("clearSearch").hidden=!search; $("noResults").hidden=matches.length!==0;
+      $("manageHint").hidden=city.doctors.length!==0;
       $("noResults").innerHTML=city.doctors.length ? icon("search")+"<strong>No matching doctors</strong>Try another name, hospital or registration number." : icon("plus")+"<strong>No doctors yet</strong>Use the + button above to add your first doctor.";
       $("resultCount").textContent=matches.length + (matches.length===1 ? " DOCTOR" : " DOCTORS");
       $("searchAnnouncement").textContent=matches.length + (matches.length===1 ? " doctor found" : " doctors found");
