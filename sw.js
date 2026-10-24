@@ -5,7 +5,7 @@
  */
 "use strict";
 
-const CACHE_NAME = "rb-dbms-pwa-shell-v3";
+const CACHE_NAME = "rb-dbms-pwa-shell-v4";
 const APP_SHELL = "./index.html";
 const STATIC_ASSETS = [
   "./",
